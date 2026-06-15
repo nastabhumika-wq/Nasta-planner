@@ -31,50 +31,50 @@ body{background:#fffaf5;color:var(--text-dark);margin:0;padding:0;padding-top:va
 .guide-step .step-icon{font-size:1.5rem;width:2rem;text-align:center;flex-shrink:0;}
 
 #bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.95);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid #e2e8f0;display:flex;padding-bottom:var(--safe-bottom);}
-.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;padding:.6rem .15rem .5rem;gap:.2rem;border:none;background:transparent;color:var(--text-muted);font-size:.6rem;font-weight:500;cursor:pointer;transition:color .15s;}
-.nav-tab .tab-icon{font-size:1.3rem;line-height:1;}
+.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;padding:.6rem .15rem .5rem;gap:.2rem;border:none;background:transparent;color:var(--text-muted);font-size:.78rem;font-weight:500;cursor:pointer;transition:color .15s;}
+.nav-tab .tab-icon{font-size:1.5rem;line-height:1;}
 .nav-tab.active{color:var(--primary);}
 .nav-tab.active .tab-icon{transform:scale(1.08);}
 
 .page{display:none;}.page.active{display:block;}
 .app-container{max-width:680px;margin:0 auto;padding:1rem .9rem;}
 header{text-align:center;background:linear-gradient(135deg,#f97316,#dc6804);color:white;padding:1.5rem 1rem 1.25rem;border-radius:16px;box-shadow:var(--shadow);margin-bottom:1.25rem;}
-header h1{margin:0 0 .3rem;font-size:1.5rem;}
-header p{margin:0;color:rgba(255,255,255,.85);font-size:.88rem;}
+header h1{margin:0 0 .3rem;font-size:1.7rem;}
+header p{margin:0;color:rgba(255,255,255,.85);font-size:1rem;}
 
 .countdown-card{background:linear-gradient(135deg,#0ea5e9,#0284c7);color:white;border-radius:14px;padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);}
 .cd-main{font-size:2.2rem;font-weight:800;line-height:1;}
-.cd-label{font-size:.78rem;opacity:.85;margin-top:.15rem;}
-.cd-right{text-align:right;font-size:.8rem;opacity:.85;line-height:1.5;}
-.cd-status{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:.2rem .65rem;font-size:.72rem;font-weight:600;margin-top:.35rem;}
+.cd-label{font-size:.9rem;opacity:.85;margin-top:.15rem;}
+.cd-right{text-align:right;font-size:.92rem;opacity:.85;line-height:1.5;}
+.cd-status{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:.2rem .65rem;font-size:.82rem;font-weight:600;margin-top:.35rem;}
 
 .budget-card{background:white;border-radius:14px;border:1px solid #fed7aa;box-shadow:var(--shadow);padding:1rem 1.25rem;margin-bottom:1.25rem;}
 .budget-card h3{margin:0 0 .75rem;font-size:.95rem;color:var(--primary);display:flex;align-items:center;justify-content:space-between;}
 .budget-card h3 button{background:var(--primary-light);border:none;border-radius:8px;padding:.25rem .6rem;font-size:.72rem;color:var(--primary);font-weight:600;cursor:pointer;}
-.bud-row{display:flex;justify-content:space-between;align-items:center;padding:.35rem 0;border-bottom:1px solid #fef3eb;font-size:.85rem;}
+.bud-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid #fef3eb;font-size:.95rem;}
 .bud-row:last-child{border:none;}
-.bud-row .bud-lbl{color:var(--text-muted);font-size:.78rem;}
+.bud-row .bud-lbl{color:var(--text-muted);font-size:.9rem;}
 
 .ticket-counter{background:white;border-radius:14px;border:1px solid #bae6fd;box-shadow:var(--shadow);padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:1rem;}
 .tc-icon{font-size:2rem;}
 .tc-text{flex:1;}
 .tc-count{font-size:1.4rem;font-weight:800;color:var(--primary);}
-.tc-label{font-size:.75rem;color:var(--text-muted);}
+.tc-label{font-size:.85rem;color:var(--text-muted);}
 .ticket-progress{margin-top:.4rem;background:#e2e8f0;border-radius:99px;height:6px;overflow:hidden;}
 .ticket-progress-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#d97706);border-radius:99px;transition:width .4s ease;}
 
 .emergency-card{background:white;border-radius:14px;border:1px solid #e2e8f0;box-shadow:var(--shadow);padding:1.15rem 1.25rem;margin-bottom:1.25rem;}
 .emergency-card h3{margin:0 0 .75rem;color:var(--accent);font-size:.95rem;}
-.em-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid #f1f5f9;font-size:.88rem;}
+.em-row{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid #f1f5f9;font-size:1rem;}
 .em-row:last-child{border:none;}
-.em-row .em-label{color:var(--text-muted);font-size:.78rem;}
+.em-row .em-label{color:var(--text-muted);font-size:.9rem;}
 .em-row a{color:var(--secondary);font-weight:600;text-decoration:none;}
 
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1.25rem;}
 .stat-card{background:white;border-radius:14px;border:1px solid #e2e8f0;padding:.75rem .5rem;text-align:center;box-shadow:var(--shadow);}
 .stat-card .stat-icon{font-size:1.6rem;display:block;margin-bottom:.25rem;}
 .stat-card .stat-num{font-size:1.6rem;font-weight:800;color:var(--primary);line-height:1;}
-.stat-card .stat-label{font-size:.72rem;color:var(--text-muted);margin-top:.2rem;}
+.stat-card .stat-label{font-size:.82rem;color:var(--text-muted);margin-top:.2rem;}
 
 .city-card{background:white;border-radius:14px;border:1px solid #e2e8f0;box-shadow:var(--shadow);overflow:hidden;margin-bottom:1rem;}
 .city-card-header{padding:.85rem 1rem;display:flex;align-items:center;gap:.65rem;}
@@ -82,43 +82,43 @@ header p{margin:0;color:rgba(255,255,255,.85);font-size:.88rem;}
 .city-card-header h3{margin:0;font-size:1rem;color:var(--text-dark);}
 .city-card-header p{margin:0;font-size:.78rem;color:var(--text-muted);}
 .city-days{padding:0 1rem .85rem;display:flex;flex-wrap:wrap;gap:.4rem;}
-.day-pill{background:var(--primary-light);color:var(--primary);border-radius:99px;padding:.25rem .65rem;font-size:.72rem;font-weight:600;cursor:pointer;border:none;}
+.day-pill{background:var(--primary-light);color:var(--primary);border-radius:99px;padding:.3rem .75rem;font-size:.82rem;font-weight:600;cursor:pointer;border:none;}
 
 .checklist-section{background:white;border-radius:14px;box-shadow:var(--shadow);padding:1.25rem;margin-bottom:1.25rem;border:1px solid #e2e8f0;}
 .checklist-section h2{margin:0 0 .85rem;color:var(--text-dark);font-size:1.1rem;border-bottom:2px solid #e8ddd5;padding-bottom:.5rem;}
 .progress-wrap{margin-bottom:.85rem;}
-.progress-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--text-muted);margin-bottom:.3rem;}
+.progress-label{display:flex;justify-content:space-between;font-size:.88rem;color:var(--text-muted);margin-bottom:.3rem;}
 .progress-track{background:#e2e8f0;border-radius:99px;height:7px;overflow:hidden;}
 .progress-fill{height:100%;background:linear-gradient(90deg,#fb923c,#f97316);border-radius:99px;transition:width .3s ease;}
 
-.chk-item{display:flex;align-items:flex-start;gap:.65rem;padding:.55rem .4rem;cursor:pointer;font-size:.9rem;border-radius:6px;}
+.chk-item{display:flex;align-items:flex-start;gap:.65rem;padding:.6rem .4rem;cursor:pointer;font-size:1rem;border-radius:6px;}
 .chk-item input[type=checkbox]{margin-top:.15rem;width:1.2rem;height:1.2rem;accent-color:var(--primary);cursor:pointer;flex-shrink:0;}
 .chk-item input[type=checkbox]:checked+span{text-decoration:line-through;color:var(--text-muted);}
 .chk-item span{flex:1;}
 .chk-delete{background:none;border:none;color:#cbd5e1;font-size:.9rem;cursor:pointer;padding:.1rem .25rem;flex-shrink:0;}
 .chk-delete:hover{color:var(--accent);}
 .add-chk-row{display:flex;gap:.5rem;margin-top:.65rem;}
-.add-chk-input{flex:1;border:1px solid var(--border);border-radius:8px;padding:.4rem .65rem;font-size:.88rem;}
-.add-chk-btn{background:var(--secondary);color:white;border:none;border-radius:8px;padding:.4rem .85rem;font-weight:700;font-size:.82rem;cursor:pointer;}
+.add-chk-input{flex:1;border:1px solid var(--border);border-radius:8px;padding:.45rem .7rem;font-size:1rem;}
+.add-chk-btn{background:var(--secondary);color:white;border:none;border-radius:8px;padding:.45rem .9rem;font-weight:700;font-size:.92rem;cursor:pointer;}
 
 .day-card{background:white;border-radius:14px;box-shadow:var(--shadow);margin-bottom:1.25rem;overflow:hidden;border:1px solid #e2e8f0;transition:opacity .2s;}
 .day-card.today-card{border-color:var(--primary);border-width:2px;}
 .day-card.past-card{opacity:.6;}
 .day-header{background:var(--primary-light);padding:.85rem 1.15rem;border-bottom:1px solid #fed7aa;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;-webkit-user-select:none;user-select:none;}
 .day-header-left{flex:1;}
-.day-date-label{font-size:.7rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
-.day-header-left h2{margin:0;font-size:1rem;color:var(--primary);}
-.day-hotel{font-size:.72rem;color:var(--text-muted);margin-top:.2rem;}
+.day-date-label{font-size:.8rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
+.day-header-left h2{margin:0;font-size:1.1rem;color:var(--primary);}
+.day-hotel{font-size:.85rem;color:var(--text-muted);margin-top:.2rem;}
 .day-header-right{display:flex;flex-direction:column;align-items:flex-end;gap:.3rem;padding-left:.5rem;}
 .today-badge{display:inline-block;background:var(--primary);color:white;font-size:.6rem;font-weight:700;padding:.15rem .4rem;border-radius:99px;text-transform:uppercase;letter-spacing:.05em;}
 .day-header-actions{display:flex;gap:.3rem;}
 .hdr-btn{background:rgba(255,255,255,.8);border:1px solid #fed7aa;border-radius:6px;padding:.2rem .5rem;font-size:.75rem;cursor:pointer;color:var(--primary);display:flex;align-items:center;gap:.2rem;}
-.hdr-btn-lbl{font-size:.62rem;font-weight:600;color:var(--primary);}
+.hdr-btn-lbl{font-size:.72rem;font-weight:600;color:var(--primary);}
 .arrow{font-size:.75rem;color:var(--text-muted);}
 
 .day-notes-bar{padding:.35rem .85rem .45rem;background:#fffbeb;border-bottom:1px solid #fef3c7;position:relative;}
-.day-notes-bar .bar-label{font-size:.6rem;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
-.day-notes-bar textarea{width:100%;background:transparent;border:none;font-size:.82rem;color:#78350f;resize:none;outline:none;font-family:inherit;min-height:1.3em;}
+.day-notes-bar .bar-label{font-size:.82rem;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
+.day-notes-bar textarea{width:100%;background:transparent;border:none;font-size:.95rem;color:#78350f;resize:none;outline:none;font-family:inherit;min-height:1.3em;}
 .day-notes-bar textarea::placeholder{color:#d97706;opacity:.6;}
 .note-saved{position:absolute;right:.5rem;top:.35rem;font-size:.65rem;color:#a16207;opacity:0;transition:opacity .3s;}
 .note-saved.show{opacity:1;}
@@ -137,10 +137,10 @@ header p{margin:0;color:rgba(255,255,255,.85);font-size:.88rem;}
 /* Summary row — always visible */
 .act-summary{display:flex;align-items:center;gap:.75rem;padding:.65rem .85rem .65rem 0;cursor:pointer;-webkit-user-select:none;user-select:none;}
 .act-summary:active{background:#fafafa;}
-.act-time{font-size:.82rem;font-weight:800;color:var(--primary);background:var(--primary-light);border:1.5px solid #fed7aa;border-radius:7px;padding:.25rem .45rem;white-space:nowrap;min-width:72px;text-align:center;flex-shrink:0;}
+.act-time{font-size:.95rem;font-weight:800;color:var(--primary);background:var(--primary-light);border:1.5px solid #fed7aa;border-radius:7px;padding:.3rem .5rem;white-space:nowrap;min-width:78px;text-align:center;flex-shrink:0;}
 .act-name-wrap{flex:1;min-width:0;}
-.act-name{font-size:.95rem;font-weight:700;color:var(--text-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.act-meta{font-size:.7rem;color:var(--text-muted);margin-top:.1rem;display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;}
+.act-name{font-size:1.05rem;font-weight:700;color:var(--text-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.act-meta{font-size:.92rem;color:var(--text-muted);margin-top:.15rem;display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;}
 .act-meta-dur{color:var(--text-muted);}
 .act-meta-warn{color:#b45309;font-weight:600;}
 .act-meta-ticket{color:#d97706;font-weight:600;}
@@ -155,61 +155,65 @@ header p{margin:0;color:rgba(255,255,255,.85);font-size:.88rem;}
 /* Edit layout */
 .edit-grid{display:grid;grid-template-columns:100px 1fr;gap:.85rem;margin-bottom:.65rem;}
 .edit-time-col{display:flex;flex-direction:column;gap:.4rem;}
-input.time-input{border:1.5px solid #fed7aa;outline:none;font-weight:700;color:var(--primary);font-size:.88rem;background:var(--primary-light);padding:.3rem .4rem;border-radius:6px;width:100%;text-align:center;cursor:pointer;}
+input.time-input{border:1.5px solid #fed7aa;outline:none;font-weight:700;color:var(--primary);font-size:1rem;background:var(--primary-light);padding:.3rem .4rem;border-radius:6px;width:100%;text-align:center;cursor:pointer;}
 input.time-input:focus{border-color:var(--primary);background:#ffedd5;}
-.time-hint{font-size:.58rem;color:var(--text-muted);text-align:center;opacity:.7;margin-top:-.2rem;}
-.leave-by{font-size:.67rem;color:var(--teal);font-weight:700;text-align:center;background:var(--teal-light);border-radius:4px;padding:.15rem .3rem;border:1px solid #a7f3d0;}
-.inputs-group{display:flex;flex-direction:column;gap:.35rem;font-size:.72rem;color:var(--text-muted);}
+.time-hint{font-size:.7rem;color:var(--text-muted);text-align:center;opacity:.7;margin-top:-.1rem;}
+.leave-by{font-size:.8rem;color:var(--teal);font-weight:700;text-align:center;background:var(--teal-light);border-radius:4px;padding:.2rem .35rem;border:1px solid #a7f3d0;}
+.inputs-group{display:flex;flex-direction:column;gap:.4rem;font-size:.85rem;color:var(--text-muted);}
 .control-input{display:flex;justify-content:space-between;align-items:center;gap:.2rem;}
-.control-input input[type=number]{-webkit-appearance:none;-moz-appearance:textfield;appearance:textfield;width:56px;border:1px solid var(--border);border-radius:6px;padding:.2rem .3rem;font-size:.82rem;text-align:center;}
+.control-input input[type=number]{-webkit-appearance:none;-moz-appearance:textfield;appearance:textfield;width:60px;border:1px solid var(--border);border-radius:6px;padding:.25rem .3rem;font-size:.92rem;text-align:center;}
 .control-input input[type=number]::-webkit-inner-spin-button,.control-input input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;}
 .edit-detail-col{display:flex;flex-direction:column;gap:.45rem;}
 .budget-inputs{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;}
-.budget-inputs label{font-size:.68rem;font-weight:600;color:var(--text-muted);display:flex;flex-direction:column;gap:3px;}
+.budget-inputs label{font-size:.8rem;font-weight:600;color:var(--text-muted);display:flex;flex-direction:column;gap:4px;}
 .budget-inputs label.act-lbl{color:var(--teal);}
-.budget-inputs input{border:1px solid var(--border);border-radius:6px;padding:.3rem .4rem;font-size:.85rem;text-align:center;width:100%;}
+.budget-inputs input{border:1px solid var(--border);border-radius:6px;padding:.35rem .4rem;font-size:.95rem;text-align:center;width:100%;}
 .budget-inputs label.act-lbl input{background:#f0fdf4;border-color:#6ee7b7;}
 
-.warn-flag{background:#fef3c7;border:1px solid #fbbf24;border-radius:6px;padding:.3rem .5rem;font-size:.78rem;color:#92400e;font-weight:600;display:flex;align-items:flex-start;gap:.3rem;}
-.act-title-input{font-size:16px;font-weight:700;color:var(--text-dark);border:1px solid transparent;padding:.2rem;width:100%;border-radius:4px;background:transparent;}
+.warn-flag{background:#fef3c7;border:1px solid #fbbf24;border-radius:6px;padding:.35rem .55rem;font-size:.9rem;color:#92400e;font-weight:600;display:flex;align-items:flex-start;gap:.3rem;}
+.act-title-input{font-size:18px;font-weight:700;color:var(--text-dark);border:1px solid transparent;padding:.2rem;width:100%;border-radius:4px;background:transparent;}
 .act-title-input:focus{border-color:var(--primary);background:var(--primary-light);outline:none;}
-.act-desc-input{font-size:15px;color:#475569;border:1px solid transparent;padding:.2rem;width:100%;resize:none;border-radius:4px;background:transparent;}
+.act-desc-input{font-size:16px;color:#475569;border:1px solid transparent;padding:.2rem;width:100%;resize:none;border-radius:4px;background:transparent;}
 .act-desc-input:focus{border-color:var(--primary);background:var(--primary-light);outline:none;}
-.maps-btn{display:inline-flex;align-items:center;gap:.25rem;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:.2rem .5rem;font-size:.72rem;color:var(--primary);font-weight:600;cursor:pointer;text-decoration:none;width:fit-content;}
-.alt-food-box{background:var(--teal-light);border:1px solid #bbf7d0;padding:.35rem .5rem;border-radius:6px;font-size:.8rem;color:#065f46;display:flex;align-items:center;gap:.35rem;}
-.alt-food-box input{background:transparent;border:1px solid transparent;width:100%;color:#166534;font-style:italic;font-size:14px;}
+.maps-btn{display:inline-flex;align-items:center;gap:.25rem;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:.3rem .6rem;font-size:.85rem;color:var(--primary);font-weight:600;cursor:pointer;text-decoration:none;width:fit-content;}
+.parking-box{background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;padding:.45rem .6rem;font-size:1rem;color:#1e3a8a;display:flex;align-items:flex-start;gap:.3rem;line-height:1.5;}
+.parking-box span{flex-shrink:0;}
+.parking-box input{background:transparent;border:none;width:100%;color:#1e3a8a;font-size:1rem;outline:none;font-family:inherit;}
+.parking-box input::placeholder{color:#7dd3fc;opacity:.8;}
+.alt-food-box{background:var(--teal-light);border:1px solid #bbf7d0;padding:.4rem .55rem;border-radius:6px;font-size:.92rem;color:#065f46;display:flex;align-items:center;gap:.35rem;}
+.alt-food-box input{background:transparent;border:1px solid transparent;width:100%;color:#166534;font-style:italic;font-size:15px;}
 .alt-food-box input:focus{background:white;border-color:var(--teal);outline:none;}
-.confirm-box{background:#fefce8;border:1px solid #fde68a;padding:.35rem .5rem;border-radius:6px;font-size:.8rem;color:#92400e;display:flex;align-items:center;gap:.35rem;}
-.confirm-box input{background:transparent;border:1px solid transparent;width:100%;color:#92400e;font-size:14px;font-weight:600;letter-spacing:.03em;}
+.confirm-box{background:#fefce8;border:1px solid #fde68a;padding:.4rem .55rem;border-radius:6px;font-size:.92rem;color:#92400e;display:flex;align-items:center;gap:.35rem;}
+.confirm-box input{background:transparent;border:1px solid transparent;width:100%;color:#92400e;font-size:16px;font-weight:600;letter-spacing:.03em;}
 .confirm-box input:focus{background:white;border-color:#fbbf24;outline:none;}
 .row-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.15rem;}
-.delete-btn{display:inline-flex;align-items:center;gap:.2rem;background:transparent;color:#94a3b8;border:none;font-size:.72rem;cursor:pointer;padding:.15rem 0;}
+.delete-btn{display:inline-flex;align-items:center;gap:.2rem;background:transparent;color:#94a3b8;border:none;font-size:.85rem;cursor:pointer;padding:.2rem 0;}
 .delete-btn:hover{color:var(--accent);}
-.delete-confirm{display:none;align-items:center;gap:.35rem;font-size:.72rem;}
+.delete-confirm{display:none;align-items:center;gap:.35rem;font-size:.85rem;}
 .delete-confirm.show{display:flex;}
 .delete-confirm span{color:var(--text-muted);}
 .delete-confirm button{border:none;border-radius:4px;padding:.15rem .4rem;font-size:.72rem;font-weight:600;cursor:pointer;}
 .delete-yes{background:#fef2f2;color:var(--accent);}
 .delete-no{background:#f1f5f9;color:var(--text-muted);}
-.ticket-toggle{display:flex;align-items:center;gap:.3rem;font-size:.75rem;color:var(--text-muted);cursor:pointer;padding:.1rem 0;}
+.ticket-toggle{display:flex;align-items:center;gap:.3rem;font-size:.88rem;color:var(--text-muted);cursor:pointer;padding:.15rem 0;}
 .ticket-toggle input{accent-color:#d97706;width:13px;height:13px;}
 .move-btns{display:flex;gap:.25rem;margin-top:.5rem;}
 .move-btn{background:#fff7ed;border:1px solid #e8ddd5;border-radius:4px;width:28px;height:24px;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-muted);}
 .move-btn:disabled{opacity:.25;cursor:default;}
 .add-stop-bar{background:#fff7ed;padding:.65rem;text-align:center;border-top:1px solid #fed7aa;}
-.add-btn{background:var(--primary);color:white;border:none;padding:.5rem 1.25rem;border-radius:8px;font-weight:700;font-size:.82rem;cursor:pointer;}
+.add-btn{background:var(--primary);color:white;border:none;padding:.6rem 1.4rem;border-radius:8px;font-weight:700;font-size:.95rem;cursor:pointer;}
 
 .memory-card{background:white;border-radius:14px;box-shadow:var(--shadow);padding:1.25rem;margin-bottom:1.25rem;border:1px solid #fce7f3;}
-.memory-card h3{margin:0 0 .65rem;font-size:.88rem;color:#be185d;font-weight:700;}
-.memory-card textarea{width:100%;border:1px solid #fbcfe8;border-radius:8px;padding:.5rem .65rem;font-size:.88rem;color:#9d174d;resize:none;outline:none;font-family:inherit;background:#fdf2f8;min-height:4rem;}
+.memory-card h3{margin:0 0 .65rem;font-size:1rem;color:#be185d;font-weight:700;}
+.memory-card textarea{width:100%;border:1px solid #fbcfe8;border-radius:8px;padding:.55rem .7rem;font-size:1rem;color:#9d174d;resize:none;outline:none;font-family:inherit;background:#fdf2f8;min-height:4rem;}
 .memory-card textarea::placeholder{color:#ec4899;opacity:.5;}
 .memory-card textarea:focus{border-color:#ec4899;background:white;}
 .memory-empty{opacity:.65;border-style:dashed;}
 .memory-empty h3{color:#c084fc;}
 
 .day-drive-bar{padding:.35rem .85rem .45rem;background:#f0f9ff;border-bottom:1px solid #bae6fd;position:relative;}
-.day-drive-bar .bar-label{font-size:.6rem;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
-.day-drive-bar textarea{width:100%;background:transparent;border:none;font-size:.8rem;color:#0369a1;resize:none;outline:none;font-family:inherit;min-height:1.3em;line-height:1.4;}
+.day-drive-bar .bar-label{font-size:.82rem;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
+.day-drive-bar textarea{width:100%;background:transparent;border:none;font-size:.95rem;color:#0369a1;resize:none;outline:none;font-family:inherit;min-height:1.3em;line-height:1.5;}
 .day-drive-bar textarea::placeholder{color:#7dd3fc;opacity:.9;}
 .drive-saved{position:absolute;right:.5rem;top:.35rem;font-size:.65rem;color:#0369a1;opacity:0;transition:opacity .3s;}
 .drive-saved.show{opacity:1;}
@@ -391,67 +395,67 @@ const DAY_CITY={day1:'Hyannis,MA',day2:'Hyannis,MA',day3:'Hyannis,MA',day4:'Hyan
 // Helper to deep-clone original data
 const mkDays=()=>JSON.parse(JSON.stringify([
   {id:'day1',title:'Hyannis Arrival',date:'Thursday, July 2',basecamp:'Comfort Inn Hyannis',start:'17:00',activities:[
-    {name:'Evening Departure',duration:4.5,drive:0,details:'Drive from Whippany, NJ after work to beat Friday holiday traffic. Check into Comfort Inn Hyannis.',altFood:'Whole Foods Market Hyannis: Pre-made wraps, sushi rolls, clean salads.',needsTicket:false,confirmCode:'',mapsQuery:'Comfort Inn Hyannis MA',estCost:0,actCost:0,warning:''},
-    {name:'Check-In & Rest',duration:0.5,drive:0,details:'Arrive at Comfort Inn, unpack, get some sleep ahead of your morning harbor cruise.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Comfort Inn Hyannis MA',estCost:0,actCost:0,warning:''}
+    {name:'Evening Departure',duration:4.5,drive:0,details:'Drive from Whippany, NJ after work to beat Friday holiday traffic. Check into Comfort Inn Hyannis.',altFood:'Whole Foods Market Hyannis: Pre-made wraps, sushi rolls, clean salads.',needsTicket:false,confirmCode:'',mapsQuery:'Comfort Inn Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Comfort Inn Hyannis, 33 Yarmouth Rd, Hyannis MA 02601\n💲 Free hotel lot — pull straight in'},
+    {name:'Check-In & Rest',duration:0.5,drive:0,details:'Arrive at Comfort Inn, unpack, get some sleep ahead of your morning harbor cruise.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Comfort Inn Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Comfort Inn Hyannis, 33 Yarmouth Rd, Hyannis MA 02601\n💲 Free hotel lot'}
   ]},
   {id:'day2',title:'Cape Cod Cruising',date:'Friday, July 3',basecamp:'Comfort Inn → Holiday Inn Hyannis',start:'08:00',activities:[
-    {name:'Morning Checkout',duration:0.33,drive:10,details:'Pack car and check out of Comfort Inn; drive to Barnstable Harbor.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Barnstable Harbor MA',estCost:0,actCost:0,warning:''},
-    {name:'Whale Watch Tour',duration:3.5,drive:20,details:'Cruise from Barnstable Harbor with Hyannis Whale Watcher Cruises to Stellwagen Bank to spot giant Humpbacks.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Hyannis Whale Watcher Cruises Barnstable MA',estCost:200,actCost:0,warning:''},
-    {name:'Lunch & Matchday Watch',duration:2,drive:25,details:"Dino's Sports Bar Mashpee: Award-winning brick-oven pizza and Round of 32 matches on massive screens.",altFood:'Siena Mashpee Commons: Grilled salmon, chopped chicken salads, caprese.',needsTicket:false,confirmCode:'',mapsQuery:"Dino's Sports Bar Mashpee MA",estCost:60,actCost:0,warning:''},
-    {name:'Mayflower Beach Shift',duration:2.5,drive:25,details:'Drive up to Dennis. Enjoy miles of warm, shallow tide pools. Backup: Corporation Beach.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Mayflower Beach Dennis MA',estCost:20,actCost:0,warning:''},
-    {name:'Holiday Inn Check-In',duration:0.75,drive:15,details:'Arrive and check into Holiday Inn Hyannis — your basecamp for Cape Cod. 1127 Route 132, Hyannis MA 02601. Free self-parking lot on site, 24hr front desk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Holiday Inn Hyannis 1127 Route 132 MA',estCost:0,actCost:0,warning:''},
-    {name:'Dinner Block',duration:1.5,drive:0,details:'Palio Pizzeria: Classic thin-crust slices on Hyannis Main Street.',altFood:'The Naked Oyster Bistro: Locally farmed raw oysters, seared scallops, organic salads.',needsTicket:false,confirmCode:'',mapsQuery:'Palio Pizzeria Hyannis MA',estCost:70,actCost:0,warning:''}
+    {name:'Morning Checkout',duration:0.33,drive:10,details:'Pack car and check out of Comfort Inn; drive to Barnstable Harbor.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Barnstable Harbor MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Barnstable Harbor, 185 Mill Way, Barnstable MA 02630\n💲 Free street parking on Mill Way or small paid lot at harbor\n📝 Arrive 30 min early — car stays here during whale watch'},
+    {name:'Whale Watch Tour',duration:3.5,drive:20,details:'Cruise from Barnstable Harbor with Hyannis Whale Watcher Cruises to Stellwagen Bank to spot giant Humpbacks.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Hyannis Whale Watcher Cruises Barnstable MA',estCost:200,actCost:0,warning:'',parkingInfo:'🅿️ GPS: 185 Mill Way, Barnstable MA 02630\n💲 Free street / small paid lot\n📝 Car stays parked here during the cruise'},
+    {name:'Lunch & Matchday Watch',duration:2,drive:25,details:"Dino's Sports Bar Mashpee: Award-winning brick-oven pizza and Round of 32 matches on massive screens.",altFood:'Siena Mashpee Commons: Grilled salmon, chopped chicken salads, caprese.',needsTicket:false,confirmCode:'',mapsQuery:"Dino's Sports Bar Mashpee MA",estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ Dino\'s Sports Bar, Mashpee Commons — free surface lot on site'},
+    {name:'Mayflower Beach Shift',duration:2.5,drive:25,details:'Drive up to Dennis. Enjoy miles of warm, shallow tide pools. Backup: Corporation Beach.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Mayflower Beach Dennis MA',estCost:20,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Mayflower Beach, 76 Bayview Rd, Dennis MA 02638\n💲 Town sticker or day fee (~$20)\n📝 Backup: Corporation Beach, 30 Corporation Rd, Dennis MA'},
+    {name:'Holiday Inn Check-In',duration:0.75,drive:15,details:'Arrive and check into Holiday Inn Hyannis — your basecamp for Cape Cod. 1127 Route 132, Hyannis MA 02601. Free self-parking lot on site, 24hr front desk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Holiday Inn Hyannis 1127 Route 132 MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Holiday Inn Hyannis, 1127 Route 132, Hyannis MA 02601\n💲 Free self-parking lot on site, 24hr front desk\n📝 Your base for the next 4 nights — no need to move car'},
+    {name:'Dinner Block',duration:1.5,drive:0,details:'Palio Pizzeria: Classic thin-crust slices on Hyannis Main Street.',altFood:'The Naked Oyster Bistro: Locally farmed raw oysters, seared scallops, organic salads.',needsTicket:false,confirmCode:'',mapsQuery:'Palio Pizzeria Hyannis MA',estCost:70,actCost:0,warning:'',parkingInfo:'🅿️ Park at Holiday Inn — walk or short drive to Palio Pizzeria on Main St\n📝 Street parking available on Main St evenings'}
   ]},
   {id:'day3',title:'Drone Show & Fest',date:'Saturday, July 4',basecamp:'Holiday Inn Hyannis',start:'09:00',activities:[
-    {name:'Pirate Adventures Cruise',duration:1.25,drive:15,details:'Board the Sea Gypsy from Hyannis Harbor — interactive pirate tour perfect for a 7-year-old.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Cape Cod Pirate Adventures Hyannis MA',estCost:80,actCost:0,warning:''},
-    {name:'Lunch & Tournament Grid',duration:1.5,drive:15,details:'The Black Cat Tavern: Harbor views and indoor pub screens with live holiday matches.',altFood:'The Black Cat Shack Raw Bar: Chilled shrimp cocktails, light lobster sliders, garden salads.',needsTicket:false,confirmCode:'',mapsQuery:'Black Cat Tavern Hyannis MA',estCost:60,actCost:0,warning:''},
-    {name:'Mid-Day Hotel Reset',duration:2.75,drive:15,details:'Return to hotel — swim in the pool, escape peak sun, rest ahead of a long night.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Holiday Inn Hyannis MA',estCost:0,actCost:0,warning:''},
-    {name:'Smart Parking Window',duration:1,drive:0,details:'Park in North Street East Municipal Lot before town roads close down.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'North Street Municipal Parking Lot Hyannis MA',estCost:0,actCost:0,warning:'⚠️ Roads close at 5 PM — must be parked BEFORE then or you will be stuck!'},
-    {name:'Dancing in the Streets Fest',duration:1.5,drive:0,details:"Main Street pedestrian festival. Grab a scoop at Katie's Homemade Ice Cream.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Main Street Hyannis MA',estCost:20,actCost:0,warning:''},
-    {name:'Holiday Dinner',duration:1.75,drive:30,details:"Alberto's Ristorante: Upscale homemade pasta on Main Street. Must book weeks ahead.",altFood:'Tumi Ceviche: Fresh citrus ceviches, grilled chicken skewers, quinoa bowls.',needsTicket:true,confirmCode:'',mapsQuery:"Alberto's Ristorante Hyannis MA",estCost:150,actCost:0,warning:''},
-    {name:'Drone Show Setup',duration:0.75,drive:0,details:'Walk back to North Street East Lot. Setup lawn chairs behind your trunk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'North Street Municipal Parking Lot Hyannis MA',estCost:0,actCost:0,warning:''},
-    {name:'America 250 Drone Show',duration:0.5,drive:0,details:'Watch 3D animations illuminate the sky. Drive out immediately after to beat harbor traffic.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Hyannis Harbor MA',estCost:0,actCost:0,warning:'⚠️ Leave the moment the show ends — harbor traffic builds extremely fast!'}
+    {name:'Pirate Adventures Cruise',duration:1.25,drive:15,details:'Board the Sea Gypsy from Hyannis Harbor — interactive pirate tour perfect for a 7-year-old.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Cape Cod Pirate Adventures Hyannis MA',estCost:80,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Hyannis Harbor, 1 Ocean St, Hyannis MA 02601\n💲 Street parking nearby or Bismore Park lot'},
+    {name:'Lunch & Tournament Grid',duration:1.5,drive:15,details:'The Black Cat Tavern: Harbor views and indoor pub screens with live holiday matches.',altFood:'The Black Cat Shack Raw Bar: Chilled shrimp cocktails, light lobster sliders, garden salads.',needsTicket:false,confirmCode:'',mapsQuery:'Black Cat Tavern Hyannis MA',estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Black Cat Tavern, 165 Ocean St, Hyannis MA 02601\n📝 Harbor area street parking or Bismore Park lot'},
+    {name:'Mid-Day Hotel Reset',duration:2.75,drive:15,details:'Return to hotel — swim in the pool, escape peak sun, rest ahead of a long night.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Holiday Inn Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Holiday Inn Hyannis, 1127 Route 132, Hyannis MA 02601\n💲 Free hotel lot'},
+    {name:'Smart Parking Window',duration:1,drive:0,details:'Park in North Street East Municipal Lot before town roads close down.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'North Street Municipal Parking Lot Hyannis MA',estCost:0,actCost:0,warning:'⚠️ Roads close at 5 PM — must be parked BEFORE then or you will be stuck!',parkingInfo:'🅿️ GPS: North Street East Municipal Lot, North St, Hyannis MA 02601\n💲 ~$10-15 flat rate\n🔴 MUST ARRIVE BEFORE 5 PM — roads close and you will not get in'},
+    {name:'Dancing in the Streets Fest',duration:1.5,drive:0,details:"Main Street pedestrian festival. Grab a scoop at Katie's Homemade Ice Cream.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Main Street Hyannis MA',estCost:20,actCost:0,warning:'',parkingInfo:'🅿️ Already parked at North Street East Lot — walk to Main St (1 block)'},
+    {name:'Holiday Dinner',duration:1.75,drive:30,details:"Alberto's Ristorante: Upscale homemade pasta on Main Street. Must book weeks ahead.",altFood:'Tumi Ceviche: Fresh citrus ceviches, grilled chicken skewers, quinoa bowls.',needsTicket:true,confirmCode:'',mapsQuery:"Alberto's Ristorante Hyannis MA",estCost:150,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Alberto\'s Ristorante, 360 Main St, Hyannis MA 02601\n📝 Already parked at North Street Lot — walk to restaurant'},
+    {name:'Drone Show Setup',duration:0.75,drive:0,details:'Walk back to North Street East Lot. Setup lawn chairs behind your trunk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'North Street Municipal Parking Lot Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ Already parked at North Street East Lot\n📝 Exit plan: turn RIGHT onto Sea St immediately after show — beats harbour traffic'},
+    {name:'America 250 Drone Show',duration:0.5,drive:0,details:'Watch 3D animations illuminate the sky. Drive out immediately after to beat harbor traffic.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Hyannis Harbor MA',estCost:0,actCost:0,warning:'⚠️ Leave the moment the show ends — harbor traffic builds extremely fast!',parkingInfo:'🅿️ North Street East Lot — exit immediately after show\n🔴 Turn RIGHT onto Sea St — do NOT go toward harbour'}
   ]},
   {id:'day4',title:"Martha's Vineyard",date:'Sunday, July 5',basecamp:'Holiday Inn Hyannis',start:'07:45',activities:[
-    {name:'Ferry Terminal Boarding',duration:0.5,drive:60,details:'Arrive at Hy-Line Cruises terminal. Ferry departs at 8:15 AM sharp.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Hy-Line Cruises Hyannis MA',estCost:250,actCost:0,warning:'⚠️ Ferry departs 8:15 AM — do NOT be late, it will leave without you!'},
-    {name:'Carousel & Cottages',duration:2.25,drive:15,details:'Dock at Oak Bluffs. Ride the Flying Horses Carousel and walk the gingerbread cottage loops.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Flying Horses Carousel Oak Bluffs Martha's Vineyard MA",estCost:20,actCost:0,warning:''},
-    {name:'Harbor Lawn Picnic Lunch',duration:1.25,drive:30,details:"Giordano's: Giant pizza slices and crinkle fries to-go on the harbor park grass.",altFood:"Nancy's Restaurant Patio: Hummus plates, chicken shawarma wraps, grilled fish tacos.",needsTicket:false,confirmCode:'',mapsQuery:"Giordano's Oak Bluffs Martha's Vineyard MA",estCost:50,actCost:0,warning:''},
-    {name:'Island Bus Exploration',duration:3,drive:60,details:'Take the island bus to Edgartown Lighthouse or Inkwell Beach.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Edgartown Lighthouse Martha's Vineyard MA",estCost:10,actCost:0,warning:''},
-    {name:'Return High-Speed Ferry',duration:1,drive:15,details:'Board passenger ferry back to Hyannis Harbor.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Hy-Line Cruises Oak Bluffs MA',estCost:0,actCost:0,warning:"⚠️ Don't miss the return ferry — check your departure time in advance!"},
-    {name:'Waterfront Dinner',duration:1.75,drive:0,details:'Anejo Mexican Bistro: Tableside guacamole and gourmet tacos on the outdoor patio.',altFood:"Spanky's Clam Shack: Fresh boiled New England lobster with corn on the cob.",needsTicket:false,confirmCode:'',mapsQuery:'Anejo Mexican Bistro Hyannis MA',estCost:100,actCost:0,warning:''}
+    {name:'Ferry Terminal Boarding',duration:0.5,drive:60,details:'Arrive at Hy-Line Cruises terminal. Ferry departs at 8:15 AM sharp.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Hy-Line Cruises Hyannis MA',estCost:250,actCost:0,warning:'⚠️ Ferry departs 8:15 AM — do NOT be late, it will leave without you!',parkingInfo:'🅿️ GPS: Hy-Line Cruises, 220 Ocean St, Hyannis MA 02601\n💲 Paid ferry lot ~$20-25 for the day\n📝 Arrive 45 min early — car stays here ALL DAY while on island'},
+    {name:'Carousel & Cottages',duration:2.25,drive:15,details:'Dock at Oak Bluffs. Ride the Flying Horses Carousel and walk the gingerbread cottage loops.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Flying Horses Carousel Oak Bluffs Martha's Vineyard MA",estCost:20,actCost:0,warning:'',parkingInfo:'🅿️ Car is parked at Hy-Line ferry lot in Hyannis — on foot on the island'},
+    {name:'Harbor Lawn Picnic Lunch',duration:1.25,drive:30,details:"Giordano's: Giant pizza slices and crinkle fries to-go on the harbor park grass.",altFood:"Nancy's Restaurant Patio: Hummus plates, chicken shawarma wraps, grilled fish tacos.",needsTicket:false,confirmCode:'',mapsQuery:"Giordano's Oak Bluffs Martha's Vineyard MA",estCost:50,actCost:0,warning:'',parkingInfo:'🅿️ On foot on Martha\'s Vineyard — no car needed'},
+    {name:'Island Bus Exploration',duration:3,drive:60,details:'Take the island bus to Edgartown Lighthouse or Inkwell Beach.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Edgartown Lighthouse Martha's Vineyard MA",estCost:10,actCost:0,warning:'',parkingInfo:'🅿️ On foot / island bus — no car needed on the island'},
+    {name:'Return High-Speed Ferry',duration:1,drive:15,details:'Board passenger ferry back to Hyannis Harbor.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Hy-Line Cruises Oak Bluffs MA',estCost:0,actCost:0,warning:"⚠️ Don't miss the return ferry — check your departure time in advance!",parkingInfo:'🅿️ Pick up car at Hy-Line lot, 220 Ocean St, Hyannis MA 02601 on return'},
+    {name:'Waterfront Dinner',duration:1.75,drive:0,details:'Anejo Mexican Bistro: Tableside guacamole and gourmet tacos on the outdoor patio.',altFood:"Spanky's Clam Shack: Fresh boiled New England lobster with corn on the cob.",needsTicket:false,confirmCode:'',mapsQuery:'Anejo Mexican Bistro Hyannis MA',estCost:100,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Anejo Mexican Bistro, 188 Ocean St, Hyannis MA 02601\n📝 Street parking or Bismore Park lot nearby'}
   ]},
   {id:'day5',title:'Inflatable Park Day',date:'Monday, July 6',basecamp:'Holiday Inn Hyannis',start:'11:30',activities:[
-    {name:'Lunch Block',duration:1.25,drive:15,details:'99 Restaurant West Yarmouth: Signature gold fever chicken tenders and tournament tracking.',altFood:'Optimist Cafe: Light quiches, turkey-avocado wraps, crisp summer salads.',needsTicket:false,confirmCode:'',mapsQuery:'99 Restaurant West Yarmouth MA',estCost:55,actCost:0,warning:''},
-    {name:'Cape Cod Inflatable Park',duration:4,drive:30,details:'Dry inflatable obstacle runs and water slides at H2O Water Park.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Cape Cod Inflatable Park Yarmouth MA',estCost:100,actCost:0,warning:''},
-    {name:'Final Cape Dinner',duration:1.75,drive:0,details:'Pizza Barbone: High-end wood-fired thin pizzas on Hyannis Main Street.',altFood:'Tap City Grille: Clean power bowls and giant chopped salads.',needsTicket:false,confirmCode:'',mapsQuery:'Pizza Barbone Hyannis MA',estCost:75,actCost:0,warning:''}
+    {name:'Lunch Block',duration:1.25,drive:15,details:'99 Restaurant West Yarmouth: Signature gold fever chicken tenders and tournament tracking.',altFood:'Optimist Cafe: Light quiches, turkey-avocado wraps, crisp summer salads.',needsTicket:false,confirmCode:'',mapsQuery:'99 Restaurant West Yarmouth MA',estCost:55,actCost:0,warning:'',parkingInfo:'🅿️ GPS: 99 Restaurant, 942 Route 28, West Yarmouth MA 02673\n💲 Free on-site lot'},
+    {name:'Cape Cod Inflatable Park',duration:4,drive:30,details:'Dry inflatable obstacle runs and water slides at H2O Water Park.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Cape Cod Inflatable Park Yarmouth MA',estCost:100,actCost:0,warning:'',parkingInfo:'🅿️ GPS: 195 Whites Path, South Yarmouth MA 02664\n💲 Free on-site parking lot'},
+    {name:'Final Cape Dinner',duration:1.75,drive:0,details:'Pizza Barbone: High-end wood-fired thin pizzas on Hyannis Main Street.',altFood:'Tap City Grille: Clean power bowls and giant chopped salads.',needsTicket:false,confirmCode:'',mapsQuery:'Pizza Barbone Hyannis MA',estCost:75,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Pizza Barbone, 600 Main St, Hyannis MA 02601\n📝 Street parking on Main St or nearby municipal lot'}
   ]},
   {id:'day6',title:'Boston Seaport Arrival',date:'Tuesday, July 7',basecamp:'Aloft Boston Seaport District',start:'09:30',activities:[
-    {name:'Drive to City & Bag Drop',duration:2,drive:30,details:'Check out of Hyannis, drive to Boston, drop bags at Aloft Seaport front desk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Aloft Boston Seaport District MA',estCost:0,actCost:0,warning:''},
-    {name:'Open-Air Seaport Lunch',duration:1.25,drive:15,details:'The Barking Crab: High-energy open-air seafood tent on Fort Point Channel.',altFood:'Woods Hill Pier 4: Waterfront farm-to-table lunch, fresh local crudo.',needsTicket:false,confirmCode:'',mapsQuery:'The Barking Crab Boston MA',estCost:80,actCost:0,warning:''},
-    {name:'Museum of Science Visit',duration:2.75,drive:20,details:'Hands-on engineering labs, 20-foot indoor lightning show, indoor butterfly garden.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Museum of Science Boston MA',estCost:120,actCost:0,warning:''},
-    {name:'BREWERY #1: Trillium Brewing',duration:1,drive:10,details:'Fort Point taproom. World-class hazy IPAs. Spacious, casual, kid friendly.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Trillium Brewing Fort Point Boston MA',estCost:40,actCost:0,warning:''},
-    {name:'Lawn on D Games',duration:2.5,drive:0,details:'Glowing LED circle swings. Food trucks and fast-casual nearby for dinner.',altFood:'Cava or Sweetgreen Seaport: Mediterranean grain bowls or salads — walk 3 mins.',needsTicket:false,confirmCode:'',mapsQuery:'Lawn on D Boston MA',estCost:60,actCost:0,warning:''}
+    {name:'Drive to City & Bag Drop',duration:2,drive:30,details:'Check out of Hyannis, drive to Boston, drop bags at Aloft Seaport front desk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Aloft Boston Seaport District MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Aloft Boston Seaport, 401 D St, Boston MA 02210\n💲 Valet ~$55/night OR self-park: 100 Seaport Blvd (~$30/day) or 21 Drydock Ave (~$25/day)\n📝 Park once and use rideshares — Boston traffic is brutal'},
+    {name:'Open-Air Seaport Lunch',duration:1.25,drive:15,details:'The Barking Crab: High-energy open-air seafood tent on Fort Point Channel.',altFood:'Woods Hill Pier 4: Waterfront farm-to-table lunch, fresh local crudo.',needsTicket:false,confirmCode:'',mapsQuery:'The Barking Crab Boston MA',estCost:80,actCost:0,warning:'',parkingInfo:'🅿️ Car at Aloft hotel — walk to Barking Crab (8 min on foot)'},
+    {name:'Museum of Science Visit',duration:2.75,drive:20,details:'Hands-on engineering labs, 20-foot indoor lightning show, indoor butterfly garden.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Museum of Science Boston MA',estCost:120,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Museum of Science Garage, 1 Science Park, Boston MA 02114\n💲 ~$25 or take an Uber from hotel (~$15)'},
+    {name:'BREWERY #1: Trillium Brewing',duration:1,drive:10,details:'Fort Point taproom. World-class hazy IPAs. Spacious, casual, kid friendly.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Trillium Brewing Fort Point Boston MA',estCost:40,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Trillium Brewing, 369 Congress St, Boston MA 02210\n📝 Walk from hotel (12 min) or short Uber'},
+    {name:'Lawn on D Games',duration:2.5,drive:0,details:'Glowing LED circle swings. Food trucks and fast-casual nearby for dinner.',altFood:'Cava or Sweetgreen Seaport: Mediterranean grain bowls or salads — walk 3 mins.',needsTicket:false,confirmCode:'',mapsQuery:'Lawn on D Boston MA',estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Lawn on D, 420 D St, Boston MA 02210\n📝 Walk from Aloft hotel (5 min) — right in Seaport'}
   ]},
   {id:'day7',title:'Historic Boston Strolls',date:'Wednesday, July 8',basecamp:'Aloft Boston Seaport District',start:'10:00',activities:[
-    {name:'Amphibious Duck Boat Tour',duration:1.5,drive:10,details:'Narrated land tour then splashes into the Charles River for skyline views.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Boston Duck Tours MA',estCost:160,actCost:0,warning:''},
-    {name:'Quincy Market Colonnade',duration:1.67,drive:20,details:"Faneuil Hall market food stalls — everyone picks their own comfort foods.",altFood:'The Boston Smoked Fish Co: Fresh smoked salmon rolls inside the market.',needsTicket:false,confirmCode:'',mapsQuery:'Quincy Market Boston MA',estCost:60,actCost:0,warning:''},
-    {name:'Public Garden Swan Boats',duration:1.25,drive:15,details:'Pedal-powered ride on Swan Boats, then see the Make Way for Ducklings statues.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Swan Boats Boston Public Garden MA',estCost:30,actCost:0,warning:''},
-    {name:'NOSTALGIA STOP: Cheers Pub',duration:0.75,drive:45,details:'Beacon Hill: Original basement pub. Photos under sign, pint break for parents.',altFood:'Keep under 45 mins to prevent kid boredom. Grab a souvenir t-shirt.',needsTicket:false,confirmCode:'',mapsQuery:'Cheers Bar Beacon Hill Boston MA',estCost:35,actCost:0,warning:''},
-    {name:'North End Park & Pastries',duration:1,drive:15,details:"Christopher Columbus Park, then Little Italy for Mike's or Modern Pastry.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Mike's Pastry North End Boston MA",estCost:25,actCost:0,warning:''},
-    {name:'Historic Brick-Oven Dinner',duration:1.75,drive:0,details:'Regina Pizzeria Thacher St: Original 1926 location, legendary pizza institution.',altFood:'Bricco North End: Pan-seared sea bass, light caprese salads, fresh raw bar.',needsTicket:false,confirmCode:'',mapsQuery:'Regina Pizzeria North End Boston MA',estCost:90,actCost:0,warning:''}
+    {name:'Amphibious Duck Boat Tour',duration:1.5,drive:10,details:'Narrated land tour then splashes into the Charles River for skyline views.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Boston Duck Tours MA',estCost:160,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Boston Duck Tours, 1 Science Park, Boston MA 02114\n📝 Uber from hotel recommended (~$15) — no easy parking nearby'},
+    {name:'Quincy Market Colonnade',duration:1.67,drive:20,details:"Faneuil Hall market food stalls — everyone picks their own comfort foods.",altFood:'The Boston Smoked Fish Co: Fresh smoked salmon rolls inside the market.',needsTicket:false,confirmCode:'',mapsQuery:'Quincy Market Boston MA',estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Quincy Market, 1 Faneuil Hall Sq, Boston MA 02109\n📝 Uber from Duck Boats (~$12) — parking in Downtown Boston is very expensive'},
+    {name:'Public Garden Swan Boats',duration:1.25,drive:15,details:'Pedal-powered ride on Swan Boats, then see the Make Way for Ducklings statues.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Swan Boats Boston Public Garden MA',estCost:30,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Boston Public Garden, 4 Charles St, Boston MA 02116\n📝 Walk from Faneuil Hall (~20 min) or short Uber'},
+    {name:'NOSTALGIA STOP: Cheers Pub',duration:0.75,drive:45,details:'Beacon Hill: Original basement pub. Photos under sign, pint break for parents.',altFood:'Keep under 45 mins to prevent kid boredom. Grab a souvenir t-shirt.',needsTicket:false,confirmCode:'',mapsQuery:'Cheers Bar Beacon Hill Boston MA',estCost:35,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Cheers Beacon Hill, 84 Beacon St, Boston MA 02108\n📝 Walk from Public Garden (5 min)'},
+    {name:'North End Park & Pastries',duration:1,drive:15,details:"Christopher Columbus Park, then Little Italy for Mike's or Modern Pastry.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Mike's Pastry North End Boston MA",estCost:25,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Christopher Columbus Park, 106 Atlantic Ave, Boston MA 02110\n📝 Uber from Beacon Hill (~$10) — North End has almost no parking'},
+    {name:'Historic Brick-Oven Dinner',duration:1.75,drive:0,details:'Regina Pizzeria Thacher St: Original 1926 location, legendary pizza institution.',altFood:'Bricco North End: Pan-seared sea bass, light caprese salads, fresh raw bar.',needsTicket:false,confirmCode:'',mapsQuery:'Regina Pizzeria North End Boston MA',estCost:90,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Regina Pizzeria, 11½ Thacher St, Boston MA 02113\n📝 Walk from Christopher Columbus Park (8 min)'}
   ]},
   {id:'day8',title:'Fenway & Quarterfinals',date:'Thursday, July 9',basecamp:'Aloft Boston Seaport District',start:'10:00',activities:[
-    {name:'Fenway Green Monster Tour',duration:1.5,drive:5,details:"Official walking tour inside America's oldest ballpark. Sit on Green Monster seats.",altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Fenway Park Boston MA',estCost:120,actCost:0,warning:''},
-    {name:'Stadium Outfield Lunch',duration:1.5,drive:30,details:'Bleacher Bar: Tables inside centerfield wall looking out onto the field grass.',altFood:'Time Out Market Fenway: Fresh poke bowls and salads — walk 5 mins.',needsTicket:false,confirmCode:'',mapsQuery:'Bleacher Bar Fenway Boston MA',estCost:70,actCost:0,warning:''},
-    {name:'Hotel Pool & Rest Break',duration:3.5,drive:20,details:'Essential rest window. Swim at Aloft, nap, recharge for tournament matches.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Aloft Boston Seaport District MA',estCost:0,actCost:0,warning:''},
-    {name:'BREWERY #2: Cisco Brewers',duration:3.5,drive:0,details:'Outdoor pop-up garden watch party. Quarterfinal on giant mega screens, live music, food stalls.',altFood:'Raw bar shacks on site for local oysters or grilled fish tacos.',needsTicket:false,confirmCode:'',mapsQuery:'Cisco Brewers Boston Seaport MA',estCost:80,actCost:0,warning:''}
+    {name:'Fenway Green Monster Tour',duration:1.5,drive:5,details:"Official walking tour inside America's oldest ballpark. Sit on Green Monster seats.",altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Fenway Park Boston MA',estCost:120,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Landmark Center Garage, 401 Park Dr, Boston MA 02215\n💲 ~$25 or Uber from hotel (~$15, 10 min)\n📝 Enter Fenway via Yawkey Way'},
+    {name:'Stadium Outfield Lunch',duration:1.5,drive:30,details:'Bleacher Bar: Tables inside centerfield wall looking out onto the field grass.',altFood:'Time Out Market Fenway: Fresh poke bowls and salads — walk 5 mins.',needsTicket:false,confirmCode:'',mapsQuery:'Bleacher Bar Fenway Boston MA',estCost:70,actCost:0,warning:'',parkingInfo:'🅿️ Already at Fenway area — walk to Bleacher Bar (inside Fenway)'},
+    {name:'Hotel Pool & Rest Break',duration:3.5,drive:20,details:'Essential rest window. Swim at Aloft, nap, recharge for tournament matches.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Aloft Boston Seaport District MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Aloft Boston Seaport, 401 D St, Boston MA 02210\n📝 Drive back from Fenway or Uber home'},
+    {name:'BREWERY #2: Cisco Brewers',duration:3.5,drive:0,details:'Outdoor pop-up garden watch party. Quarterfinal on giant mega screens, live music, food stalls.',altFood:'Raw bar shacks on site for local oysters or grilled fish tacos.',needsTicket:false,confirmCode:'',mapsQuery:'Cisco Brewers Boston Seaport MA',estCost:80,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Cisco Brewers Seaport, 13 Lansdowne St, Boston MA 02215\n📝 Walk from Aloft hotel (8 min) — in the Seaport District'}
   ]},
   {id:'day9',title:'Tea Party & Watch Party',date:'Friday, July 10',basecamp:'Aloft Boston Seaport District',start:'09:45',activities:[
-    {name:'Boston Tea Party Museum',duration:1.25,drive:30,details:'Interactive costumed actors, storming replica ships, dumping tea crates into harbor.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Boston Tea Party Ships and Museum MA',estCost:140,actCost:0,warning:''},
-    {name:'Harvard Square Burger Lunch',duration:1.5,drive:45,details:"Mr. Bartley's Burger Cottage: Landmark burger house, fun-named plates, retro posters.",altFood:'The Hourly Oyster House: Airy tavern with clean salmon and lobster salads.',needsTicket:false,confirmCode:'',mapsQuery:"Mr. Bartley's Burger Cottage Cambridge MA",estCost:65,actCost:0,warning:''},
-    {name:'Harvard Yard Campus Walk',duration:0.75,drive:45,details:"Walk historic brick yards. Rub John Harvard's brass shoe for luck, check the Coop store.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Harvard Yard Cambridge MA',estCost:0,actCost:0,warning:''},
-    {name:'WATCH PARTY: The Sporting Club',duration:4,drive:15,details:'Omni Seaport: 12-foot high-def screen wall for QF kickoff.',altFood:'Mezze hummus plates, seared tuna crudo, or turkey club wraps.',needsTicket:false,confirmCode:'',mapsQuery:'The Sporting Club Omni Boston Seaport MA',estCost:100,actCost:0,warning:'⚠️ Secure your table before 3 PM kickoff — this venue fills up very fast!'},
-    {name:'Grand Finale Seafood Dinner',duration:2,drive:0,details:'Legal Harborside: Final night on three-story glass structure directly on Seaport water.',altFood:'Legal Net Catch: Request cod or salmon wood-grilled with olive oil and broccoli.',needsTicket:true,confirmCode:'',mapsQuery:'Legal Harborside Boston MA',estCost:200,actCost:0,warning:''}
+    {name:'Boston Tea Party Museum',duration:1.25,drive:30,details:'Interactive costumed actors, storming replica ships, dumping tea crates into harbor.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Boston Tea Party Ships and Museum MA',estCost:140,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Boston Tea Party Museum, 306 Congress St, Boston MA 02210\n📝 Walk from Aloft hotel (12 min) or short Uber'},
+    {name:'Harvard Square Burger Lunch',duration:1.5,drive:45,details:"Mr. Bartley's Burger Cottage: Landmark burger house, fun-named plates, retro posters.",altFood:'The Hourly Oyster House: Airy tavern with clean salmon and lobster salads.',needsTicket:false,confirmCode:'',mapsQuery:"Mr. Bartley's Burger Cottage Cambridge MA",estCost:65,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Mr. Bartley\'s, 1246 Massachusetts Ave, Cambridge MA 02138\n📝 Take MBTA Red Line from South Station to Harvard Station (15 min, $2.40) — DO NOT drive to Harvard'},
+    {name:'Harvard Yard Campus Walk',duration:0.75,drive:45,details:"Walk historic brick yards. Rub John Harvard's brass shoe for luck, check the Coop store.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Harvard Yard Cambridge MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Harvard Yard, Cambridge MA 02138\n📝 Walk from Mr. Bartley\'s (2 min)'},
+    {name:'WATCH PARTY: The Sporting Club',duration:4,drive:15,details:'Omni Seaport: 12-foot high-def screen wall for QF kickoff.',altFood:'Mezze hummus plates, seared tuna crudo, or turkey club wraps.',needsTicket:false,confirmCode:'',mapsQuery:'The Sporting Club Omni Boston Seaport MA',estCost:100,actCost:0,warning:'⚠️ Secure your table before 3 PM kickoff — this venue fills up very fast!',parkingInfo:'🅿️ GPS: Omni Boston Hotel, 450 Summer St, Boston MA 02210\n📝 Walk from Aloft hotel (10 min) — right in Seaport\n🔴 Arrive before 3 PM kickoff — venue fills up fast'},
+    {name:'Grand Finale Seafood Dinner',duration:2,drive:0,details:'Legal Harborside: Final night on three-story glass structure directly on Seaport water.',altFood:'Legal Net Catch: Request cod or salmon wood-grilled with olive oil and broccoli.',needsTicket:true,confirmCode:'',mapsQuery:'Legal Harborside Boston MA',estCost:200,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Legal Harborside, 270 Northern Ave, Boston MA 02210\n📝 Walk from Sporting Club (5 min) — all in Seaport District'}
   ]}
 ]));
 
@@ -480,23 +484,7 @@ const mkChecklist=()=>({
 
 const mkNotes=()=>({day1:'',day2:'',day3:'',day4:'',day5:'',day6:'',day7:'',day8:'',day9:''});
 const mkDriving=()=>({
-  day1:'📍 PARK AT: Comfort Inn Hyannis — free lot\n🗺 GPS: 33 Yarmouth Rd, Hyannis MA 02601\n💲 Cost: Free\n📝 Pull straight into the hotel lot. Check in and leave the car overnight.',
-
-  day2:'─── MORNING: Whale Watch ───\n📍 PARK AT: Barnstable Harbor lot\n🗺 GPS: 185 Mill Way, Barnstable MA 02630\n💲 Cost: Free street parking on Mill Way or small paid lot at harbor\n📝 Arrive 30 min before cruise. Car stays here during the tour.\n\n─── AFTERNOON: Hotel Switch ───\n📍 PARK AT: Holiday Inn Hyannis — free lot\n🗺 GPS: 1127 Route 132, Hyannis MA 02601\n💲 Cost: Free\n📝 Drive straight to Holiday Inn after whale watch. This is your base for the next 4 nights — no need to move the car tonight.',
-
-  day3:'─── DAYTIME: Hotel Base ───\n📍 PARK AT: Holiday Inn Hyannis — free lot\n🗺 GPS: 1127 Route 132, Hyannis MA 02601\n💲 Cost: Free\n\n─── EVENING: July 4 Festivities ───\n📍 PARK AT: North Street East Municipal Lot\n🗺 GPS: North St, Hyannis MA 02601 (enter off North St)\n💲 Cost: ~$10-15 flat rate\n⚠️ MUST BE PARKED BEFORE 5 PM — roads close and you will not get in\n📝 Exit plan: immediately after drone show turn RIGHT onto Sea St to avoid harbor traffic.',
-
-  day4:'─── ALL DAY: Ferry Parking ───\n📍 PARK AT: Hy-Line Cruises ferry lot\n🗺 GPS: 220 Ocean St, Hyannis MA 02601\n💲 Cost: ~$20-25 for the day\n📝 Arrive 45 min before ferry. Lock the car and leave it here all day — you will be on Martha\'s Vineyard. Pick it up when you return on the evening ferry.',
-
-  day5:'─── ALL DAY: Easy Day ───\n📍 PARK AT: Holiday Inn Hyannis — free lot\n🗺 GPS: 1127 Route 132, Hyannis MA 02601\n💲 Cost: Free\n📝 Drive to inflatable park mid-morning.\n\n─── Inflatable Park ───\n📍 PARK AT: On-site free lot\n🗺 GPS: 195 Whites Path, South Yarmouth MA 02664\n💲 Cost: Free',
-
-  day6:'─── Hotel Parking: Boston ───\n📍 PARK AT: Aloft Boston Seaport\n🗺 GPS: 401 D St, Boston MA 02210\n💲 Cost: Valet ~$55/night OR self-park nearby\n\n─── Cheaper Self-Park Options ───\n📍 100 Seaport Blvd Garage (~$30/day)\n📍 21 Drydock Ave Garage (~$25/day)\n📝 Park once and use Uber/Lyft for the day — Boston traffic is brutal and parking is expensive.',
-
-  day7:'─── Leave Car at Hotel All Day ───\n📍 PARK AT: Aloft Boston Seaport (overnight from yesterday)\n📝 Do NOT drive today. Duck Boats, Public Garden, Beacon Hill, and North End have almost zero parking.\n🚕 Use Uber/Lyft between stops — budget ~$30-40 for the day\n🚶 Most stops are walkable from each other once you\'re in the city.',
-
-  day8:'─── Morning: Fenway ───\n📍 PARK AT: Landmark Center Garage\n🗺 GPS: 401 Park Dr, Boston MA 02215\n💲 Cost: ~$25\n📝 15 min drive from hotel. Or Uber (~$15, 10 min) to skip parking hassle.\n\n─── Evening: Cisco Brewers ───\n📍 WALK from Aloft — Cisco Brewers Seaport is 5 min on foot from hotel.',
-
-  day9:'─── Leave Car at Hotel All Day ───\n📍 PARK AT: Aloft Boston Seaport (stay put)\n📝 Do NOT drive to Harvard — no parking near Harvard Yard.\n🚇 MBTA Red Line: walk to South Station (8 min) → Red Line to Harvard Station (15 min, $2.40 each way)\n📝 Afternoon watch party and dinner are both walkable from Aloft.'
+  day1:'',day2:'',day3:'',day4:'',day5:'',day6:'',day7:'',day8:'',day9:''
 });
 
 let appData={days:mkDays(),checklist:mkChecklist(),dayNotes:mkNotes(),dayMemories:mkNotes(),dayDriving:mkDriving()};
@@ -741,7 +729,7 @@ window.moveActivity=function(dayId,aIdx,dir){
 };
 window.addCustomStop=function(dayId){
   const dIdx=appData.days.findIndex(d=>d.id===dayId);
-  appData.days[dIdx].activities.push({name:'New Custom Stop',duration:1,drive:15,details:'Tap to edit.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'',estCost:0,actCost:0,warning:''});
+  appData.days[dIdx].activities.push({name:'New Custom Stop',duration:1,drive:15,details:'Tap to edit.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'',estCost:0,actCost:0,warning:'',parkingInfo:''});
   renderSchedule();saveState();
 };
 window.toggleActivity=function(editId,chevId){
@@ -834,6 +822,7 @@ function renderSchedule(){
               ${act.warning?`<div class="warn-flag">⚠️ ${act.warning}</div>`:''}
               <input type="text" class="act-title-input" value="${act.name.replace(/"/g,'&quot;')}" oninput="updateActivityValue('${day.id}',${aIdx},'name',this.value)">
               ${act.mapsQuery?`<button class="maps-btn" onclick="openMaps('${act.mapsQuery.replace(/'/g,"\\'")}')">📍 Open in Maps</button>`:''}
+              ${act.parkingInfo?`<div class="parking-box"><span>🅿️</span><input type="text" value="${(act.parkingInfo||'').replace(/"/g,'&quot;')}" placeholder="Parking address & notes..." oninput="updateActivityValue('${day.id}',${aIdx},'parkingInfo',this.value)"></div>`:''}
               <textarea class="act-desc-input" rows="2" oninput="updateActivityValue('${day.id}',${aIdx},'details',this.value)">${act.details}</textarea>
               ${isMeal?`<div class="alt-food-box"><span>🥗</span><input type="text" value="${(act.altFood||'').replace(/"/g,'&quot;')}" placeholder="Healthy pivot option..." oninput="updateActivityValue('${day.id}',${aIdx},'altFood',this.value)"></div>`:''}
               <label class="ticket-toggle"><input type="checkbox" ${act.needsTicket?'checked':''} onchange="toggleNeedsTicket('${day.id}',${aIdx},this.checked)"> 🎟️ Needs a booking / ticket</label>
@@ -879,8 +868,8 @@ function renderSchedule(){
         <span class="note-saved">✓ saved</span>
       </div>
       <div class="day-drive-bar">
-        <div class="bar-label">🚗 Driving & Parking</div>
-        <textarea rows="2" placeholder="Parking address, cost, exit plan..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateDayDriving('${day.id}',this.value,this)">${driveNote}</textarea>
+        <div class="bar-label">🚗 General Driving Notes</div>
+        <textarea rows="2" placeholder="General driving notes for the day..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateDayDriving('${day.id}',this.value,this)">${driveNote}</textarea>
         <span class="drive-saved">✓ saved</span>
       </div>
       <div class="day-body" ${isPast?'style="display:none"':''}>${rows}
