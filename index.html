@@ -670,14 +670,27 @@ function recalcDay(dIdx){
   const day=appData.days[dIdx];let r=sm(day.start);
   day.activities.forEach((act,i)=>{
     if(act.startOverride!=null)r=act.startOverride;
+    // Update summary time badge
     const el=document.getElementById(`badge-${day.id}-${i}`);
     if(el){
-      // Summary badge is a div; time input inside edit panel is a sibling
       el.textContent=mts(r);
       const ti=document.querySelector(`#edit-${day.id}-${i} .time-input`);
       if(ti)ti.value=mtn(r);
     }
+    const actEnd=r+Math.round((parseFloat(act.duration)||0)*60);
     r+=atm(act);
+    // Update leave-by label live
+    const lb=document.getElementById(`leaveby-${day.id}-${i}`);
+    if(lb){
+      const driveMin=parseInt(act.drive)||0;
+      const hasNext=i<day.activities.length-1;
+      if(driveMin>0&&hasNext){
+        lb.textContent=`🚗 Leave by ${mts(actEnd)}`;
+        lb.style.display='block';
+      } else {
+        lb.style.display='none';
+      }
+    }
   });
 }
 
@@ -808,7 +821,7 @@ function renderSchedule(){
             <div class="edit-time-col">
               <input class="time-input" type="time" value="${mtn(startTimes[aIdx])}" onchange="overrideActivityTime('${day.id}',${aIdx},this.value)">
               <div class="time-hint">✏️ tap to change</div>
-              ${leaveByStr?`<div class="leave-by">🚗 Leave by ${leaveByStr}</div>`:''}
+              <div class="leave-by" id="leaveby-${day.id}-${aIdx}" style="display:${driveMin>0&&aIdx<acts.length-1?'block':'none'}">🚗 Leave by ${leaveByStr||''}</div>
               <div class="inputs-group">
                 <div class="control-input"><span>⏱ hrs</span><input type="number" min="0" max="24" step="0.25" value="${act.duration}" oninput="updateActivityValue('${day.id}',${aIdx},'duration',parseFloat(this.value)||0)"></div>
                 <div class="control-input"><span>🚗 min</span><input type="number" min="0" max="300" step="5" value="${act.drive}" oninput="updateActivityValue('${day.id}',${aIdx},'drive',parseInt(this.value)||0)"></div>
