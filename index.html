@@ -104,11 +104,10 @@ header p{margin:0;color:rgba(255,255,255,.85);font-size:1rem;}
 .day-card{background:white;border-radius:14px;box-shadow:var(--shadow);margin-bottom:1.25rem;overflow:hidden;border:1px solid #e2e8f0;transition:opacity .2s;}
 .day-card.today-card{border-color:var(--primary);border-width:2px;}
 .day-card.past-card{opacity:.6;}
-.day-header{background:var(--primary-light);padding:.85rem 1.15rem;border-bottom:1px solid #fed7aa;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;-webkit-user-select:none;user-select:none;}
+.day-header{background:var(--primary-light);padding:.65rem 1rem;border-bottom:1px solid #fed7aa;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;-webkit-user-select:none;user-select:none;}
 .day-header-left{flex:1;}
 .day-date-label{font-size:.8rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
 .day-header-left h2{margin:0;font-size:1.1rem;color:var(--primary);}
-.day-hotel{font-size:.85rem;color:var(--text-muted);margin-top:.2rem;}
 .day-header-right{display:flex;flex-direction:column;align-items:flex-end;gap:.3rem;padding-left:.5rem;}
 .today-badge{display:inline-block;background:var(--primary);color:white;font-size:.6rem;font-weight:700;padding:.15rem .4rem;border-radius:99px;text-transform:uppercase;letter-spacing:.05em;}
 .day-header-actions{display:flex;gap:.3rem;}
@@ -135,7 +134,7 @@ header p{margin:0;color:rgba(255,255,255,.85);font-size:1rem;}
 .activity-row.has-warning .act-summary{background:linear-gradient(90deg,#fffbeb 0%,transparent 80%);border-left:3px solid #f59e0b;padding-left:.6rem;margin-left:-.6rem;}
 
 /* Summary row — always visible */
-.act-summary{display:flex;align-items:center;gap:.75rem;padding:.65rem .85rem .65rem 0;cursor:pointer;-webkit-user-select:none;user-select:none;}
+.act-summary{display:flex;align-items:center;gap:.65rem;padding:.55rem .75rem .55rem 0;cursor:pointer;-webkit-user-select:none;user-select:none;}
 .act-summary:active{background:#fafafa;}
 .act-time{font-size:.95rem;font-weight:800;color:var(--primary);background:var(--primary-light);border:1.5px solid #fed7aa;border-radius:7px;padding:.3rem .5rem;white-space:nowrap;min-width:78px;text-align:center;flex-shrink:0;}
 .act-name-wrap{flex:1;min-width:0;}
@@ -157,7 +156,6 @@ header p{margin:0;color:rgba(255,255,255,.85);font-size:1rem;}
 .edit-time-col{display:flex;flex-direction:column;gap:.4rem;}
 input.time-input{border:1.5px solid #fed7aa;outline:none;font-weight:700;color:var(--primary);font-size:1rem;background:var(--primary-light);padding:.3rem .4rem;border-radius:6px;width:100%;text-align:center;cursor:pointer;}
 input.time-input:focus{border-color:var(--primary);background:#ffedd5;}
-.time-hint{font-size:.7rem;color:var(--text-muted);text-align:center;opacity:.7;margin-top:-.1rem;}
 .leave-by{font-size:.8rem;color:var(--teal);font-weight:700;text-align:center;background:var(--teal-light);border-radius:4px;padding:.2rem .35rem;border:1px solid #a7f3d0;}
 .inputs-group{display:flex;flex-direction:column;gap:.4rem;font-size:.85rem;color:var(--text-muted);}
 .control-input{display:flex;justify-content:space-between;align-items:center;gap:.2rem;}
@@ -180,6 +178,12 @@ input.time-input:focus{border-color:var(--primary);background:#ffedd5;}
 .parking-box span{flex-shrink:0;}
 .parking-box input{background:transparent;border:none;width:100%;color:#1e3a8a;font-size:1rem;outline:none;font-family:inherit;}
 .parking-box input::placeholder{color:#7dd3fc;opacity:.8;}
+.operator-box{background:#f5f3ff;border:1px solid #ddd6fe;border-radius:6px;padding:.4rem .55rem;font-size:.92rem;font-weight:600;color:#5b21b6;display:flex;align-items:center;gap:.35rem;}
+.operator-box input{background:transparent;border:none;width:100%;color:#5b21b6;font-size:.92rem;font-weight:600;}
+.operator-box input:focus{background:#ede9fe;outline:none;border-radius:4px;padding:0 .2rem;}
+.restaurant-box{background:#fff7ed;border:1px solid #fed7aa;padding:.4rem .55rem;border-radius:6px;font-size:.95rem;font-weight:600;color:var(--primary);display:flex;align-items:center;gap:.35rem;}
+.restaurant-box input{background:transparent;border:none;width:100%;color:var(--primary);font-size:.95rem;font-weight:600;}
+.restaurant-box input:focus{background:var(--primary-light);outline:none;border-radius:4px;padding:0 .2rem;}
 .alt-food-box{background:var(--teal-light);border:1px solid #bbf7d0;padding:.4rem .55rem;border-radius:6px;font-size:.92rem;color:#065f46;display:flex;align-items:center;gap:.35rem;}
 .alt-food-box input{background:transparent;border:1px solid transparent;width:100%;color:#166534;font-style:italic;font-size:15px;}
 .alt-food-box input:focus{background:white;border-color:var(--teal);outline:none;}
@@ -294,10 +298,9 @@ input.time-input:focus{border-color:var(--primary);background:#ffedd5;}
       <div id="dining-list"></div>
     </div>
     <div class="budget-card">
-      <h3>💰 Trip Budget <button onclick="switchTab('itinerary',document.querySelector('.nav-tab:nth-child(2)'))">Edit in Schedule →</button></h3>
-      <div class="bud-row"><span class="bud-lbl">Estimated total</span><span id="bud-est" style="font-weight:700;color:var(--primary);">$0</span></div>
-      <div class="bud-row"><span class="bud-lbl">Actual spent</span><span id="bud-act" style="font-weight:700;color:var(--secondary);">$0</span></div>
-      <div class="bud-row"><span class="bud-lbl">Remaining (est − actual)</span><span id="bud-rem" style="font-weight:700;">$0</span></div>
+      <h3>💰 Trip Spend <button onclick="switchTab('itinerary',document.querySelector('.nav-tab:nth-child(2)'))">View in Schedule →</button></h3>
+      <div class="bud-row"><span class="bud-lbl">Total spent so far</span><span id="bud-act" style="font-weight:700;color:var(--secondary);">$0</span></div>
+      <div class="bud-row"><span class="bud-lbl">Today's spend</span><span id="bud-today" style="font-weight:700;color:var(--primary);">$0</span></div>
     </div>
     <div class="ticket-counter">
       <div class="tc-icon">🎟️</div>
@@ -415,67 +418,67 @@ const DAY_CITY={day1:'Hyannis,MA',day2:'Hyannis,MA',day3:'Hyannis,MA',day4:'Hyan
 // Helper to deep-clone original data
 const mkDays=()=>JSON.parse(JSON.stringify([
   {id:'day1',title:'Hyannis Arrival',date:'Thursday, July 2',basecamp:'Comfort Inn Hyannis',start:'17:00',activities:[
-    {name:'Evening Departure',duration:4.5,drive:0,details:'Drive from Whippany, NJ after work to beat Friday holiday traffic. Check into Comfort Inn Hyannis.',altFood:'Whole Foods Market Hyannis: Pre-made wraps, sushi rolls, clean salads.',needsTicket:false,confirmCode:'',mapsQuery:'Comfort Inn Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Comfort Inn Hyannis, 33 Yarmouth Rd, Hyannis MA 02601\n💲 Free hotel lot — pull straight in'},
-    {name:'Check-In & Rest',duration:0.5,drive:0,details:'Arrive at Comfort Inn, unpack, get some sleep ahead of your morning harbor cruise.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Comfort Inn Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Comfort Inn Hyannis, 33 Yarmouth Rd, Hyannis MA 02601\n💲 Free hotel lot'}
+    {name:'Depart NJ',duration:4.5,drive:0,details:'Drive from Whippany, NJ after work to beat Friday holiday traffic. Check into Comfort Inn Hyannis.',altFood:'Whole Foods Market Hyannis: Pre-made wraps, sushi rolls, clean salads.',needsTicket:false,confirmCode:'',mapsQuery:'Comfort Inn Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Comfort Inn Hyannis, 33 Yarmouth Rd, Hyannis MA 02601\n💲 Free hotel lot — pull straight in'},
+    {name:'Check-In',duration:0.5,drive:0,details:'Arrive at Comfort Inn, unpack, get some sleep ahead of your morning harbor cruise.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Comfort Inn Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Comfort Inn Hyannis, 33 Yarmouth Rd, Hyannis MA 02601\n💲 Free hotel lot'}
   ]},
   {id:'day2',title:'Cape Cod Cruising',date:'Friday, July 3',basecamp:'Comfort Inn → Holiday Inn Hyannis',start:'08:00',activities:[
-    {name:'Morning Checkout',duration:0.33,drive:10,details:'Pack car and check out of Comfort Inn; drive to Barnstable Harbor.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Barnstable Harbor MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Barnstable Harbor, 185 Mill Way, Barnstable MA 02630\n💲 Free street parking on Mill Way or small paid lot at harbor\n📝 Arrive 30 min early — car stays here during whale watch'},
-    {name:'Whale Watch Tour',duration:3.5,drive:20,details:'Cruise from Barnstable Harbor with Hyannis Whale Watcher Cruises to Stellwagen Bank to spot giant Humpbacks.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Hyannis Whale Watcher Cruises Barnstable MA',estCost:200,actCost:0,warning:'',parkingInfo:'🅿️ GPS: 185 Mill Way, Barnstable MA 02630\n💲 Free street / small paid lot\n📝 Car stays parked here during the cruise'},
-    {name:'Lunch & Matchday Watch',duration:2,drive:25,details:"Dino's Sports Bar Mashpee: Award-winning brick-oven pizza and Round of 32 matches on massive screens.",altFood:'Siena Mashpee Commons: Grilled salmon, chopped chicken salads, caprese.',needsTicket:false,confirmCode:'',mapsQuery:"Dino's Sports Bar Mashpee MA",estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ Dino\'s Sports Bar, Mashpee Commons — free surface lot on site'},
-    {name:'Mayflower Beach Shift',duration:2.5,drive:25,details:'Drive up to Dennis. Enjoy miles of warm, shallow tide pools. Backup: Corporation Beach.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Mayflower Beach Dennis MA',estCost:20,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Mayflower Beach, 76 Bayview Rd, Dennis MA 02638\n💲 Town sticker or day fee (~$20)\n📝 Backup: Corporation Beach, 30 Corporation Rd, Dennis MA'},
-    {name:'Holiday Inn Check-In',duration:0.75,drive:15,details:'Arrive and check into Holiday Inn Hyannis — your basecamp for Cape Cod. 1127 Route 132, Hyannis MA 02601. Free self-parking lot on site, 24hr front desk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Holiday Inn Hyannis 1127 Route 132 MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Holiday Inn Hyannis, 1127 Route 132, Hyannis MA 02601\n💲 Free self-parking lot on site, 24hr front desk\n📝 Your base for the next 4 nights — no need to move car'},
-    {name:'Dinner Block',duration:1.5,drive:0,details:'Palio Pizzeria: Classic thin-crust slices on Hyannis Main Street.',altFood:'The Naked Oyster Bistro: Locally farmed raw oysters, seared scallops, organic salads.',needsTicket:false,confirmCode:'',mapsQuery:'Palio Pizzeria Hyannis MA',estCost:70,actCost:0,warning:'',parkingInfo:'🅿️ Park at Holiday Inn — walk or short drive to Palio Pizzeria on Main St\n📝 Street parking available on Main St evenings'}
+    {name:'Checkout',duration:0.33,drive:10,details:'Pack car and check out of Comfort Inn; drive to Barnstable Harbor.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Barnstable Harbor MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Barnstable Harbor, 185 Mill Way, Barnstable MA 02630\n💲 Free street parking on Mill Way or small paid lot at harbor\n📝 Arrive 30 min early — car stays here during whale watch'},
+    {name:'Whale Watch 🐋',duration:3.5,drive:20,details:'Cruise from Barnstable Harbor with Hyannis Whale Watcher Cruises to Stellwagen Bank to spot giant Humpbacks.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Hyannis Whale Watcher Cruises Barnstable MA',estCost:200,actCost:0,warning:'',parkingInfo:'🅿️ GPS: 185 Mill Way, Barnstable MA 02630\n💲 Free street / small paid lot\n📝 Car stays parked here during the cruise',operator:'Hyannis Whale Watcher Cruises'},
+    {name:'Lunch',duration:2,drive:25,details:"Dino's Sports Bar Mashpee: Award-winning brick-oven pizza and Round of 32 matches on massive screens.",altFood:'Siena Mashpee Commons: Grilled salmon, chopped chicken salads, caprese.',needsTicket:false,confirmCode:'',mapsQuery:"Dino's Sports Bar Mashpee MA",estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ Dino\'s Sports Bar, Mashpee Commons — free surface lot on site',restaurant:'Dino\'s Sports Bar'},
+    {name:'Mayflower Beach',duration:2.5,drive:25,details:'Drive up to Dennis. Enjoy miles of warm, shallow tide pools. Backup: Corporation Beach.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Mayflower Beach Dennis MA',estCost:20,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Mayflower Beach, 76 Bayview Rd, Dennis MA 02638\n💲 Town sticker or day fee (~$20)\n📝 Backup: Corporation Beach, 30 Corporation Rd, Dennis MA',operator:'Town of Dennis'},
+    {name:'Hotel Check-In',duration:0.75,drive:15,details:'Arrive and check into Holiday Inn Hyannis — your basecamp for Cape Cod. 1127 Route 132, Hyannis MA 02601. Free self-parking lot on site, 24hr front desk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Holiday Inn Hyannis 1127 Route 132 MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Holiday Inn Hyannis, 1127 Route 132, Hyannis MA 02601\n💲 Free self-parking lot on site, 24hr front desk\n📝 Your base for the next 4 nights — no need to move car'},
+    {name:'Dinner',duration:1.5,drive:0,details:'Palio Pizzeria: Classic thin-crust slices on Hyannis Main Street.',altFood:'The Naked Oyster Bistro: Locally farmed raw oysters, seared scallops, organic salads.',needsTicket:false,confirmCode:'',mapsQuery:'Palio Pizzeria Hyannis MA',estCost:70,actCost:0,warning:'',parkingInfo:'🅿️ Park at Holiday Inn — walk or short drive to Palio Pizzeria on Main St\n📝 Street parking available on Main St evenings',restaurant:'Palio Pizzeria'}
   ]},
   {id:'day3',title:'Drone Show & Fest',date:'Saturday, July 4',basecamp:'Holiday Inn Hyannis',start:'09:00',activities:[
-    {name:'Pirate Adventures Cruise',duration:1.25,drive:15,details:'Board the Sea Gypsy from Hyannis Harbor — interactive pirate tour perfect for a 7-year-old.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Cape Cod Pirate Adventures Hyannis MA',estCost:80,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Hyannis Harbor, 1 Ocean St, Hyannis MA 02601\n💲 Street parking nearby or Bismore Park lot'},
-    {name:'Lunch & Tournament Grid',duration:1.5,drive:15,details:'The Black Cat Tavern: Harbor views and indoor pub screens with live holiday matches.',altFood:'The Black Cat Shack Raw Bar: Chilled shrimp cocktails, light lobster sliders, garden salads.',needsTicket:false,confirmCode:'',mapsQuery:'Black Cat Tavern Hyannis MA',estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Black Cat Tavern, 165 Ocean St, Hyannis MA 02601\n📝 Harbor area street parking or Bismore Park lot'},
-    {name:'Mid-Day Hotel Reset',duration:2.75,drive:15,details:'Return to hotel — swim in the pool, escape peak sun, rest ahead of a long night.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Holiday Inn Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Holiday Inn Hyannis, 1127 Route 132, Hyannis MA 02601\n💲 Free hotel lot'},
-    {name:'Smart Parking Window',duration:1,drive:0,details:'Park in North Street East Municipal Lot before town roads close down.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'North Street Municipal Parking Lot Hyannis MA',estCost:0,actCost:0,warning:'⚠️ Roads close at 5 PM — must be parked BEFORE then or you will be stuck!',parkingInfo:'🅿️ GPS: North Street East Municipal Lot, North St, Hyannis MA 02601\n💲 ~$10-15 flat rate\n🔴 MUST ARRIVE BEFORE 5 PM — roads close and you will not get in'},
-    {name:'Dancing in the Streets Fest',duration:1.5,drive:0,details:"Main Street pedestrian festival. Grab a scoop at Katie's Homemade Ice Cream.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Main Street Hyannis MA',estCost:20,actCost:0,warning:'',parkingInfo:'🅿️ Already parked at North Street East Lot — walk to Main St (1 block)'},
-    {name:'Holiday Dinner',duration:1.75,drive:30,details:"Alberto's Ristorante: Upscale homemade pasta on Main Street. Must book weeks ahead.",altFood:'Tumi Ceviche: Fresh citrus ceviches, grilled chicken skewers, quinoa bowls.',needsTicket:true,confirmCode:'',mapsQuery:"Alberto's Ristorante Hyannis MA",estCost:150,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Alberto\'s Ristorante, 360 Main St, Hyannis MA 02601\n📝 Already parked at North Street Lot — walk to restaurant'},
-    {name:'Drone Show Setup',duration:0.75,drive:0,details:'Walk back to North Street East Lot. Setup lawn chairs behind your trunk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'North Street Municipal Parking Lot Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ Already parked at North Street East Lot\n📝 Exit plan: turn RIGHT onto Sea St immediately after show — beats harbour traffic'},
-    {name:'America 250 Drone Show',duration:0.5,drive:0,details:'Watch 3D animations illuminate the sky. Drive out immediately after to beat harbor traffic.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Hyannis Harbor MA',estCost:0,actCost:0,warning:'⚠️ Leave the moment the show ends — harbor traffic builds extremely fast!',parkingInfo:'🅿️ North Street East Lot — exit immediately after show\n🔴 Turn RIGHT onto Sea St — do NOT go toward harbour'}
+    {name:'Pirate Cruise 🏴‍☠️',duration:1.25,drive:15,details:'Board the Sea Gypsy from Hyannis Harbor — interactive pirate tour perfect for a 7-year-old.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Cape Cod Pirate Adventures Hyannis MA',estCost:80,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Hyannis Harbor, 1 Ocean St, Hyannis MA 02601\n💲 Street parking nearby or Bismore Park lot'},
+    {name:'Lunch',duration:1.5,drive:15,details:'The Black Cat Tavern: Harbor views and indoor pub screens with live holiday matches.',altFood:'The Black Cat Shack Raw Bar: Chilled shrimp cocktails, light lobster sliders, garden salads.',needsTicket:false,confirmCode:'',mapsQuery:'Black Cat Tavern Hyannis MA',estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Black Cat Tavern, 165 Ocean St, Hyannis MA 02601\n📝 Harbor area street parking or Bismore Park lot',restaurant:'The Black Cat Tavern'},
+    {name:'Hotel Reset',duration:2.75,drive:15,details:'Return to hotel — swim in the pool, escape peak sun, rest ahead of a long night.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Holiday Inn Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Holiday Inn Hyannis, 1127 Route 132, Hyannis MA 02601\n💲 Free hotel lot'},
+    {name:'Park Car 🔴',duration:1,drive:0,details:'Park in North Street East Municipal Lot before town roads close down.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'North Street Municipal Parking Lot Hyannis MA',estCost:0,actCost:0,warning:'⚠️ Roads close at 5 PM — must be parked BEFORE then or you will be stuck!',parkingInfo:'🅿️ GPS: North Street East Municipal Lot, North St, Hyannis MA 02601\n💲 ~$10-15 flat rate\n🔴 MUST ARRIVE BEFORE 5 PM — roads close and you will not get in'},
+    {name:'Street Festival',duration:1.5,drive:0,details:"Main Street pedestrian festival. Grab a scoop at Katie's Homemade Ice Cream.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Main Street Hyannis MA',estCost:20,actCost:0,warning:'',parkingInfo:'🅿️ Already parked at North Street East Lot — walk to Main St (1 block)'},
+    {name:'Dinner',duration:1.75,drive:30,details:"Alberto's Ristorante: Upscale homemade pasta on Main Street. Must book weeks ahead.",altFood:'Tumi Ceviche: Fresh citrus ceviches, grilled chicken skewers, quinoa bowls.',needsTicket:true,confirmCode:'',mapsQuery:"Alberto's Ristorante Hyannis MA",estCost:150,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Alberto\'s Ristorante, 360 Main St, Hyannis MA 02601\n📝 Already parked at North Street Lot — walk to restaurant',restaurant:'Alberto\'s Ristorante'},
+    {name:'Setup for Show',duration:0.75,drive:0,details:'Walk back to North Street East Lot. Setup lawn chairs behind your trunk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'North Street Municipal Parking Lot Hyannis MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ Already parked at North Street East Lot\n📝 Exit plan: turn RIGHT onto Sea St immediately after show — beats harbour traffic'},
+    {name:'Drone Show 🎆',duration:0.5,drive:0,details:'Watch 3D animations illuminate the sky. Drive out immediately after to beat harbor traffic.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Hyannis Harbor MA',estCost:0,actCost:0,warning:'⚠️ Leave the moment the show ends — harbor traffic builds extremely fast!',parkingInfo:'🅿️ North Street East Lot — exit immediately after show\n🔴 Turn RIGHT onto Sea St — do NOT go toward harbour'}
   ]},
   {id:'day4',title:"Martha's Vineyard",date:'Sunday, July 5',basecamp:'Holiday Inn Hyannis',start:'07:45',activities:[
-    {name:'Ferry Terminal Boarding',duration:0.5,drive:60,details:'Arrive at Hy-Line Cruises terminal. Ferry departs at 8:15 AM sharp.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Hy-Line Cruises Hyannis MA',estCost:250,actCost:0,warning:'⚠️ Ferry departs 8:15 AM — do NOT be late, it will leave without you!',parkingInfo:'🅿️ GPS: Hy-Line Cruises, 220 Ocean St, Hyannis MA 02601\n💲 Paid ferry lot ~$20-25 for the day\n📝 Arrive 45 min early — car stays here ALL DAY while on island'},
-    {name:'Carousel & Cottages',duration:2.25,drive:15,details:'Dock at Oak Bluffs. Ride the Flying Horses Carousel and walk the gingerbread cottage loops.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Flying Horses Carousel Oak Bluffs Martha's Vineyard MA",estCost:20,actCost:0,warning:'',parkingInfo:'🅿️ Car is parked at Hy-Line ferry lot in Hyannis — on foot on the island'},
-    {name:'Harbor Lawn Picnic Lunch',duration:1.25,drive:30,details:"Giordano's: Giant pizza slices and crinkle fries to-go on the harbor park grass.",altFood:"Nancy's Restaurant Patio: Hummus plates, chicken shawarma wraps, grilled fish tacos.",needsTicket:false,confirmCode:'',mapsQuery:"Giordano's Oak Bluffs Martha's Vineyard MA",estCost:50,actCost:0,warning:'',parkingInfo:'🅿️ On foot on Martha\'s Vineyard — no car needed'},
-    {name:'Island Bus Exploration',duration:3,drive:60,details:'Take the island bus to Edgartown Lighthouse or Inkwell Beach.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Edgartown Lighthouse Martha's Vineyard MA",estCost:10,actCost:0,warning:'',parkingInfo:'🅿️ On foot / island bus — no car needed on the island'},
-    {name:'Return High-Speed Ferry',duration:1,drive:15,details:'Board passenger ferry back to Hyannis Harbor.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Hy-Line Cruises Oak Bluffs MA',estCost:0,actCost:0,warning:"⚠️ Don't miss the return ferry — check your departure time in advance!",parkingInfo:'🅿️ Pick up car at Hy-Line lot, 220 Ocean St, Hyannis MA 02601 on return'},
-    {name:'Waterfront Dinner',duration:1.75,drive:0,details:'Anejo Mexican Bistro: Tableside guacamole and gourmet tacos on the outdoor patio.',altFood:"Spanky's Clam Shack: Fresh boiled New England lobster with corn on the cob.",needsTicket:false,confirmCode:'',mapsQuery:'Anejo Mexican Bistro Hyannis MA',estCost:100,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Anejo Mexican Bistro, 188 Ocean St, Hyannis MA 02601\n📝 Street parking or Bismore Park lot nearby'}
+    {name:'Ferry Departs',duration:0.5,drive:60,details:'Arrive at Hy-Line Cruises terminal. Ferry departs at 8:15 AM sharp.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Hy-Line Cruises Hyannis MA',estCost:250,actCost:0,warning:'⚠️ Ferry departs 8:15 AM — do NOT be late, it will leave without you!',parkingInfo:'🅿️ GPS: Hy-Line Cruises, 220 Ocean St, Hyannis MA 02601\n💲 Paid ferry lot ~$20-25 for the day\n📝 Arrive 45 min early — car stays here ALL DAY while on island',operator:'Hy-Line Cruises'},
+    {name:'Carousel & Walk',duration:2.25,drive:15,details:'Dock at Oak Bluffs. Ride the Flying Horses Carousel and walk the gingerbread cottage loops.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Flying Horses Carousel Oak Bluffs Martha's Vineyard MA",estCost:20,actCost:0,warning:'',parkingInfo:'🅿️ Car is parked at Hy-Line ferry lot in Hyannis — on foot on the island'},
+    {name:'Picnic Lunch',duration:1.25,drive:30,details:"Giordano's: Giant pizza slices and crinkle fries to-go on the harbor park grass.",altFood:"Nancy's Restaurant Patio: Hummus plates, chicken shawarma wraps, grilled fish tacos.",needsTicket:false,confirmCode:'',mapsQuery:"Giordano's Oak Bluffs Martha's Vineyard MA",estCost:50,actCost:0,warning:'',parkingInfo:'🅿️ On foot on Martha\'s Vineyard — no car needed',restaurant:'Giordano\'s'},
+    {name:'Island Explore',duration:3,drive:60,details:'Take the island bus to Edgartown Lighthouse or Inkwell Beach.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Edgartown Lighthouse Martha's Vineyard MA",estCost:10,actCost:0,warning:'',parkingInfo:'🅿️ On foot / island bus — no car needed on the island'},
+    {name:'Ferry Return',duration:1,drive:15,details:'Board passenger ferry back to Hyannis Harbor.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Hy-Line Cruises Oak Bluffs MA',estCost:0,actCost:0,warning:"⚠️ Don't miss the return ferry — check your departure time in advance!",parkingInfo:'🅿️ Pick up car at Hy-Line lot, 220 Ocean St, Hyannis MA 02601 on return',operator:'Hy-Line Cruises'},
+    {name:'Dinner',duration:1.75,drive:0,details:'Anejo Mexican Bistro: Tableside guacamole and gourmet tacos on the outdoor patio.',altFood:"Spanky's Clam Shack: Fresh boiled New England lobster with corn on the cob.",needsTicket:false,confirmCode:'',mapsQuery:'Anejo Mexican Bistro Hyannis MA',estCost:100,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Anejo Mexican Bistro, 188 Ocean St, Hyannis MA 02601\n📝 Street parking or Bismore Park lot nearby',restaurant:'Anejo Mexican Bistro'}
   ]},
   {id:'day5',title:'Inflatable Park Day',date:'Monday, July 6',basecamp:'Holiday Inn Hyannis',start:'11:30',activities:[
-    {name:'Lunch Block',duration:1.25,drive:15,details:'99 Restaurant West Yarmouth: Signature gold fever chicken tenders and tournament tracking.',altFood:'Optimist Cafe: Light quiches, turkey-avocado wraps, crisp summer salads.',needsTicket:false,confirmCode:'',mapsQuery:'99 Restaurant West Yarmouth MA',estCost:55,actCost:0,warning:'',parkingInfo:'🅿️ GPS: 99 Restaurant, 942 Route 28, West Yarmouth MA 02673\n💲 Free on-site lot'},
-    {name:'Cape Cod Inflatable Park',duration:4,drive:30,details:'Dry inflatable obstacle runs and water slides at H2O Water Park.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Cape Cod Inflatable Park Yarmouth MA',estCost:100,actCost:0,warning:'',parkingInfo:'🅿️ GPS: 195 Whites Path, South Yarmouth MA 02664\n💲 Free on-site parking lot'},
-    {name:'Final Cape Dinner',duration:1.75,drive:0,details:'Pizza Barbone: High-end wood-fired thin pizzas on Hyannis Main Street.',altFood:'Tap City Grille: Clean power bowls and giant chopped salads.',needsTicket:false,confirmCode:'',mapsQuery:'Pizza Barbone Hyannis MA',estCost:75,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Pizza Barbone, 600 Main St, Hyannis MA 02601\n📝 Street parking on Main St or nearby municipal lot'}
+    {name:'Lunch',duration:1.25,drive:15,details:'99 Restaurant West Yarmouth: Signature gold fever chicken tenders and tournament tracking.',altFood:'Optimist Cafe: Light quiches, turkey-avocado wraps, crisp summer salads.',needsTicket:false,confirmCode:'',mapsQuery:'99 Restaurant West Yarmouth MA',estCost:55,actCost:0,warning:'',parkingInfo:'🅿️ GPS: 99 Restaurant, 942 Route 28, West Yarmouth MA 02673\n💲 Free on-site lot',restaurant:'99 Restaurant'},
+    {name:'Inflatable Park',duration:4,drive:30,details:'Dry inflatable obstacle runs and water slides at H2O Water Park.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Cape Cod Inflatable Park Yarmouth MA',estCost:100,actCost:0,warning:'',parkingInfo:'🅿️ GPS: 195 Whites Path, South Yarmouth MA 02664\n💲 Free on-site parking lot',operator:'Cape Cod Inflatable Park'},
+    {name:'Dinner',duration:1.75,drive:0,details:'Pizza Barbone: High-end wood-fired thin pizzas on Hyannis Main Street.',altFood:'Tap City Grille: Clean power bowls and giant chopped salads.',needsTicket:false,confirmCode:'',mapsQuery:'Pizza Barbone Hyannis MA',estCost:75,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Pizza Barbone, 600 Main St, Hyannis MA 02601\n📝 Street parking on Main St or nearby municipal lot',restaurant:'Pizza Barbone'}
   ]},
   {id:'day6',title:'Boston Seaport Arrival',date:'Tuesday, July 7',basecamp:'Aloft Boston Seaport District',start:'09:30',activities:[
-    {name:'Drive to City & Bag Drop',duration:2,drive:30,details:'Check out of Hyannis, drive to Boston, drop bags at Aloft Seaport front desk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Aloft Boston Seaport District MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Aloft Boston Seaport, 401 D St, Boston MA 02210\n💲 Valet ~$55/night OR self-park: 100 Seaport Blvd (~$30/day) or 21 Drydock Ave (~$25/day)\n📝 Park once and use rideshares — Boston traffic is brutal'},
-    {name:'Open-Air Seaport Lunch',duration:1.25,drive:15,details:'The Barking Crab: High-energy open-air seafood tent on Fort Point Channel.',altFood:'Woods Hill Pier 4: Waterfront farm-to-table lunch, fresh local crudo.',needsTicket:false,confirmCode:'',mapsQuery:'The Barking Crab Boston MA',estCost:80,actCost:0,warning:'',parkingInfo:'🅿️ Car at Aloft hotel — walk to Barking Crab (8 min on foot)'},
-    {name:'Museum of Science Visit',duration:2.75,drive:20,details:'Hands-on engineering labs, 20-foot indoor lightning show, indoor butterfly garden.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Museum of Science Boston MA',estCost:120,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Museum of Science Garage, 1 Science Park, Boston MA 02114\n💲 ~$25 or take an Uber from hotel (~$15)'},
-    {name:'BREWERY #1: Trillium Brewing',duration:1,drive:10,details:'Fort Point taproom. World-class hazy IPAs. Spacious, casual, kid friendly.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Trillium Brewing Fort Point Boston MA',estCost:40,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Trillium Brewing, 369 Congress St, Boston MA 02210\n📝 Walk from hotel (12 min) or short Uber'},
-    {name:'Lawn on D Games',duration:2.5,drive:0,details:'Glowing LED circle swings. Food trucks and fast-casual nearby for dinner.',altFood:'Cava or Sweetgreen Seaport: Mediterranean grain bowls or salads — walk 3 mins.',needsTicket:false,confirmCode:'',mapsQuery:'Lawn on D Boston MA',estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Lawn on D, 420 D St, Boston MA 02210\n📝 Walk from Aloft hotel (5 min) — right in Seaport'}
+    {name:'Drive to Boston',duration:2,drive:30,details:'Check out of Hyannis, drive to Boston, drop bags at Aloft Seaport front desk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Aloft Boston Seaport District MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Aloft Boston Seaport, 401 D St, Boston MA 02210\n💲 Valet ~$55/night OR self-park: 100 Seaport Blvd (~$30/day) or 21 Drydock Ave (~$25/day)\n📝 Park once and use rideshares — Boston traffic is brutal'},
+    {name:'Lunch',duration:1.25,drive:15,details:'The Barking Crab: High-energy open-air seafood tent on Fort Point Channel.',altFood:'Woods Hill Pier 4: Waterfront farm-to-table lunch, fresh local crudo.',needsTicket:false,confirmCode:'',mapsQuery:'The Barking Crab Boston MA',estCost:80,actCost:0,warning:'',parkingInfo:'🅿️ Car at Aloft hotel — walk to Barking Crab (8 min on foot)',restaurant:'The Barking Crab'},
+    {name:'Museum of Science',duration:2.75,drive:20,details:'Hands-on engineering labs, 20-foot indoor lightning show, indoor butterfly garden.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Museum of Science Boston MA',estCost:120,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Museum of Science Garage, 1 Science Park, Boston MA 02114\n💲 ~$25 or take an Uber from hotel (~$15)',operator:'Museum of Science Boston'},
+    {name:'Trillium Brewery',duration:1,drive:10,details:'Fort Point taproom. World-class hazy IPAs. Spacious, casual, kid friendly.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Trillium Brewing Fort Point Boston MA',estCost:40,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Trillium Brewing, 369 Congress St, Boston MA 02210\n📝 Walk from hotel (12 min) or short Uber',operator:'Trillium Brewing Company'},
+    {name:'Lawn on D',duration:2.5,drive:0,details:'Glowing LED circle swings. Food trucks and fast-casual nearby for dinner.',altFood:'Cava or Sweetgreen Seaport: Mediterranean grain bowls or salads — walk 3 mins.',needsTicket:false,confirmCode:'',mapsQuery:'Lawn on D Boston MA',estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Lawn on D, 420 D St, Boston MA 02210\n📝 Walk from Aloft hotel (5 min) — right in Seaport'}
   ]},
   {id:'day7',title:'Historic Boston Strolls',date:'Wednesday, July 8',basecamp:'Aloft Boston Seaport District',start:'10:00',activities:[
-    {name:'Amphibious Duck Boat Tour',duration:1.5,drive:10,details:'Narrated land tour then splashes into the Charles River for skyline views.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Boston Duck Tours MA',estCost:160,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Boston Duck Tours, 1 Science Park, Boston MA 02114\n📝 Uber from hotel recommended (~$15) — no easy parking nearby'},
-    {name:'Quincy Market Colonnade',duration:1.67,drive:20,details:"Faneuil Hall market food stalls — everyone picks their own comfort foods.",altFood:'The Boston Smoked Fish Co: Fresh smoked salmon rolls inside the market.',needsTicket:false,confirmCode:'',mapsQuery:'Quincy Market Boston MA',estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Quincy Market, 1 Faneuil Hall Sq, Boston MA 02109\n📝 Uber from Duck Boats (~$12) — parking in Downtown Boston is very expensive'},
-    {name:'Public Garden Swan Boats',duration:1.25,drive:15,details:'Pedal-powered ride on Swan Boats, then see the Make Way for Ducklings statues.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Swan Boats Boston Public Garden MA',estCost:30,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Boston Public Garden, 4 Charles St, Boston MA 02116\n📝 Walk from Faneuil Hall (~20 min) or short Uber'},
-    {name:'NOSTALGIA STOP: Cheers Pub',duration:0.75,drive:45,details:'Beacon Hill: Original basement pub. Photos under sign, pint break for parents.',altFood:'Keep under 45 mins to prevent kid boredom. Grab a souvenir t-shirt.',needsTicket:false,confirmCode:'',mapsQuery:'Cheers Bar Beacon Hill Boston MA',estCost:35,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Cheers Beacon Hill, 84 Beacon St, Boston MA 02108\n📝 Walk from Public Garden (5 min)'},
-    {name:'North End Park & Pastries',duration:1,drive:15,details:"Christopher Columbus Park, then Little Italy for Mike's or Modern Pastry.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Mike's Pastry North End Boston MA",estCost:25,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Christopher Columbus Park, 106 Atlantic Ave, Boston MA 02110\n📝 Uber from Beacon Hill (~$10) — North End has almost no parking'},
-    {name:'Historic Brick-Oven Dinner',duration:1.75,drive:0,details:'Regina Pizzeria Thacher St: Original 1926 location, legendary pizza institution.',altFood:'Bricco North End: Pan-seared sea bass, light caprese salads, fresh raw bar.',needsTicket:false,confirmCode:'',mapsQuery:'Regina Pizzeria North End Boston MA',estCost:90,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Regina Pizzeria, 11½ Thacher St, Boston MA 02113\n📝 Walk from Christopher Columbus Park (8 min)'}
+    {name:'Duck Boat Tour',duration:1.5,drive:10,details:'Narrated land tour then splashes into the Charles River for skyline views.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Boston Duck Tours MA',estCost:160,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Boston Duck Tours, 1 Science Park, Boston MA 02114\n📝 Uber from hotel recommended (~$15) — no easy parking nearby',operator:'Boston Duck Tours'},
+    {name:'Quincy Market',duration:1.67,drive:20,details:"Faneuil Hall market food stalls — everyone picks their own comfort foods.",altFood:'The Boston Smoked Fish Co: Fresh smoked salmon rolls inside the market.',needsTicket:false,confirmCode:'',mapsQuery:'Quincy Market Boston MA',estCost:60,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Quincy Market, 1 Faneuil Hall Sq, Boston MA 02109\n📝 Uber from Duck Boats (~$12) — parking in Downtown Boston is very expensive',restaurant:'Quincy Market'},
+    {name:'Swan Boats',duration:1.25,drive:15,details:'Pedal-powered ride on Swan Boats, then see the Make Way for Ducklings statues.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Swan Boats Boston Public Garden MA',estCost:30,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Boston Public Garden, 4 Charles St, Boston MA 02116\n📝 Walk from Faneuil Hall (~20 min) or short Uber',restaurant:'Public Garden Swan Boats',operator:'Swan Boats of Boston'},
+    {name:'Cheers Pub',duration:0.75,drive:45,details:'Beacon Hill: Original basement pub. Photos under sign, pint break for parents.',altFood:'Keep under 45 mins to prevent kid boredom. Grab a souvenir t-shirt.',needsTicket:false,confirmCode:'',mapsQuery:'Cheers Bar Beacon Hill Boston MA',estCost:35,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Cheers Beacon Hill, 84 Beacon St, Boston MA 02108\n📝 Walk from Public Garden (5 min)',restaurant:'Cheers Beacon Hill'},
+    {name:'North End & Pastries',duration:1,drive:15,details:"Christopher Columbus Park, then Little Italy for Mike's or Modern Pastry.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Mike's Pastry North End Boston MA",estCost:25,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Christopher Columbus Park, 106 Atlantic Ave, Boston MA 02110\n📝 Uber from Beacon Hill (~$10) — North End has almost no parking'},
+    {name:'Dinner',duration:1.75,drive:0,details:'Regina Pizzeria Thacher St: Original 1926 location, legendary pizza institution.',altFood:'Bricco North End: Pan-seared sea bass, light caprese salads, fresh raw bar.',needsTicket:false,confirmCode:'',mapsQuery:'Regina Pizzeria North End Boston MA',estCost:90,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Regina Pizzeria, 11½ Thacher St, Boston MA 02113\n📝 Walk from Christopher Columbus Park (8 min)',restaurant:'Regina Pizzeria'}
   ]},
   {id:'day8',title:'Fenway & Quarterfinals',date:'Thursday, July 9',basecamp:'Aloft Boston Seaport District',start:'10:00',activities:[
-    {name:'Fenway Green Monster Tour',duration:1.5,drive:5,details:"Official walking tour inside America's oldest ballpark. Sit on Green Monster seats.",altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Fenway Park Boston MA',estCost:120,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Landmark Center Garage, 401 Park Dr, Boston MA 02215\n💲 ~$25 or Uber from hotel (~$15, 10 min)\n📝 Enter Fenway via Yawkey Way'},
-    {name:'Stadium Outfield Lunch',duration:1.5,drive:30,details:'Bleacher Bar: Tables inside centerfield wall looking out onto the field grass.',altFood:'Time Out Market Fenway: Fresh poke bowls and salads — walk 5 mins.',needsTicket:false,confirmCode:'',mapsQuery:'Bleacher Bar Fenway Boston MA',estCost:70,actCost:0,warning:'',parkingInfo:'🅿️ Already at Fenway area — walk to Bleacher Bar (inside Fenway)'},
-    {name:'Hotel Pool & Rest Break',duration:3.5,drive:20,details:'Essential rest window. Swim at Aloft, nap, recharge for tournament matches.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Aloft Boston Seaport District MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Aloft Boston Seaport, 401 D St, Boston MA 02210\n📝 Drive back from Fenway or Uber home'},
-    {name:'BREWERY #2: Cisco Brewers',duration:3.5,drive:0,details:'Outdoor pop-up garden watch party. Quarterfinal on giant mega screens, live music, food stalls.',altFood:'Raw bar shacks on site for local oysters or grilled fish tacos.',needsTicket:false,confirmCode:'',mapsQuery:'Cisco Brewers Boston Seaport MA',estCost:80,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Cisco Brewers Seaport, 13 Lansdowne St, Boston MA 02215\n📝 Walk from Aloft hotel (8 min) — in the Seaport District'}
+    {name:'Fenway Tour',duration:1.5,drive:5,details:"Official walking tour inside America's oldest ballpark. Sit on Green Monster seats.",altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Fenway Park Boston MA',estCost:120,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Landmark Center Garage, 401 Park Dr, Boston MA 02215\n💲 ~$25 or Uber from hotel (~$15, 10 min)\n📝 Enter Fenway via Yawkey Way',operator:'Fenway Park Tours'},
+    {name:'Lunch',duration:1.5,drive:30,details:'Bleacher Bar: Tables inside centerfield wall looking out onto the field grass.',altFood:'Time Out Market Fenway: Fresh poke bowls and salads — walk 5 mins.',needsTicket:false,confirmCode:'',mapsQuery:'Bleacher Bar Fenway Boston MA',estCost:70,actCost:0,warning:'',parkingInfo:'🅿️ Already at Fenway area — walk to Bleacher Bar (inside Fenway)',restaurant:'Bleacher Bar'},
+    {name:'Pool & Rest',duration:3.5,drive:20,details:'Essential rest window. Swim at Aloft, nap, recharge for tournament matches.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Aloft Boston Seaport District MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Aloft Boston Seaport, 401 D St, Boston MA 02210\n📝 Drive back from Fenway or Uber home'},
+    {name:'Cisco Brewers',duration:3.5,drive:0,details:'Outdoor pop-up garden watch party. Quarterfinal on giant mega screens, live music, food stalls.',altFood:'Raw bar shacks on site for local oysters or grilled fish tacos.',needsTicket:false,confirmCode:'',mapsQuery:'Cisco Brewers Boston Seaport MA',estCost:80,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Cisco Brewers Seaport, 13 Lansdowne St, Boston MA 02215\n📝 Walk from Aloft hotel (8 min) — in the Seaport District',operator:'Cisco Brewers'}
   ]},
   {id:'day9',title:'Tea Party & Watch Party',date:'Friday, July 10',basecamp:'Aloft Boston Seaport District',start:'09:45',activities:[
-    {name:'Boston Tea Party Museum',duration:1.25,drive:30,details:'Interactive costumed actors, storming replica ships, dumping tea crates into harbor.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Boston Tea Party Ships and Museum MA',estCost:140,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Boston Tea Party Museum, 306 Congress St, Boston MA 02210\n📝 Walk from Aloft hotel (12 min) or short Uber'},
-    {name:'Harvard Square Burger Lunch',duration:1.5,drive:45,details:"Mr. Bartley's Burger Cottage: Landmark burger house, fun-named plates, retro posters.",altFood:'The Hourly Oyster House: Airy tavern with clean salmon and lobster salads.',needsTicket:false,confirmCode:'',mapsQuery:"Mr. Bartley's Burger Cottage Cambridge MA",estCost:65,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Mr. Bartley\'s, 1246 Massachusetts Ave, Cambridge MA 02138\n📝 Take MBTA Red Line from South Station to Harvard Station (15 min, $2.40) — DO NOT drive to Harvard'},
-    {name:'Harvard Yard Campus Walk',duration:0.75,drive:45,details:"Walk historic brick yards. Rub John Harvard's brass shoe for luck, check the Coop store.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Harvard Yard Cambridge MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Harvard Yard, Cambridge MA 02138\n📝 Walk from Mr. Bartley\'s (2 min)'},
-    {name:'WATCH PARTY: The Sporting Club',duration:4,drive:15,details:'Omni Seaport: 12-foot high-def screen wall for QF kickoff.',altFood:'Mezze hummus plates, seared tuna crudo, or turkey club wraps.',needsTicket:false,confirmCode:'',mapsQuery:'The Sporting Club Omni Boston Seaport MA',estCost:100,actCost:0,warning:'⚠️ Secure your table before 3 PM kickoff — this venue fills up very fast!',parkingInfo:'🅿️ GPS: Omni Boston Hotel, 450 Summer St, Boston MA 02210\n📝 Walk from Aloft hotel (10 min) — right in Seaport\n🔴 Arrive before 3 PM kickoff — venue fills up fast'},
-    {name:'Grand Finale Seafood Dinner',duration:2,drive:0,details:'Legal Harborside: Final night on three-story glass structure directly on Seaport water.',altFood:'Legal Net Catch: Request cod or salmon wood-grilled with olive oil and broccoli.',needsTicket:true,confirmCode:'',mapsQuery:'Legal Harborside Boston MA',estCost:200,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Legal Harborside, 270 Northern Ave, Boston MA 02210\n📝 Walk from Sporting Club (5 min) — all in Seaport District'}
+    {name:'Tea Party Museum',duration:1.25,drive:30,details:'Interactive costumed actors, storming replica ships, dumping tea crates into harbor.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Boston Tea Party Ships and Museum MA',estCost:140,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Boston Tea Party Museum, 306 Congress St, Boston MA 02210\n📝 Walk from Aloft hotel (12 min) or short Uber',operator:'Boston Tea Party Ships & Museum'},
+    {name:'Lunch',duration:1.5,drive:45,details:"Mr. Bartley's Burger Cottage: Landmark burger house, fun-named plates, retro posters.",altFood:'The Hourly Oyster House: Airy tavern with clean salmon and lobster salads.',needsTicket:false,confirmCode:'',mapsQuery:"Mr. Bartley's Burger Cottage Cambridge MA",estCost:65,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Mr. Bartley\'s, 1246 Massachusetts Ave, Cambridge MA 02138\n📝 Take MBTA Red Line from South Station to Harvard Station (15 min, $2.40) — DO NOT drive to Harvard',restaurant:'Mr. Bartley\'s Burger Cottage'},
+    {name:'Harvard Yard',duration:0.75,drive:45,details:"Walk historic brick yards. Rub John Harvard's brass shoe for luck, check the Coop store.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Harvard Yard Cambridge MA',estCost:0,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Harvard Yard, Cambridge MA 02138\n📝 Walk from Mr. Bartley\'s (2 min)'},
+    {name:'Watch Party',duration:4,drive:15,details:'Omni Seaport: 12-foot high-def screen wall for QF kickoff.',altFood:'Mezze hummus plates, seared tuna crudo, or turkey club wraps.',needsTicket:false,confirmCode:'',mapsQuery:'The Sporting Club Omni Boston Seaport MA',estCost:100,actCost:0,warning:'⚠️ Secure your table before 3 PM kickoff — this venue fills up very fast!',parkingInfo:'🅿️ GPS: Omni Boston Hotel, 450 Summer St, Boston MA 02210\n📝 Walk from Aloft hotel (10 min) — right in Seaport\n🔴 Arrive before 3 PM kickoff — venue fills up fast',operator:'The Sporting Club at Omni Seaport'},
+    {name:'Dinner',duration:2,drive:0,details:'Legal Harborside: Final night on three-story glass structure directly on Seaport water.',altFood:'Legal Net Catch: Request cod or salmon wood-grilled with olive oil and broccoli.',needsTicket:true,confirmCode:'',mapsQuery:'Legal Harborside Boston MA',estCost:200,actCost:0,warning:'',parkingInfo:'🅿️ GPS: Legal Harborside, 270 Northern Ave, Boston MA 02210\n📝 Walk from Sporting Club (5 min) — all in Seaport District',restaurant:'Legal Harborside'}
   ]}
 ]));
 
@@ -582,13 +585,19 @@ window.jumpToToday=function(){
 
 // Budget
 function updateBudget(){
-  let est=0,act=0;
-  appData.days.forEach(d=>d.activities.forEach(a=>{est+=parseFloat(a.estCost)||0;act+=parseFloat(a.actCost)||0;}));
-  document.getElementById('bud-est').textContent='$'+est.toFixed(0);
-  document.getElementById('bud-act').textContent='$'+act.toFixed(0);
-  const rem=est-act,el=document.getElementById('bud-rem');
-  el.textContent=(rem>=0?'$'+rem.toFixed(0):'-$'+Math.abs(rem).toFixed(0));
-  el.style.color=rem<0?'var(--accent)':'var(--secondary)';
+  let total=0,todaySpend=0;
+  const todayId=getTodayId();
+  appData.days.forEach(d=>{
+    d.activities.forEach(a=>{
+      const v=parseFloat(a.actCost)||0;
+      total+=v;
+      if(d.id===todayId) todaySpend+=v;
+    });
+  });
+  const actEl=document.getElementById('bud-act');
+  if(actEl) actEl.textContent='$'+total.toFixed(0);
+  const todayEl=document.getElementById('bud-today');
+  if(todayEl) todayEl.textContent='$'+todaySpend.toFixed(0);
 }
 
 // Ticket counter
@@ -792,6 +801,14 @@ window.toggleActivity=function(editId,chevId){
   const isOpen=panel.classList.contains('open');
   panel.classList.toggle('open',!isOpen);
   if(chev)chev.classList.toggle('open',!isOpen);
+  // Auto-expand parking textarea when panel opens
+  if(!isOpen){
+    requestAnimationFrame(()=>{
+      panel.querySelectorAll('.parking-input').forEach(ta=>{
+        ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';
+      });
+    });
+  }
 };
 window.showDeleteConfirm=function(btn){
   const footer=btn.parentElement;
@@ -846,6 +863,7 @@ function renderSchedule(){
       metaParts.push(`<span class="act-meta-dur">⏱ ${durLabel}${driveMin?' · 🚗 '+driveMin+'m':''}</span>`);
       if(act.warning) metaParts.push('<span class="act-meta-warn">⚠️ Time-critical</span>');
       if(act.needsTicket) metaParts.push(act.confirmCode&&act.confirmCode.trim()?'<span class="act-meta-ticket">🎟️ ✅ Confirmed</span>':'<span class="act-meta-ticket">🎟️ Needs booking</span>');
+      if(act.operator&&act.operator.trim()) metaParts.push(`<span class="act-meta-dur" style="color:#5b21b6;">🏢 ${act.operator}</span>`);
       if((parseFloat(act.actCost)||0)>0) metaParts.push(`<span class="act-meta-spent">$${parseFloat(act.actCost).toFixed(0)} spent</span>`);
       return`<div class="activity-row${act.warning?' has-warning':''}">
         <div class="act-summary" onclick="toggleActivity('${editId}','${chevId}')">
@@ -860,24 +878,28 @@ function renderSchedule(){
           <div class="edit-grid">
             <div class="edit-time-col">
               <input class="time-input" type="time" value="${mtn(startTimes[aIdx])}" onchange="overrideActivityTime('${day.id}',${aIdx},this.value)">
-              <div class="time-hint">✏️ tap to change</div>
-              <div class="leave-by" id="leaveby-${day.id}-${aIdx}" style="display:${driveMin>0&&aIdx<acts.length-1?'block':'none'}">🚗 Leave by ${leaveByStr||''}</div>
+                  <div class="leave-by" id="leaveby-${day.id}-${aIdx}" style="display:${driveMin>0&&aIdx<acts.length-1?'block':'none'}">🚗 Leave by ${leaveByStr||''}</div>
               <div class="inputs-group">
                 <div class="control-input"><span>⏱ hrs</span><input type="number" min="0" max="24" step="0.25" value="${act.duration}" oninput="updateActivityValue('${day.id}',${aIdx},'duration',parseFloat(this.value)||0)"></div>
                 <div class="control-input"><span>🚗 min</span><input type="number" min="0" max="300" step="5" value="${act.drive}" oninput="updateActivityValue('${day.id}',${aIdx},'drive',parseInt(this.value)||0)"></div>
               </div>
             </div>
             <div class="edit-detail-col">
-              <div class="budget-inputs">
-                <label class="act-lbl">✅ Actual $<input type="number" min="0" step="1" value="${act.actCost||0}" oninput="updateActivityValue('${day.id}',${aIdx},'actCost',parseFloat(this.value)||0)"></label>
-                <label>💰 Est $<input type="number" min="0" step="1" value="${act.estCost||0}" oninput="updateActivityValue('${day.id}',${aIdx},'estCost',parseFloat(this.value)||0)"></label>
+              <div class="budget-inputs" style="grid-template-columns:1fr;">
+                <label class="act-lbl">✅ Spent $<input type="number" min="0" step="1" value="${act.actCost||0}" oninput="updateActivityValue('${day.id}',${aIdx},'actCost',parseFloat(this.value)||0)"></label>
               </div>
               ${act.warning?`<div class="warn-flag">⚠️ ${act.warning}</div>`:''}
+              ${isMeal?`
+              <div class="restaurant-box"><span>🍽️</span><input type="text" class="restaurant-input" value="${(act.restaurant||act.name).replace(/"/g,'&quot;')}" placeholder="Restaurant name..." oninput="updateActivityValue('${day.id}',${aIdx},'restaurant',this.value)"></div>
+              <button class="maps-btn" onclick="(function(b){var rest=b.closest('.edit-detail-col').querySelector('.restaurant-input');openMaps(rest.value.trim()+' '+(DAY_CITY['${day.id}']||''));})(this)">📍 Open in Maps</button>
+              <div class="alt-food-box"><span>🥗</span><input type="text" value="${(act.altFood||'').replace(/"/g,'&quot;')}" placeholder="Healthy pivot option..." oninput="updateActivityValue('${day.id}',${aIdx},'altFood',this.value)"></div>
+              `:`
               <input type="text" class="act-title-input" value="${act.name.replace(/"/g,'&quot;')}" oninput="updateActivityValue('${day.id}',${aIdx},'name',this.value)">
-              <button class="maps-btn" onclick="openMaps('${act.name.replace(/'/g,"\\'")} ${DAY_CITY[day.id]||''}')">📍 Open in Maps</button>
-              <div class="parking-box"><span>🅿️</span><input type="text" value="${(act.parkingInfo||'').replace(/"/g,'&quot;')}" placeholder="Parking address & notes for this stop..." oninput="updateActivityValue('${day.id}',${aIdx},'parkingInfo',this.value)"></div>
-              <textarea class="act-desc-input" rows="2" oninput="updateActivityValue('${day.id}',${aIdx},'details',this.value)">${act.details}</textarea>
-              ${isMeal?`<div class="alt-food-box"><span>🥗</span><input type="text" value="${(act.altFood||'').replace(/"/g,'&quot;')}" placeholder="Healthy pivot option..." oninput="updateActivityValue('${day.id}',${aIdx},'altFood',this.value)"></div>`:''}
+              <div class="operator-box"><span>🏢</span><input type="text" value="${(act.operator||'').replace(/"/g,'&quot;')}" placeholder="Company / operator name..." oninput="updateActivityValue('${day.id}',${aIdx},'operator',this.value)"></div>
+              <button class="maps-btn" onclick="(function(b){var title=b.closest('.edit-detail-col').querySelector('.act-title-input');openMaps(title.value.trim()+' '+(DAY_CITY['${day.id}']||''));})(this)">📍 Open in Maps</button>
+              <div class="parking-box" style="align-items:flex-start;"><span style="margin-top:.15rem;">🅿️</span><textarea class="parking-input" rows="3" placeholder="Address, cost, exit notes..." oninput="updateActivityValue('${day.id}',${aIdx},'parkingInfo',this.value);this.style.height='auto';this.style.height=this.scrollHeight+'px'" style="flex:1;background:transparent;border:none;outline:none;font-family:inherit;font-size:.95rem;color:#1e3a8a;resize:none;line-height:1.45;">${(act.parkingInfo||'').replace(/</g,'&lt;')}</textarea></div>
+
+              `}
               <label class="ticket-toggle"><input type="checkbox" ${act.needsTicket?'checked':''} onchange="toggleNeedsTicket('${day.id}',${aIdx},this.checked)"> 🎟️ Needs a booking / ticket</label>
               ${act.needsTicket?`<div class="confirm-box"><span>🎟️</span><input type="text" value="${(act.confirmCode||'').replace(/"/g,'&quot;')}" placeholder="Confirmation / booking code..." oninput="updateActivityValue('${day.id}',${aIdx},'confirmCode',this.value)"></div>`:''}
               <div class="row-footer">
@@ -904,8 +926,7 @@ function renderSchedule(){
       <div class="day-header" onclick="toggleDayBody(this)">
         <div class="day-header-left">
           <div class="day-date-label">${day.date}${isPast?' · Completed ✓':''}</div>
-          <h2>${day.title}${isToday?'<span class="today-badge">Today</span>':''}</h2>
-          <div class="day-hotel">🏠 ${day.basecamp}</div>
+          <h2>${day.title}${isToday?'<span class="today-badge">Today</span>':''} <span style="font-size:.72rem;font-weight:400;color:var(--text-muted);">· ${day.basecamp}</span></h2>
         </div>
         <div class="day-header-right">
           <div class="day-header-actions" onclick="event.stopPropagation()">
@@ -915,14 +936,14 @@ function renderSchedule(){
           <span class="arrow">${isPast?'▲':'▼'}</span>
         </div>
       </div>
-      <div class="day-notes-bar">
-        <div class="bar-label">📝 Day Notes</div>
-        <textarea rows="1" placeholder="Reminders, hotel codes, anything for today..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateDayNote('${day.id}',this.value,this)">${note}</textarea>
+      <div class="day-notes-bar" style="${note?'':'border-bottom:none;padding:.3rem .85rem;'}">
+        ${note?'<div class="bar-label">📝 Day Notes</div>':''}
+        <textarea rows="1" placeholder="📝 Add day notes..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateDayNote('${day.id}',this.value,this)" style="${note?'':'font-size:.8rem;'}">${note}</textarea>
         <span class="note-saved">✓ saved</span>
       </div>
-      <div class="day-drive-bar">
-        <div class="bar-label">🚗 General Driving Notes</div>
-        <textarea rows="2" placeholder="General driving notes for the day..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateDayDriving('${day.id}',this.value,this)">${driveNote}</textarea>
+      <div class="day-drive-bar" style="${driveNote?'':'border-bottom:none;padding:.3rem .85rem;'}">
+        ${driveNote?'<div class="bar-label">🚗 General Driving Notes</div>':''}
+        <textarea rows="${driveNote?'2':'1'}" placeholder="🚗 Add driving notes..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateDayDriving('${day.id}',this.value,this)" style="${driveNote?'':'font-size:.8rem;'}">${driveNote}</textarea>
         <span class="drive-saved">✓ saved</span>
       </div>
       <div class="day-body" ${isPast?'style="display:none"':''}>${rows}
@@ -932,9 +953,9 @@ function renderSchedule(){
   }).join('');
   appData.days.forEach((_,i)=>recalcDay(i));
   checkTodayJump();
-  // Auto-expand all textareas (notes, driving, memories) to fit their content
+  // Auto-expand all textareas to fit their content
   requestAnimationFrame(()=>{
-    document.querySelectorAll('.day-drive-bar textarea, .day-notes-bar textarea').forEach(ta=>{
+    document.querySelectorAll('.day-drive-bar textarea, .day-notes-bar textarea, .parking-input').forEach(ta=>{
       ta.style.height='auto';
       ta.style.height=ta.scrollHeight+'px';
     });
@@ -1014,13 +1035,13 @@ function renderDiningCard(){
     const t=mts(startTimes[i]);
     const city=DAY_CITY[cardDayId]||'';
     const altVal=(act.altFood||'').replace(/"/g,'&quot;');
-    const nameVal=act.name.replace(/"/g,'&quot;');
+    const nameVal=(act.restaurant||act.name).replace(/"/g,'&quot;');
     return`<div class="dining-row">
       <div class="dining-row-time">${t}</div>
       <div class="dining-row-name">
         <input type="text" value="${nameVal}" placeholder="Restaurant name..."
-          oninput="updateDiningName('${cardDayId}',${i},this.value)">
-        <button class="dining-row-maps" onclick="openMaps('${act.name.replace(/'/g,"\\'")} ${city}')">📍 Maps</button>
+          oninput="updateActivityValue('${cardDayId}',${i},'restaurant',this.value)">
+        <button class="dining-row-maps" onclick="(function(b){var row=b.closest('.dining-row');var inp=row.querySelector('input[type=text]');openMaps((inp?inp.value:'')+' '+(DAY_CITY['${cardDayId}']||''));})(this)">📍 Maps</button>
       </div>
       <div class="dining-pivot"><span>🥗</span><input type="text" value="${altVal}" placeholder="Healthy pivot option..." oninput="updateActivityValue('${cardDayId}',${i},'altFood',this.value)"></div>
     </div>`;
@@ -1048,12 +1069,7 @@ window.renderDiningCard=renderDiningCard=function(){
 };
 
 window.updateDiningName=function(dayId,aIdx,value){
-  // Update both the dining card and the activity in one go
-  updateActivityValue(dayId,aIdx,'name',value);
-  // Also update the maps button in the dining card dynamically
-  const city=DAY_CITY[dayId]||'';
-  const mapsBtn=document.querySelectorAll('.dining-row-maps')[aIdx];
-  // Re-render dining card to sync maps button query
+  updateActivityValue(dayId,aIdx,'restaurant',value);
   setTimeout(()=>renderDiningCard(),100);
 };
 
