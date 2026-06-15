@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nasta Planner">
+<meta name="theme-color" content="#f97316">
+<link rel="manifest" href="./manifest.json">
+<title>Nasta Family Planner</title>
+<style>
+:root{--primary:#f97316;--primary-light:#fff7ed;--secondary:#0ea5e9;--secondary-light:#f0f9ff;--teal:#0d9488;--teal-light:#f0fdf4;--border:#e2d9d0;--text-dark:#1c1917;--text-muted:#78716c;--accent:#e11d48;--shadow:0 4px 6px -1px rgb(0 0 0/.07),0 2px 4px -2px rgb(0 0 0/.05);--safe-top:env(safe-area-inset-top);--safe-bottom:env(safe-area-inset-bottom);}
+*,*::before,*::after{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-tap-highlight-color:transparent;}
+body{background:#fffaf5;color:var(--text-dark);margin:0;padding:0;padding-top:var(--safe-top);padding-bottom:calc(var(--safe-bottom) + 4.5rem);overscroll-behavior:none;}
+
+#install-banner{display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,#f97316,#ea580c);color:white;padding:calc(var(--safe-top) + .75rem) 1rem .75rem;box-shadow:0 4px 20px rgba(0,0,0,.3);align-items:center;gap:.75rem;}
+#install-banner.show{display:flex;}
+#install-banner .banner-text{flex:1;font-size:.85rem;line-height:1.3;}
+#install-banner .banner-text strong{display:block;font-size:.95rem;}
+#install-banner button{background:white;color:var(--primary);border:none;border-radius:20px;padding:.4rem 1rem;font-weight:700;font-size:.82rem;cursor:pointer;white-space:nowrap;}
+#install-banner .close-btn{background:transparent;color:rgba(255,255,255,.6);padding:.4rem;font-size:1.1rem;}
+
+.modal-backdrop{display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.7);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);align-items:flex-end;justify-content:center;}
+.modal-backdrop.show{display:flex;}
+.modal-sheet{background:white;border-radius:20px 20px 0 0;padding:1.5rem 1.5rem calc(var(--safe-bottom) + 1.5rem);width:100%;max-width:500px;max-height:90vh;overflow-y:auto;}
+.modal-sheet h3{margin:0 0 1rem;color:var(--primary);font-size:1.1rem;}
+.modal-close{width:100%;margin-top:1rem;padding:.75rem;background:var(--primary);color:white;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;}
+.guide-step{display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid #f1f5f9;font-size:.9rem;}
+.guide-step:last-child{border:none;}
+.guide-step .step-icon{font-size:1.5rem;width:2rem;text-align:center;flex-shrink:0;}
+
+#bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.95);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid #e2e8f0;display:flex;padding-bottom:var(--safe-bottom);}
+.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;padding:.6rem .15rem .5rem;gap:.2rem;border:none;background:transparent;color:var(--text-muted);font-size:.6rem;font-weight:500;cursor:pointer;transition:color .15s;}
+.nav-tab .tab-icon{font-size:1.3rem;line-height:1;}
+.nav-tab.active{color:var(--primary);}
+.nav-tab.active .tab-icon{transform:scale(1.08);}
+
+.page{display:none;}.page.active{display:block;}
+.app-container{max-width:680px;margin:0 auto;padding:1rem .9rem;}
+header{text-align:center;background:linear-gradient(135deg,#f97316,#dc6804);color:white;padding:1.5rem 1rem 1.25rem;border-radius:16px;box-shadow:var(--shadow);margin-bottom:1.25rem;}
+header h1{margin:0 0 .3rem;font-size:1.5rem;}
+header p{margin:0;color:rgba(255,255,255,.85);font-size:.88rem;}
+
+.countdown-card{background:linear-gradient(135deg,#0ea5e9,#0284c7);color:white;border-radius:14px;padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);}
+.cd-main{font-size:2.2rem;font-weight:800;line-height:1;}
+.cd-label{font-size:.78rem;opacity:.85;margin-top:.15rem;}
+.cd-right{text-align:right;font-size:.8rem;opacity:.85;line-height:1.5;}
+.cd-status{display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:.2rem .65rem;font-size:.72rem;font-weight:600;margin-top:.35rem;}
+
+.budget-card{background:white;border-radius:14px;border:1px solid #fed7aa;box-shadow:var(--shadow);padding:1rem 1.25rem;margin-bottom:1.25rem;}
+.budget-card h3{margin:0 0 .75rem;font-size:.95rem;color:var(--primary);display:flex;align-items:center;justify-content:space-between;}
+.budget-card h3 button{background:var(--primary-light);border:none;border-radius:8px;padding:.25rem .6rem;font-size:.72rem;color:var(--primary);font-weight:600;cursor:pointer;}
+.bud-row{display:flex;justify-content:space-between;align-items:center;padding:.35rem 0;border-bottom:1px solid #fef3eb;font-size:.85rem;}
+.bud-row:last-child{border:none;}
+.bud-row .bud-lbl{color:var(--text-muted);font-size:.78rem;}
+
+.ticket-counter{background:white;border-radius:14px;border:1px solid #bae6fd;box-shadow:var(--shadow);padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:1rem;}
+.tc-icon{font-size:2rem;}
+.tc-text{flex:1;}
+.tc-count{font-size:1.4rem;font-weight:800;color:var(--primary);}
+.tc-label{font-size:.75rem;color:var(--text-muted);}
+.ticket-progress{margin-top:.4rem;background:#e2e8f0;border-radius:99px;height:6px;overflow:hidden;}
+.ticket-progress-fill{height:100%;background:linear-gradient(90deg,#f59e0b,#d97706);border-radius:99px;transition:width .4s ease;}
+
+.emergency-card{background:white;border-radius:14px;border:1px solid #e2e8f0;box-shadow:var(--shadow);padding:1.15rem 1.25rem;margin-bottom:1.25rem;}
+.emergency-card h3{margin:0 0 .75rem;color:var(--accent);font-size:.95rem;}
+.em-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid #f1f5f9;font-size:.88rem;}
+.em-row:last-child{border:none;}
+.em-row .em-label{color:var(--text-muted);font-size:.78rem;}
+.em-row a{color:var(--secondary);font-weight:600;text-decoration:none;}
+
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1.25rem;}
+.stat-card{background:white;border-radius:14px;border:1px solid #e2e8f0;padding:.75rem .5rem;text-align:center;box-shadow:var(--shadow);}
+.stat-card .stat-icon{font-size:1.6rem;display:block;margin-bottom:.25rem;}
+.stat-card .stat-num{font-size:1.6rem;font-weight:800;color:var(--primary);line-height:1;}
+.stat-card .stat-label{font-size:.72rem;color:var(--text-muted);margin-top:.2rem;}
+
+.city-card{background:white;border-radius:14px;border:1px solid #e2e8f0;box-shadow:var(--shadow);overflow:hidden;margin-bottom:1rem;}
+.city-card-header{padding:.85rem 1rem;display:flex;align-items:center;gap:.65rem;}
+.city-icon{font-size:1.6rem;}
+.city-card-header h3{margin:0;font-size:1rem;color:var(--text-dark);}
+.city-card-header p{margin:0;font-size:.78rem;color:var(--text-muted);}
+.city-days{padding:0 1rem .85rem;display:flex;flex-wrap:wrap;gap:.4rem;}
+.day-pill{background:var(--primary-light);color:var(--primary);border-radius:99px;padding:.25rem .65rem;font-size:.72rem;font-weight:600;cursor:pointer;border:none;}
+
+.checklist-section{background:white;border-radius:14px;box-shadow:var(--shadow);padding:1.25rem;margin-bottom:1.25rem;border:1px solid #e2e8f0;}
+.checklist-section h2{margin:0 0 .85rem;color:var(--text-dark);font-size:1.1rem;border-bottom:2px solid #e8ddd5;padding-bottom:.5rem;}
+.progress-wrap{margin-bottom:.85rem;}
+.progress-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--text-muted);margin-bottom:.3rem;}
+.progress-track{background:#e2e8f0;border-radius:99px;height:7px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#fb923c,#f97316);border-radius:99px;transition:width .3s ease;}
+
+.chk-item{display:flex;align-items:flex-start;gap:.65rem;padding:.55rem .4rem;cursor:pointer;font-size:.9rem;border-radius:6px;}
+.chk-item input[type=checkbox]{margin-top:.15rem;width:1.2rem;height:1.2rem;accent-color:var(--primary);cursor:pointer;flex-shrink:0;}
+.chk-item input[type=checkbox]:checked+span{text-decoration:line-through;color:var(--text-muted);}
+.chk-item span{flex:1;}
+.chk-delete{background:none;border:none;color:#cbd5e1;font-size:.9rem;cursor:pointer;padding:.1rem .25rem;flex-shrink:0;}
+.chk-delete:hover{color:var(--accent);}
+.add-chk-row{display:flex;gap:.5rem;margin-top:.65rem;}
+.add-chk-input{flex:1;border:1px solid var(--border);border-radius:8px;padding:.4rem .65rem;font-size:.88rem;}
+.add-chk-btn{background:var(--secondary);color:white;border:none;border-radius:8px;padding:.4rem .85rem;font-weight:700;font-size:.82rem;cursor:pointer;}
+
+.day-card{background:white;border-radius:14px;box-shadow:var(--shadow);margin-bottom:1.25rem;overflow:hidden;border:1px solid #e2e8f0;transition:opacity .2s;}
+.day-card.today-card{border-color:var(--primary);border-width:2px;}
+.day-card.past-card{opacity:.6;}
+.day-header{background:var(--primary-light);padding:.85rem 1.15rem;border-bottom:1px solid #fed7aa;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;-webkit-user-select:none;user-select:none;}
+.day-header-left{flex:1;}
+.day-date-label{font-size:.7rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
+.day-header-left h2{margin:0;font-size:1rem;color:var(--primary);}
+.day-hotel{font-size:.72rem;color:var(--text-muted);margin-top:.2rem;}
+.day-header-right{display:flex;flex-direction:column;align-items:flex-end;gap:.3rem;padding-left:.5rem;}
+.today-badge{display:inline-block;background:var(--primary);color:white;font-size:.6rem;font-weight:700;padding:.15rem .4rem;border-radius:99px;text-transform:uppercase;letter-spacing:.05em;}
+.day-header-actions{display:flex;gap:.3rem;}
+.hdr-btn{background:rgba(255,255,255,.8);border:1px solid #fed7aa;border-radius:6px;padding:.2rem .5rem;font-size:.75rem;cursor:pointer;color:var(--primary);display:flex;align-items:center;gap:.2rem;}
+.hdr-btn-lbl{font-size:.62rem;font-weight:600;color:var(--primary);}
+.arrow{font-size:.75rem;color:var(--text-muted);}
+
+.day-notes-bar{padding:.35rem .85rem .45rem;background:#fffbeb;border-bottom:1px solid #fef3c7;position:relative;}
+.day-notes-bar .bar-label{font-size:.6rem;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
+.day-notes-bar textarea{width:100%;background:transparent;border:none;font-size:.82rem;color:#78350f;resize:none;outline:none;font-family:inherit;min-height:1.3em;}
+.day-notes-bar textarea::placeholder{color:#d97706;opacity:.6;}
+.note-saved{position:absolute;right:.5rem;top:.35rem;font-size:.65rem;color:#a16207;opacity:0;transition:opacity .3s;}
+.note-saved.show{opacity:1;}
+
+.day-body{padding:.85rem;}
+.schedule-toolbar{display:flex;gap:.5rem;margin-bottom:.85rem;}
+.toolbar-btn{background:white;border:1px solid var(--border);border-radius:8px;padding:.4rem .75rem;font-size:.78rem;color:var(--text-dark);font-weight:600;cursor:pointer;flex:1;text-align:center;}
+#today-jump{display:none;position:sticky;top:0;z-index:50;background:var(--primary);color:white;text-align:center;padding:.55rem 1rem;font-size:.82rem;font-weight:600;cursor:pointer;border-radius:0 0 10px 10px;margin:-1rem -.9rem 1rem;}
+#today-jump.show{display:block;}
+
+/* ── Activity rows — collapsed by default ── */
+.activity-row{border-bottom:1px solid #f1f5f9;position:relative;}
+.activity-row:last-child{border-bottom:none;}
+.activity-row.has-warning .act-summary{background:linear-gradient(90deg,#fffbeb 0%,transparent 80%);border-left:3px solid #f59e0b;padding-left:.6rem;margin-left:-.6rem;}
+
+/* Summary row — always visible */
+.act-summary{display:flex;align-items:center;gap:.75rem;padding:.65rem .85rem .65rem 0;cursor:pointer;-webkit-user-select:none;user-select:none;}
+.act-summary:active{background:#fafafa;}
+.act-time{font-size:.82rem;font-weight:800;color:var(--primary);background:var(--primary-light);border:1.5px solid #fed7aa;border-radius:7px;padding:.25rem .45rem;white-space:nowrap;min-width:72px;text-align:center;flex-shrink:0;}
+.act-name-wrap{flex:1;min-width:0;}
+.act-name{font-size:.95rem;font-weight:700;color:var(--text-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.act-meta{font-size:.7rem;color:var(--text-muted);margin-top:.1rem;display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;}
+.act-meta-dur{color:var(--text-muted);}
+.act-meta-warn{color:#b45309;font-weight:600;}
+.act-meta-ticket{color:#d97706;font-weight:600;}
+.act-meta-spent{color:var(--teal);font-weight:600;}
+.act-chevron{font-size:.7rem;color:var(--text-muted);flex-shrink:0;transition:transform .2s;}
+.act-chevron.open{transform:rotate(180deg);}
+
+/* Edit panel — hidden by default */
+.act-edit{display:none;padding:.75rem .85rem .85rem;background:#fafaf9;border-top:1px solid #f1f5f9;}
+.act-edit.open{display:block;}
+
+/* Edit layout */
+.edit-grid{display:grid;grid-template-columns:100px 1fr;gap:.85rem;margin-bottom:.65rem;}
+.edit-time-col{display:flex;flex-direction:column;gap:.4rem;}
+input.time-input{border:1.5px solid #fed7aa;outline:none;font-weight:700;color:var(--primary);font-size:.88rem;background:var(--primary-light);padding:.3rem .4rem;border-radius:6px;width:100%;text-align:center;cursor:pointer;}
+input.time-input:focus{border-color:var(--primary);background:#ffedd5;}
+.time-hint{font-size:.58rem;color:var(--text-muted);text-align:center;opacity:.7;margin-top:-.2rem;}
+.leave-by{font-size:.67rem;color:var(--teal);font-weight:700;text-align:center;background:var(--teal-light);border-radius:4px;padding:.15rem .3rem;border:1px solid #a7f3d0;}
+.inputs-group{display:flex;flex-direction:column;gap:.35rem;font-size:.72rem;color:var(--text-muted);}
+.control-input{display:flex;justify-content:space-between;align-items:center;gap:.2rem;}
+.control-input input[type=number]{-webkit-appearance:none;-moz-appearance:textfield;appearance:textfield;width:56px;border:1px solid var(--border);border-radius:6px;padding:.2rem .3rem;font-size:.82rem;text-align:center;}
+.control-input input[type=number]::-webkit-inner-spin-button,.control-input input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;}
+.edit-detail-col{display:flex;flex-direction:column;gap:.45rem;}
+.budget-inputs{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;}
+.budget-inputs label{font-size:.68rem;font-weight:600;color:var(--text-muted);display:flex;flex-direction:column;gap:3px;}
+.budget-inputs label.act-lbl{color:var(--teal);}
+.budget-inputs input{border:1px solid var(--border);border-radius:6px;padding:.3rem .4rem;font-size:.85rem;text-align:center;width:100%;}
+.budget-inputs label.act-lbl input{background:#f0fdf4;border-color:#6ee7b7;}
+
+.warn-flag{background:#fef3c7;border:1px solid #fbbf24;border-radius:6px;padding:.3rem .5rem;font-size:.78rem;color:#92400e;font-weight:600;display:flex;align-items:flex-start;gap:.3rem;}
+.act-title-input{font-size:16px;font-weight:700;color:var(--text-dark);border:1px solid transparent;padding:.2rem;width:100%;border-radius:4px;background:transparent;}
+.act-title-input:focus{border-color:var(--primary);background:var(--primary-light);outline:none;}
+.act-desc-input{font-size:15px;color:#475569;border:1px solid transparent;padding:.2rem;width:100%;resize:none;border-radius:4px;background:transparent;}
+.act-desc-input:focus{border-color:var(--primary);background:var(--primary-light);outline:none;}
+.maps-btn{display:inline-flex;align-items:center;gap:.25rem;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:.2rem .5rem;font-size:.72rem;color:var(--primary);font-weight:600;cursor:pointer;text-decoration:none;width:fit-content;}
+.alt-food-box{background:var(--teal-light);border:1px solid #bbf7d0;padding:.35rem .5rem;border-radius:6px;font-size:.8rem;color:#065f46;display:flex;align-items:center;gap:.35rem;}
+.alt-food-box input{background:transparent;border:1px solid transparent;width:100%;color:#166534;font-style:italic;font-size:14px;}
+.alt-food-box input:focus{background:white;border-color:var(--teal);outline:none;}
+.confirm-box{background:#fefce8;border:1px solid #fde68a;padding:.35rem .5rem;border-radius:6px;font-size:.8rem;color:#92400e;display:flex;align-items:center;gap:.35rem;}
+.confirm-box input{background:transparent;border:1px solid transparent;width:100%;color:#92400e;font-size:14px;font-weight:600;letter-spacing:.03em;}
+.confirm-box input:focus{background:white;border-color:#fbbf24;outline:none;}
+.row-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.15rem;}
+.delete-btn{display:inline-flex;align-items:center;gap:.2rem;background:transparent;color:#94a3b8;border:none;font-size:.72rem;cursor:pointer;padding:.15rem 0;}
+.delete-btn:hover{color:var(--accent);}
+.delete-confirm{display:none;align-items:center;gap:.35rem;font-size:.72rem;}
+.delete-confirm.show{display:flex;}
+.delete-confirm span{color:var(--text-muted);}
+.delete-confirm button{border:none;border-radius:4px;padding:.15rem .4rem;font-size:.72rem;font-weight:600;cursor:pointer;}
+.delete-yes{background:#fef2f2;color:var(--accent);}
+.delete-no{background:#f1f5f9;color:var(--text-muted);}
+.ticket-toggle{display:flex;align-items:center;gap:.3rem;font-size:.75rem;color:var(--text-muted);cursor:pointer;padding:.1rem 0;}
+.ticket-toggle input{accent-color:#d97706;width:13px;height:13px;}
+.move-btns{display:flex;gap:.25rem;margin-top:.5rem;}
+.move-btn{background:#fff7ed;border:1px solid #e8ddd5;border-radius:4px;width:28px;height:24px;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-muted);}
+.move-btn:disabled{opacity:.25;cursor:default;}
+.add-stop-bar{background:#fff7ed;padding:.65rem;text-align:center;border-top:1px solid #fed7aa;}
+.add-btn{background:var(--primary);color:white;border:none;padding:.5rem 1.25rem;border-radius:8px;font-weight:700;font-size:.82rem;cursor:pointer;}
+
+.memory-card{background:white;border-radius:14px;box-shadow:var(--shadow);padding:1.25rem;margin-bottom:1.25rem;border:1px solid #fce7f3;}
+.memory-card h3{margin:0 0 .65rem;font-size:.88rem;color:#be185d;font-weight:700;}
+.memory-card textarea{width:100%;border:1px solid #fbcfe8;border-radius:8px;padding:.5rem .65rem;font-size:.88rem;color:#9d174d;resize:none;outline:none;font-family:inherit;background:#fdf2f8;min-height:4rem;}
+.memory-card textarea::placeholder{color:#ec4899;opacity:.5;}
+.memory-card textarea:focus{border-color:#ec4899;background:white;}
+.memory-empty{opacity:.65;border-style:dashed;}
+.memory-empty h3{color:#c084fc;}
+
+.day-drive-bar{padding:.35rem .85rem .45rem;background:#f0f9ff;border-bottom:1px solid #bae6fd;position:relative;}
+.day-drive-bar .bar-label{font-size:.6rem;font-weight:700;color:#0369a1;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.15rem;}
+.day-drive-bar textarea{width:100%;background:transparent;border:none;font-size:.8rem;color:#0369a1;resize:none;outline:none;font-family:inherit;min-height:1.3em;line-height:1.4;}
+.day-drive-bar textarea::placeholder{color:#7dd3fc;opacity:.9;}
+.drive-saved{position:absolute;right:.5rem;top:.35rem;font-size:.65rem;color:#0369a1;opacity:0;transition:opacity .3s;}
+.drive-saved.show{opacity:1;}
+.toast-banner{position:fixed;bottom:calc(var(--safe-bottom) + 5rem);left:50%;transform:translateX(-50%);background:rgba(15,23,42,.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:white;padding:.65rem 1.25rem;border-radius:20px;font-size:.82rem;font-weight:500;display:none;z-index:2000;white-space:nowrap;}
+
+@media(max-width:480px){
+  .act-summary{padding:.6rem .75rem .6rem 0;}
+  .edit-grid{grid-template-columns:90px 1fr;gap:.65rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="install-banner">
+  <div class="banner-text"><strong>📱 Add to Home Screen</strong>Install for offline access</div>
+  <button id="install-btn">Install</button>
+  <button class="close-btn" onclick="dismissBanner()">✕</button>
+</div>
+
+<div class="modal-backdrop" id="ios-guide">
+  <div class="modal-sheet">
+    <h3>📱 Install on iPhone</h3>
+    <div class="guide-step"><span class="step-icon">1️⃣</span><span>Open in <strong>Safari</strong></span></div>
+    <div class="guide-step"><span class="step-icon">2️⃣</span><span>Tap the <strong>Share</strong> button</span></div>
+    <div class="guide-step"><span class="step-icon">3️⃣</span><span>Tap <strong>"Add to Home Screen"</strong></span></div>
+    <div class="guide-step"><span class="step-icon">✅</span><span>Works <strong>offline</strong> once installed!</span></div>
+    <button class="modal-close" onclick="closeModal('ios-guide')">Got it!</button>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="reset-modal">
+  <div class="modal-sheet">
+    <h3>⚠️ Reset to Original Plan?</h3>
+    <p style="font-size:.9rem;color:var(--text-muted);margin:.5rem 0 1rem;">This erases all edits, confirmation codes, budget entries, notes, and memories. Cannot be undone.</p>
+    <button class="modal-close" style="background:var(--accent);" onclick="confirmReset()">Yes, Reset Everything</button>
+    <button class="modal-close" style="margin-top:.5rem;background:#e2e8f0;color:var(--text-dark);" onclick="closeModal('reset-modal')">Cancel</button>
+  </div>
+</div>
+
+<nav id="bottom-nav">
+  <button class="nav-tab active" onclick="switchTab('overview',this)"><span class="tab-icon">🗺️</span>Overview</button>
+  <button class="nav-tab" onclick="switchTab('itinerary',this)"><span class="tab-icon">📅</span>Schedule</button>
+  <button class="nav-tab" onclick="switchTab('checklist',this)"><span class="tab-icon">✅</span>Checklist</button>
+  <button class="nav-tab" onclick="switchTab('memories',this)"><span class="tab-icon">📸</span>Memories</button>
+  <button class="nav-tab" id="install-tab" onclick="switchTab('install',this)"><span class="tab-icon">📲</span>Install</button>
+</nav>
+
+<div class="toast-banner" id="toast">💾 Saved</div>
+
+<!-- OVERVIEW -->
+<div id="page-overview" class="page active">
+  <div class="app-container">
+    <header id="overview-header"><h1>🏟️ Nasta Family Planner</h1><p id="overview-subhead">Cape Cod &amp; Boston — Summer 2026</p></header>
+    <div class="countdown-card">
+      <div><div class="cd-main" id="cd-num">—</div><div class="cd-label" id="cd-label">Loading...</div><span class="cd-status" id="cd-status"></span></div>
+      <div class="cd-right" id="cd-right">
+        <button id="today-overview-btn" onclick="jumpToToday()" style="display:none;margin-top:.6rem;background:white;color:#0ea5e9;border:none;border-radius:10px;padding:.5rem .9rem;font-size:.82rem;font-weight:800;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);letter-spacing:.01em;">📍 Today's Plan →</button>
+      </div>
+    </div>
+    <div class="budget-card">
+      <h3>💰 Trip Budget <button onclick="switchTab('itinerary',document.querySelector('.nav-tab:nth-child(2)'))">Edit in Schedule →</button></h3>
+      <div class="bud-row"><span class="bud-lbl">Estimated total</span><span id="bud-est" style="font-weight:700;color:var(--primary);">$0</span></div>
+      <div class="bud-row"><span class="bud-lbl">Actual spent</span><span id="bud-act" style="font-weight:700;color:var(--secondary);">$0</span></div>
+      <div class="bud-row"><span class="bud-lbl">Remaining (est − actual)</span><span id="bud-rem" style="font-weight:700;">$0</span></div>
+    </div>
+    <div class="ticket-counter">
+      <div class="tc-icon">🎟️</div>
+      <div class="tc-text">
+        <div><span class="tc-count" id="tc-count">0</span><span id="tc-lbl" style="font-size:.8rem;color:var(--text-muted);"> / 8 tickets confirmed</span></div>
+        <div class="tc-label">Go to Schedule → 🎟️ to add codes</div>
+        <div class="ticket-progress"><div class="ticket-progress-fill" id="tc-bar" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><span class="stat-icon">📅</span><div class="stat-num">9</div><div class="stat-label">Days of Adventure</div></div>
+      <div class="stat-card"><span class="stat-icon">📍</span><div class="stat-num" id="stat-activities">40+</div><div class="stat-label">Planned Activities</div></div>
+      <div class="stat-card"><span class="stat-icon">🏨</span><div class="stat-num">3</div><div class="stat-label">Hotels</div></div>
+      <div class="stat-card"><span class="stat-icon">⚽</span><div class="stat-num">4</div><div class="stat-label">Watch Parties</div></div>
+    </div>
+    <div class="city-card">
+      <div class="city-card-header"><span class="city-icon">🌊</span><div><h3>Cape Cod</h3><p>Hyannis — Comfort &amp; Holiday Inn</p></div></div>
+      <div class="city-days">
+        <button class="day-pill" onclick="jumpToDay('day1')">Jul 2 — Arrival</button>
+        <button class="day-pill" onclick="jumpToDay('day2')">Jul 3 — Whale Watch</button>
+        <button class="day-pill" onclick="jumpToDay('day3')">Jul 4 — Drone Show</button>
+        <button class="day-pill" onclick="jumpToDay('day4')">Jul 5 — Vineyard</button>
+        <button class="day-pill" onclick="jumpToDay('day5')">Jul 6 — Inflatable Park</button>
+      </div>
+    </div>
+    <div class="city-card">
+      <div class="city-card-header"><span class="city-icon">🦞</span><div><h3>Boston</h3><p>Aloft Seaport District</p></div></div>
+      <div class="city-days">
+        <button class="day-pill" onclick="jumpToDay('day6')">Jul 7 — Seaport Arrival</button>
+        <button class="day-pill" onclick="jumpToDay('day7')">Jul 8 — Historic Walk</button>
+        <button class="day-pill" onclick="jumpToDay('day8')">Jul 9 — Fenway</button>
+        <button class="day-pill" onclick="jumpToDay('day9')">Jul 10 — Tea Party</button>
+      </div>
+    </div>
+    <div class="emergency-card">
+      <h3>🚨 Emergency &amp; Key Contacts</h3>
+      <div class="em-row"><span class="em-label">Emergency</span><a href="tel:911">Call 911</a></div>
+      <div class="em-row"><span class="em-label">Comfort Inn Hyannis</span><a href="tel:+15087712000">(508) 771-2000</a></div>
+      <div class="em-row"><span class="em-label">Holiday Inn Hyannis</span><a href="tel:+15087752400">(508) 775-2400</a></div>
+      <div class="em-row"><span class="em-label">Aloft Boston Seaport</span><a href="tel:+16175203000">(617) 520-3000</a></div>
+      <div class="em-row"><span class="em-label">Cape Cod Hospital</span><a href="tel:+15087715500">(508) 771-5500</a></div>
+      <div class="em-row"><span class="em-label">Mass General Boston</span><a href="tel:+16177242000">(617) 724-2000</a></div>
+    </div>
+    <div style="background:white;border-radius:14px;box-shadow:var(--shadow);padding:1rem 1.25rem;margin-bottom:1.25rem;border:1px solid #e2e8f0;">
+      <div style="font-size:.85rem;font-weight:700;color:var(--text-dark);margin-bottom:.65rem;">📦 Pre-trip Progress</div>
+      <div class="progress-wrap" style="margin-bottom:.6rem;"><div class="progress-label"><span>Reservations confirmed</span><span id="booking-pct">0%</span></div><div class="progress-track"><div class="progress-fill" id="booking-bar" style="width:0%"></div></div></div>
+      <div class="progress-wrap" style="margin-bottom:0;"><div class="progress-label"><span>Packing reminders</span><span id="packing-pct">0%</span></div><div class="progress-track"><div class="progress-fill" id="packing-bar" style="width:0%"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHEDULE -->
+<div id="page-itinerary" class="page">
+  <div class="app-container">
+    <header><h1>📅 Full Itinerary</h1><p>9-day itinerary — tap any activity to edit</p></header>
+    <div id="today-jump" onclick="scrollToToday()">📍 Jump to Today</div>
+    <div class="schedule-toolbar">
+      <button class="toolbar-btn" onclick="collapseAll()">▲ Collapse All</button>
+      <button class="toolbar-btn" onclick="expandAll()">▼ Expand All</button>
+    </div>
+    <div id="itinerary-days"></div>
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<div id="page-checklist" class="page">
+  <div class="app-container">
+    <header><h1>✅ Checklist</h1><p>Tap + to add items · 🗑 to remove</p></header>
+    <div class="checklist-section">
+      <h2>🎫 Bookings &amp; Reservations</h2>
+      <div id="checklist-bookings"></div>
+      <div class="add-chk-row"><input class="add-chk-input" id="new-bookings" placeholder="Add booking item..." onkeydown="if(event.key==='Enter')addCheckItem('bookings')"><button class="add-chk-btn" onclick="addCheckItem('bookings')">+ Add</button></div>
+    </div>
+    <div class="checklist-section">
+      <h2>🧳 Packing &amp; Reminders</h2>
+      <div id="checklist-packing"></div>
+      <div class="add-chk-row"><input class="add-chk-input" id="new-packing" placeholder="Add packing item..." onkeydown="if(event.key==='Enter')addCheckItem('packing')"><button class="add-chk-btn" onclick="addCheckItem('packing')">+ Add</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- MEMORIES -->
+<div id="page-memories" class="page">
+  <div class="app-container">
+    <header><h1>📸 Trip Memories</h1><p>Jot down moments, highlights &amp; things to remember</p><p id="mem-progress" style="font-size:.78rem;color:rgba(255,255,255,.8);margin-top:.3rem;"></p></header>
+    <div id="memories-list"></div>
+  </div>
+</div>
+
+<!-- INSTALL -->
+<div id="page-install" class="page">
+  <div class="app-container">
+    <header><h1>📲 Install &amp; Settings</h1><p>Native app + reset options</p></header>
+    <div class="checklist-section">
+      <h2>🍎 Install on iPhone</h2>
+      <div class="guide-step" style="padding:.6rem 0;border-bottom:1px solid #f1f5f9;"><span class="step-icon">1️⃣</span><span>Open in <strong>Safari</strong></span></div>
+      <div class="guide-step" style="padding:.6rem 0;border-bottom:1px solid #f1f5f9;"><span class="step-icon">2️⃣</span><span>Tap the <strong>Share</strong> icon</span></div>
+      <div class="guide-step" style="padding:.6rem 0;border-bottom:1px solid #f1f5f9;"><span class="step-icon">3️⃣</span><span>Tap <strong>"Add to Home Screen"</strong></span></div>
+      <div class="guide-step" style="padding:.6rem 0;"><span class="step-icon">✅</span><span>Works <strong>offline</strong> — all data on device</span></div>
+      <button id="android-install-btn" style="display:none;width:100%;margin-top:1rem;padding:.75rem;background:var(--primary);color:white;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;">⬇️ Install App</button>
+    </div>
+    <div class="checklist-section">
+      <h2>⚠️ Reset Plan</h2>
+      <p style="font-size:.88rem;color:var(--text-muted);margin:0 0 .85rem;">Restore the original itinerary and clear all edits, codes, budgets, notes, and memories.</p>
+      <button style="width:100%;padding:.75rem;background:#fef2f2;color:var(--accent);border:1px solid #fee2e2;border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;" onclick="openModal('reset-modal')">🔄 Reset to Original Plan</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TRIP_DATES={day1:new Date('2026-07-02'),day2:new Date('2026-07-03'),day3:new Date('2026-07-04'),day4:new Date('2026-07-05'),day5:new Date('2026-07-06'),day6:new Date('2026-07-07'),day7:new Date('2026-07-08'),day8:new Date('2026-07-09'),day9:new Date('2026-07-10')};
+const TRIP_START=new Date('2026-07-02'),TRIP_END=new Date('2026-07-10');
+const DAY_CITY={day1:'Hyannis,MA',day2:'Hyannis,MA',day3:'Hyannis,MA',day4:'Hyannis,MA',day5:'Hyannis,MA',day6:'Boston,MA',day7:'Boston,MA',day8:'Boston,MA',day9:'Boston,MA'};
+
+// Helper to deep-clone original data
+const mkDays=()=>JSON.parse(JSON.stringify([
+  {id:'day1',title:'Hyannis Arrival',date:'Thursday, July 2',basecamp:'Comfort Inn Hyannis',start:'17:00',activities:[
+    {name:'Evening Departure',duration:4.5,drive:0,details:'Drive from Whippany, NJ after work to beat Friday holiday traffic. Check into Comfort Inn Hyannis.',altFood:'Whole Foods Market Hyannis: Pre-made wraps, sushi rolls, clean salads.',needsTicket:false,confirmCode:'',mapsQuery:'Comfort Inn Hyannis MA',estCost:0,actCost:0,warning:''},
+    {name:'Check-In & Rest',duration:0.5,drive:0,details:'Arrive at Comfort Inn, unpack, get some sleep ahead of your morning harbor cruise.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Comfort Inn Hyannis MA',estCost:0,actCost:0,warning:''}
+  ]},
+  {id:'day2',title:'Cape Cod Cruising',date:'Friday, July 3',basecamp:'Comfort Inn → Holiday Inn Hyannis',start:'08:00',activities:[
+    {name:'Morning Checkout',duration:0.33,drive:10,details:'Pack car and check out of Comfort Inn; drive to Barnstable Harbor.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Barnstable Harbor MA',estCost:0,actCost:0,warning:''},
+    {name:'Whale Watch Tour',duration:3.5,drive:20,details:'Cruise from Barnstable Harbor with Hyannis Whale Watcher Cruises to Stellwagen Bank to spot giant Humpbacks.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Hyannis Whale Watcher Cruises Barnstable MA',estCost:200,actCost:0,warning:''},
+    {name:'Lunch & Matchday Watch',duration:2,drive:25,details:"Dino's Sports Bar Mashpee: Award-winning brick-oven pizza and Round of 32 matches on massive screens.",altFood:'Siena Mashpee Commons: Grilled salmon, chopped chicken salads, caprese.',needsTicket:false,confirmCode:'',mapsQuery:"Dino's Sports Bar Mashpee MA",estCost:60,actCost:0,warning:''},
+    {name:'Mayflower Beach Shift',duration:2.5,drive:25,details:'Drive up to Dennis. Enjoy miles of warm, shallow tide pools. Backup: Corporation Beach.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Mayflower Beach Dennis MA',estCost:20,actCost:0,warning:''},
+    {name:'Holiday Inn Check-In',duration:0.75,drive:15,details:'Arrive and check into Holiday Inn Hyannis — your basecamp for Cape Cod. 1127 Route 132, Hyannis MA 02601. Free self-parking lot on site, 24hr front desk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Holiday Inn Hyannis 1127 Route 132 MA',estCost:0,actCost:0,warning:''},
+    {name:'Dinner Block',duration:1.5,drive:0,details:'Palio Pizzeria: Classic thin-crust slices on Hyannis Main Street.',altFood:'The Naked Oyster Bistro: Locally farmed raw oysters, seared scallops, organic salads.',needsTicket:false,confirmCode:'',mapsQuery:'Palio Pizzeria Hyannis MA',estCost:70,actCost:0,warning:''}
+  ]},
+  {id:'day3',title:'Drone Show & Fest',date:'Saturday, July 4',basecamp:'Holiday Inn Hyannis',start:'09:00',activities:[
+    {name:'Pirate Adventures Cruise',duration:1.25,drive:15,details:'Board the Sea Gypsy from Hyannis Harbor — interactive pirate tour perfect for a 7-year-old.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Cape Cod Pirate Adventures Hyannis MA',estCost:80,actCost:0,warning:''},
+    {name:'Lunch & Tournament Grid',duration:1.5,drive:15,details:'The Black Cat Tavern: Harbor views and indoor pub screens with live holiday matches.',altFood:'The Black Cat Shack Raw Bar: Chilled shrimp cocktails, light lobster sliders, garden salads.',needsTicket:false,confirmCode:'',mapsQuery:'Black Cat Tavern Hyannis MA',estCost:60,actCost:0,warning:''},
+    {name:'Mid-Day Hotel Reset',duration:2.75,drive:15,details:'Return to hotel — swim in the pool, escape peak sun, rest ahead of a long night.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Holiday Inn Hyannis MA',estCost:0,actCost:0,warning:''},
+    {name:'Smart Parking Window',duration:1,drive:0,details:'Park in North Street East Municipal Lot before town roads close down.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'North Street Municipal Parking Lot Hyannis MA',estCost:0,actCost:0,warning:'⚠️ Roads close at 5 PM — must be parked BEFORE then or you will be stuck!'},
+    {name:'Dancing in the Streets Fest',duration:1.5,drive:0,details:"Main Street pedestrian festival. Grab a scoop at Katie's Homemade Ice Cream.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Main Street Hyannis MA',estCost:20,actCost:0,warning:''},
+    {name:'Holiday Dinner',duration:1.75,drive:30,details:"Alberto's Ristorante: Upscale homemade pasta on Main Street. Must book weeks ahead.",altFood:'Tumi Ceviche: Fresh citrus ceviches, grilled chicken skewers, quinoa bowls.',needsTicket:true,confirmCode:'',mapsQuery:"Alberto's Ristorante Hyannis MA",estCost:150,actCost:0,warning:''},
+    {name:'Drone Show Setup',duration:0.75,drive:0,details:'Walk back to North Street East Lot. Setup lawn chairs behind your trunk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'North Street Municipal Parking Lot Hyannis MA',estCost:0,actCost:0,warning:''},
+    {name:'America 250 Drone Show',duration:0.5,drive:0,details:'Watch 3D animations illuminate the sky. Drive out immediately after to beat harbor traffic.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Hyannis Harbor MA',estCost:0,actCost:0,warning:'⚠️ Leave the moment the show ends — harbor traffic builds extremely fast!'}
+  ]},
+  {id:'day4',title:"Martha's Vineyard",date:'Sunday, July 5',basecamp:'Holiday Inn Hyannis',start:'07:45',activities:[
+    {name:'Ferry Terminal Boarding',duration:0.5,drive:60,details:'Arrive at Hy-Line Cruises terminal. Ferry departs at 8:15 AM sharp.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Hy-Line Cruises Hyannis MA',estCost:250,actCost:0,warning:'⚠️ Ferry departs 8:15 AM — do NOT be late, it will leave without you!'},
+    {name:'Carousel & Cottages',duration:2.25,drive:15,details:'Dock at Oak Bluffs. Ride the Flying Horses Carousel and walk the gingerbread cottage loops.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Flying Horses Carousel Oak Bluffs Martha's Vineyard MA",estCost:20,actCost:0,warning:''},
+    {name:'Harbor Lawn Picnic Lunch',duration:1.25,drive:30,details:"Giordano's: Giant pizza slices and crinkle fries to-go on the harbor park grass.",altFood:"Nancy's Restaurant Patio: Hummus plates, chicken shawarma wraps, grilled fish tacos.",needsTicket:false,confirmCode:'',mapsQuery:"Giordano's Oak Bluffs Martha's Vineyard MA",estCost:50,actCost:0,warning:''},
+    {name:'Island Bus Exploration',duration:3,drive:60,details:'Take the island bus to Edgartown Lighthouse or Inkwell Beach.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Edgartown Lighthouse Martha's Vineyard MA",estCost:10,actCost:0,warning:''},
+    {name:'Return High-Speed Ferry',duration:1,drive:15,details:'Board passenger ferry back to Hyannis Harbor.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Hy-Line Cruises Oak Bluffs MA',estCost:0,actCost:0,warning:"⚠️ Don't miss the return ferry — check your departure time in advance!"},
+    {name:'Waterfront Dinner',duration:1.75,drive:0,details:'Anejo Mexican Bistro: Tableside guacamole and gourmet tacos on the outdoor patio.',altFood:"Spanky's Clam Shack: Fresh boiled New England lobster with corn on the cob.",needsTicket:false,confirmCode:'',mapsQuery:'Anejo Mexican Bistro Hyannis MA',estCost:100,actCost:0,warning:''}
+  ]},
+  {id:'day5',title:'Inflatable Park Day',date:'Monday, July 6',basecamp:'Holiday Inn Hyannis',start:'11:30',activities:[
+    {name:'Lunch Block',duration:1.25,drive:15,details:'99 Restaurant West Yarmouth: Signature gold fever chicken tenders and tournament tracking.',altFood:'Optimist Cafe: Light quiches, turkey-avocado wraps, crisp summer salads.',needsTicket:false,confirmCode:'',mapsQuery:'99 Restaurant West Yarmouth MA',estCost:55,actCost:0,warning:''},
+    {name:'Cape Cod Inflatable Park',duration:4,drive:30,details:'Dry inflatable obstacle runs and water slides at H2O Water Park.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Cape Cod Inflatable Park Yarmouth MA',estCost:100,actCost:0,warning:''},
+    {name:'Final Cape Dinner',duration:1.75,drive:0,details:'Pizza Barbone: High-end wood-fired thin pizzas on Hyannis Main Street.',altFood:'Tap City Grille: Clean power bowls and giant chopped salads.',needsTicket:false,confirmCode:'',mapsQuery:'Pizza Barbone Hyannis MA',estCost:75,actCost:0,warning:''}
+  ]},
+  {id:'day6',title:'Boston Seaport Arrival',date:'Tuesday, July 7',basecamp:'Aloft Boston Seaport District',start:'09:30',activities:[
+    {name:'Drive to City & Bag Drop',duration:2,drive:30,details:'Check out of Hyannis, drive to Boston, drop bags at Aloft Seaport front desk.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Aloft Boston Seaport District MA',estCost:0,actCost:0,warning:''},
+    {name:'Open-Air Seaport Lunch',duration:1.25,drive:15,details:'The Barking Crab: High-energy open-air seafood tent on Fort Point Channel.',altFood:'Woods Hill Pier 4: Waterfront farm-to-table lunch, fresh local crudo.',needsTicket:false,confirmCode:'',mapsQuery:'The Barking Crab Boston MA',estCost:80,actCost:0,warning:''},
+    {name:'Museum of Science Visit',duration:2.75,drive:20,details:'Hands-on engineering labs, 20-foot indoor lightning show, indoor butterfly garden.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Museum of Science Boston MA',estCost:120,actCost:0,warning:''},
+    {name:'BREWERY #1: Trillium Brewing',duration:1,drive:10,details:'Fort Point taproom. World-class hazy IPAs. Spacious, casual, kid friendly.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Trillium Brewing Fort Point Boston MA',estCost:40,actCost:0,warning:''},
+    {name:'Lawn on D Games',duration:2.5,drive:0,details:'Glowing LED circle swings. Food trucks and fast-casual nearby for dinner.',altFood:'Cava or Sweetgreen Seaport: Mediterranean grain bowls or salads — walk 3 mins.',needsTicket:false,confirmCode:'',mapsQuery:'Lawn on D Boston MA',estCost:60,actCost:0,warning:''}
+  ]},
+  {id:'day7',title:'Historic Boston Strolls',date:'Wednesday, July 8',basecamp:'Aloft Boston Seaport District',start:'10:00',activities:[
+    {name:'Amphibious Duck Boat Tour',duration:1.5,drive:10,details:'Narrated land tour then splashes into the Charles River for skyline views.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Boston Duck Tours MA',estCost:160,actCost:0,warning:''},
+    {name:'Quincy Market Colonnade',duration:1.67,drive:20,details:"Faneuil Hall market food stalls — everyone picks their own comfort foods.",altFood:'The Boston Smoked Fish Co: Fresh smoked salmon rolls inside the market.',needsTicket:false,confirmCode:'',mapsQuery:'Quincy Market Boston MA',estCost:60,actCost:0,warning:''},
+    {name:'Public Garden Swan Boats',duration:1.25,drive:15,details:'Pedal-powered ride on Swan Boats, then see the Make Way for Ducklings statues.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Swan Boats Boston Public Garden MA',estCost:30,actCost:0,warning:''},
+    {name:'NOSTALGIA STOP: Cheers Pub',duration:0.75,drive:45,details:'Beacon Hill: Original basement pub. Photos under sign, pint break for parents.',altFood:'Keep under 45 mins to prevent kid boredom. Grab a souvenir t-shirt.',needsTicket:false,confirmCode:'',mapsQuery:'Cheers Bar Beacon Hill Boston MA',estCost:35,actCost:0,warning:''},
+    {name:'North End Park & Pastries',duration:1,drive:15,details:"Christopher Columbus Park, then Little Italy for Mike's or Modern Pastry.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:"Mike's Pastry North End Boston MA",estCost:25,actCost:0,warning:''},
+    {name:'Historic Brick-Oven Dinner',duration:1.75,drive:0,details:'Regina Pizzeria Thacher St: Original 1926 location, legendary pizza institution.',altFood:'Bricco North End: Pan-seared sea bass, light caprese salads, fresh raw bar.',needsTicket:false,confirmCode:'',mapsQuery:'Regina Pizzeria North End Boston MA',estCost:90,actCost:0,warning:''}
+  ]},
+  {id:'day8',title:'Fenway & Quarterfinals',date:'Thursday, July 9',basecamp:'Aloft Boston Seaport District',start:'10:00',activities:[
+    {name:'Fenway Green Monster Tour',duration:1.5,drive:5,details:"Official walking tour inside America's oldest ballpark. Sit on Green Monster seats.",altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Fenway Park Boston MA',estCost:120,actCost:0,warning:''},
+    {name:'Stadium Outfield Lunch',duration:1.5,drive:30,details:'Bleacher Bar: Tables inside centerfield wall looking out onto the field grass.',altFood:'Time Out Market Fenway: Fresh poke bowls and salads — walk 5 mins.',needsTicket:false,confirmCode:'',mapsQuery:'Bleacher Bar Fenway Boston MA',estCost:70,actCost:0,warning:''},
+    {name:'Hotel Pool & Rest Break',duration:3.5,drive:20,details:'Essential rest window. Swim at Aloft, nap, recharge for tournament matches.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Aloft Boston Seaport District MA',estCost:0,actCost:0,warning:''},
+    {name:'BREWERY #2: Cisco Brewers',duration:3.5,drive:0,details:'Outdoor pop-up garden watch party. Quarterfinal on giant mega screens, live music, food stalls.',altFood:'Raw bar shacks on site for local oysters or grilled fish tacos.',needsTicket:false,confirmCode:'',mapsQuery:'Cisco Brewers Boston Seaport MA',estCost:80,actCost:0,warning:''}
+  ]},
+  {id:'day9',title:'Tea Party & Watch Party',date:'Friday, July 10',basecamp:'Aloft Boston Seaport District',start:'09:45',activities:[
+    {name:'Boston Tea Party Museum',duration:1.25,drive:30,details:'Interactive costumed actors, storming replica ships, dumping tea crates into harbor.',altFood:'',needsTicket:true,confirmCode:'',mapsQuery:'Boston Tea Party Ships and Museum MA',estCost:140,actCost:0,warning:''},
+    {name:'Harvard Square Burger Lunch',duration:1.5,drive:45,details:"Mr. Bartley's Burger Cottage: Landmark burger house, fun-named plates, retro posters.",altFood:'The Hourly Oyster House: Airy tavern with clean salmon and lobster salads.',needsTicket:false,confirmCode:'',mapsQuery:"Mr. Bartley's Burger Cottage Cambridge MA",estCost:65,actCost:0,warning:''},
+    {name:'Harvard Yard Campus Walk',duration:0.75,drive:45,details:"Walk historic brick yards. Rub John Harvard's brass shoe for luck, check the Coop store.",altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'Harvard Yard Cambridge MA',estCost:0,actCost:0,warning:''},
+    {name:'WATCH PARTY: The Sporting Club',duration:4,drive:15,details:'Omni Seaport: 12-foot high-def screen wall for QF kickoff.',altFood:'Mezze hummus plates, seared tuna crudo, or turkey club wraps.',needsTicket:false,confirmCode:'',mapsQuery:'The Sporting Club Omni Boston Seaport MA',estCost:100,actCost:0,warning:'⚠️ Secure your table before 3 PM kickoff — this venue fills up very fast!'},
+    {name:'Grand Finale Seafood Dinner',duration:2,drive:0,details:'Legal Harborside: Final night on three-story glass structure directly on Seaport water.',altFood:'Legal Net Catch: Request cod or salmon wood-grilled with olive oil and broccoli.',needsTicket:true,confirmCode:'',mapsQuery:'Legal Harborside Boston MA',estCost:200,actCost:0,warning:''}
+  ]}
+]));
+
+const mkChecklist=()=>({
+  bookings:[
+    {id:'b1',text:'Confirm hotel stay: Comfort Inn Hyannis (July 2)'},
+    {id:'b2',text:'Confirm hotel stay: Holiday Inn Hyannis (July 3-7)'},
+    {id:'b3',text:'Reserve Hyannis Whale Watcher Cruises (July 3)'},
+    {id:'b4',text:'Pre-purchase Cape Cod Pirate Adventures tickets (July 4)'},
+    {id:'b5',text:"Book Hy-Line Ferry tickets to Martha's Vineyard (July 5)"},
+    {id:'b6',text:"Secure dinner reservation at Alberto's Ristorante (July 4)"},
+    {id:'b7',text:'Purchase Boston Duck Boat Tour tickets (July 8)'},
+    {id:'b8',text:'Book Fenway Park Walking Tour tickets (July 9)'},
+    {id:'b9',text:'Secure Boston Tea Party Ships tickets (July 10)'},
+    {id:'b10',text:'Book finale dinner at Legal Harborside (July 10)'}
+  ],
+  packing:[
+    {id:'p1',text:'High-capacity external battery power banks & charging cables'},
+    {id:'p2',text:'Foldable lawn chairs / compact beach blanket for July 4th show'},
+    {id:'p3',text:'Reef-safe sunscreen, polarized sunglasses & beach gear bags'},
+    {id:'p4',text:'Broken-in walking shoes, light rain ponchos, family swimsuits'},
+    {id:'p5',text:'July 3 transition: Clear out Comfort Inn before Whale Watch'},
+    {id:'p6',text:'July 4 transition: Park in North Street lot before 3:00 PM'}
+  ]
+});
+
+const mkNotes=()=>({day1:'',day2:'',day3:'',day4:'',day5:'',day6:'',day7:'',day8:'',day9:''});
+const mkDriving=()=>({
+  day1:'📍 PARK AT: Comfort Inn Hyannis — free lot\n🗺 GPS: 33 Yarmouth Rd, Hyannis MA 02601\n💲 Cost: Free\n📝 Pull straight into the hotel lot. Check in and leave the car overnight.',
+
+  day2:'─── MORNING: Whale Watch ───\n📍 PARK AT: Barnstable Harbor lot\n🗺 GPS: 185 Mill Way, Barnstable MA 02630\n💲 Cost: Free street parking on Mill Way or small paid lot at harbor\n📝 Arrive 30 min before cruise. Car stays here during the tour.\n\n─── AFTERNOON: Hotel Switch ───\n📍 PARK AT: Holiday Inn Hyannis — free lot\n🗺 GPS: 1127 Route 132, Hyannis MA 02601\n💲 Cost: Free\n📝 Drive straight to Holiday Inn after whale watch. This is your base for the next 4 nights — no need to move the car tonight.',
+
+  day3:'─── DAYTIME: Hotel Base ───\n📍 PARK AT: Holiday Inn Hyannis — free lot\n🗺 GPS: 1127 Route 132, Hyannis MA 02601\n💲 Cost: Free\n\n─── EVENING: July 4 Festivities ───\n📍 PARK AT: North Street East Municipal Lot\n🗺 GPS: North St, Hyannis MA 02601 (enter off North St)\n💲 Cost: ~$10-15 flat rate\n⚠️ MUST BE PARKED BEFORE 5 PM — roads close and you will not get in\n📝 Exit plan: immediately after drone show turn RIGHT onto Sea St to avoid harbor traffic.',
+
+  day4:'─── ALL DAY: Ferry Parking ───\n📍 PARK AT: Hy-Line Cruises ferry lot\n🗺 GPS: 220 Ocean St, Hyannis MA 02601\n💲 Cost: ~$20-25 for the day\n📝 Arrive 45 min before ferry. Lock the car and leave it here all day — you will be on Martha\'s Vineyard. Pick it up when you return on the evening ferry.',
+
+  day5:'─── ALL DAY: Easy Day ───\n📍 PARK AT: Holiday Inn Hyannis — free lot\n🗺 GPS: 1127 Route 132, Hyannis MA 02601\n💲 Cost: Free\n📝 Drive to inflatable park mid-morning.\n\n─── Inflatable Park ───\n📍 PARK AT: On-site free lot\n🗺 GPS: 195 Whites Path, South Yarmouth MA 02664\n💲 Cost: Free',
+
+  day6:'─── Hotel Parking: Boston ───\n📍 PARK AT: Aloft Boston Seaport\n🗺 GPS: 401 D St, Boston MA 02210\n💲 Cost: Valet ~$55/night OR self-park nearby\n\n─── Cheaper Self-Park Options ───\n📍 100 Seaport Blvd Garage (~$30/day)\n📍 21 Drydock Ave Garage (~$25/day)\n📝 Park once and use Uber/Lyft for the day — Boston traffic is brutal and parking is expensive.',
+
+  day7:'─── Leave Car at Hotel All Day ───\n📍 PARK AT: Aloft Boston Seaport (overnight from yesterday)\n📝 Do NOT drive today. Duck Boats, Public Garden, Beacon Hill, and North End have almost zero parking.\n🚕 Use Uber/Lyft between stops — budget ~$30-40 for the day\n🚶 Most stops are walkable from each other once you\'re in the city.',
+
+  day8:'─── Morning: Fenway ───\n📍 PARK AT: Landmark Center Garage\n🗺 GPS: 401 Park Dr, Boston MA 02215\n💲 Cost: ~$25\n📝 15 min drive from hotel. Or Uber (~$15, 10 min) to skip parking hassle.\n\n─── Evening: Cisco Brewers ───\n📍 WALK from Aloft — Cisco Brewers Seaport is 5 min on foot from hotel.',
+
+  day9:'─── Leave Car at Hotel All Day ───\n📍 PARK AT: Aloft Boston Seaport (stay put)\n📝 Do NOT drive to Harvard — no parking near Harvard Yard.\n🚇 MBTA Red Line: walk to South Station (8 min) → Red Line to Harvard Station (15 min, $2.40 each way)\n📝 Afternoon watch party and dinner are both walkable from Aloft.'
+});
+
+let appData={days:mkDays(),checklist:mkChecklist(),dayNotes:mkNotes(),dayMemories:mkNotes(),dayDriving:mkDriving()};
+
+// PWA
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;document.getElementById('install-banner').classList.add('show');document.getElementById('android-install-btn').style.display='block';});
+document.getElementById('install-btn').addEventListener('click',triggerInstall);
+document.getElementById('android-install-btn').addEventListener('click',triggerInstall);
+function triggerInstall(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{deferredPrompt=null;dismissBanner();});}else openModal('ios-guide');}
+function dismissBanner(){document.getElementById('install-banner').classList.remove('show');}
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent),isStandalone=window.navigator.standalone;
+if(isIOS&&!isStandalone){document.getElementById('install-banner').classList.add('show');document.getElementById('install-btn').textContent='How to Install';document.getElementById('install-btn').onclick=()=>openModal('ios-guide');}
+if(isStandalone||window.matchMedia('(display-mode:standalone)').matches)document.getElementById('install-tab').style.display='none';
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+
+function openModal(id){document.getElementById(id).classList.add('show');}
+function closeModal(id){document.getElementById(id).classList.remove('show');}
+
+// Reset
+function confirmReset(){
+  closeModal('reset-modal');
+  ['nasta_v7','nasta_notes_v7','nasta_mem_v7','nasta_chk_v7','nasta_checks_v7','nasta_drive_v7'].forEach(k=>localStorage.removeItem(k));
+  appData={days:mkDays(),checklist:mkChecklist(),dayNotes:mkNotes(),dayMemories:mkNotes(),dayDriving:mkDriving()};
+  renderAll();showToast('✅ Reset to original plan!');
+}
+
+// Countdown
+function updateCountdown(){
+  const today=new Date();today.setHours(0,0,0,0);
+  const ts=new Date(TRIP_START);ts.setHours(0,0,0,0);
+  const te=new Date(TRIP_END);te.setHours(0,0,0,0);
+  const ds=Math.round((ts-today)/86400000),de=Math.round((te-today)/86400000);
+  const n=document.getElementById('cd-num'),l=document.getElementById('cd-label'),s=document.getElementById('cd-status');
+  const cdRight=document.getElementById('cd-right');
+  const todayBtn=document.getElementById('today-overview-btn');
+  if(ds>0){n.textContent=ds;l.textContent=ds===1?'day until departure':'days until departure';s.textContent='✈️ Trip coming up!';cdRight.dataset.text='Departs Jul 2\nReturns Jul 10';}
+  else if(de>=0){const dn=Math.round((today-ts)/86400000)+1;n.textContent='Day '+dn;l.textContent="of 9 — you're on vacation! 🎉";s.textContent='🗺️ In progress';cdRight.dataset.text=(de+1)+' day'+(de?'s':'')+' remaining';}
+  else{n.textContent='🏁';l.textContent='Trip complete!';s.textContent='✅ What a trip!';cdRight.dataset.text='Jul 2–10 2026';}
+  // Update right-side text without touching the button
+  const txt=cdRight.dataset.text||'';
+  // Set first text node
+  let firstText=cdRight.firstChild;
+  if(!firstText||firstText.nodeType!==3){const t=document.createTextNode('');cdRight.insertBefore(t,cdRight.firstChild);firstText=t;}
+  firstText.textContent=txt.replace('\n','\n');
+  cdRight.style.lineHeight='1.6';
+  // Show Today button only during trip
+  if(todayBtn) todayBtn.style.display=getTodayId()?'block':'none';
+  // Dynamic overview header
+  const subhead=document.getElementById('overview-subhead');
+  if(subhead){
+    const todayId=getTodayId();
+    if(todayId){
+      const day=appData.days.find(d=>d.id===todayId);
+      if(day) subhead.textContent='Day '+(Math.round((new Date().setHours(0,0,0,0)-new Date(TRIP_START).setHours(0,0,0,0))/86400000)+1)+' of 9 · '+day.title+' 🌟';
+    } else if(ds>0){
+      subhead.textContent='Cape Cod & Boston — Summer 2026';
+    } else {
+      subhead.textContent='What a trip — July 2–10 2026! 🎉';
+    }
+  }
+  // Memories progress counter
+  const memProg=document.getElementById('mem-progress');
+  if(memProg){
+    const written=Object.values(appData.dayMemories||{}).filter(v=>v&&v.trim()).length;
+    memProg.textContent=written>0?written+' of 9 days written ✨':'Tap any day below to start writing';
+  }
+}
+
+window.jumpToToday=function(){
+  const id=getTodayId();if(!id)return;
+  switchTab('itinerary',document.querySelector('.nav-tab:nth-child(2)'));
+  setTimeout(()=>{const el=document.getElementById('card-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},80);
+};
+
+// Budget
+function updateBudget(){
+  let est=0,act=0;
+  appData.days.forEach(d=>d.activities.forEach(a=>{est+=parseFloat(a.estCost)||0;act+=parseFloat(a.actCost)||0;}));
+  document.getElementById('bud-est').textContent='$'+est.toFixed(0);
+  document.getElementById('bud-act').textContent='$'+act.toFixed(0);
+  const rem=est-act,el=document.getElementById('bud-rem');
+  el.textContent=(rem>=0?'$'+rem.toFixed(0):'-$'+Math.abs(rem).toFixed(0));
+  el.style.color=rem<0?'var(--accent)':'var(--secondary)';
+}
+
+// Ticket counter
+function updateTickets(){
+  let c=0;
+  appData.days.forEach(d=>d.activities.forEach(a=>{if(a.needsTicket&&a.confirmCode&&a.confirmCode.trim())c++;}));
+  const tot=appData.days.reduce((s,d)=>s+d.activities.filter(a=>a.needsTicket).length,0);
+  document.getElementById('tc-count').textContent=c;
+  document.getElementById('tc-lbl').textContent=' / '+tot+' tickets confirmed';
+  document.getElementById('tc-bar').style.width=(tot?Math.round(c/tot*100):0)+'%';
+}
+
+// Navigation
+function switchTab(tab,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+tab).classList.add('active');
+  if(btn)btn.classList.add('active');
+  window.scrollTo(0,0);
+  if(tab==='itinerary')checkTodayJump();
+}
+window.jumpToDay=function(id){
+  switchTab('itinerary',document.querySelector('.nav-tab:nth-child(2)'));
+  setTimeout(()=>{const el=document.getElementById('card-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},80);
+};
+
+// Today
+function getTodayId(){const t=new Date();t.setHours(0,0,0,0);for(const[id,d]of Object.entries(TRIP_DATES)){const dd=new Date(d);dd.setHours(0,0,0,0);if(dd.getTime()===t.getTime())return id;}return null;}
+function checkTodayJump(){const b=document.getElementById('today-jump');getTodayId()?b.classList.add('show'):b.classList.remove('show');}
+window.scrollToToday=function(){const id=getTodayId();if(!id)return;const el=document.getElementById('card-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});};
+
+// Collapse/expand
+window.collapseAll=function(){document.querySelectorAll('.day-body').forEach(b=>b.style.display='none');document.querySelectorAll('.arrow').forEach(a=>a.textContent='▲');};
+window.expandAll=function(){document.querySelectorAll('.day-body').forEach(b=>b.style.display='block');document.querySelectorAll('.arrow').forEach(a=>a.textContent='▼');};
+
+// Weather & Maps
+window.openWeather=function(id){window.open('https://weather.com/weather/tenday/l/'+encodeURIComponent(DAY_CITY[id]||'Hyannis,MA'),'_blank');};
+window.openMaps=function(q){const enc=encodeURIComponent(q);const apple=/iphone|ipad|ipod|mac/i.test(navigator.userAgent);window.open(apple?'https://maps.apple.com/?q='+enc:'https://www.google.com/maps/search/?api=1&query='+enc,'_blank');};
+
+// Copy day
+window.copyDaySummary=function(dayId){
+  const day=appData.days.find(d=>d.id===dayId);
+  let txt=`📅 ${day.date} — ${day.title}\n🏠 ${day.basecamp}\n\n`;
+  let r=sm(day.start);
+  day.activities.forEach(a=>{if(a.startOverride!=null)r=a.startOverride;txt+=`${mts(r)} — ${a.name}${a.needsTicket&&a.confirmCode?' (✅ '+a.confirmCode+')':''}\n${a.details?'  '+a.details+'\n':''}`;r+=atm(a);});
+  if(appData.dayNotes[dayId])txt+=`\n📝 Notes: ${appData.dayNotes[dayId]}`;
+  if(appData.dayDriving[dayId]&&appData.dayDriving[dayId].trim())txt+=`\n\n🚗 Driving & Parking:\n${appData.dayDriving[dayId]}`;
+  navigator.clipboard.writeText(txt).then(()=>showToast('📋 Day copied!')).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('📋 Copied!');});
+};
+
+// State
+function loadState(){
+  try{
+    const sd=localStorage.getItem('nasta_v7');if(sd)appData.days=JSON.parse(sd);
+    const sn=localStorage.getItem('nasta_notes_v7');if(sn)appData.dayNotes=JSON.parse(sn);
+    const sm2=localStorage.getItem('nasta_mem_v7');if(sm2)appData.dayMemories=JSON.parse(sm2);
+    const sd2=localStorage.getItem('nasta_drive_v7');if(sd2)appData.dayDriving=JSON.parse(sd2);
+    const sc=localStorage.getItem('nasta_chk_v7');if(sc)appData.checklist=JSON.parse(sc);
+  }catch(e){}
+}
+function saveState(){
+  localStorage.setItem('nasta_v7',JSON.stringify(appData.days));
+  localStorage.setItem('nasta_notes_v7',JSON.stringify(appData.dayNotes));
+  localStorage.setItem('nasta_mem_v7',JSON.stringify(appData.dayMemories));
+  localStorage.setItem('nasta_drive_v7',JSON.stringify(appData.dayDriving));
+  localStorage.setItem('nasta_chk_v7',JSON.stringify(appData.checklist));
+  const cs={};document.querySelectorAll('input[type=checkbox]').forEach(c=>{if(c.id)cs[c.id]=c.checked;});
+  localStorage.setItem('nasta_checks_v7',JSON.stringify(cs));
+  updateProgress();updateTickets();updateBudget();
+}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg||'💾 Saved';t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',1500);}
+
+// Progress
+function updateProgress(){
+  const cs=localStorage.getItem('nasta_checks_v7');const cm=cs?JSON.parse(cs):{};
+  const calc=items=>{const c=items.filter(i=>cm[i.id]).length;return items.length?Math.round(c/items.length*100):0;};
+  const bp=calc(appData.checklist.bookings),pp=calc(appData.checklist.packing);
+  document.getElementById('booking-pct').textContent=bp+'%';document.getElementById('booking-bar').style.width=bp+'%';
+  document.getElementById('packing-pct').textContent=pp+'%';document.getElementById('packing-bar').style.width=pp+'%';
+}
+
+// Checklist CRUD
+window.addCheckItem=function(list){
+  const inp=document.getElementById('new-'+list);const text=inp.value.trim();if(!text)return;
+  appData.checklist[list].push({id:list[0]+Date.now(),text});inp.value='';
+  renderChecklists();saveState();
+};
+window.deleteCheckItem=function(list,id){
+  appData.checklist[list]=appData.checklist[list].filter(i=>i.id!==id);
+  renderChecklists();saveState();
+};
+
+// Time helpers
+function sm(s){if(!s||!s.includes(':'))return 0;const[h,m]=s.split(':').map(Number);return h*60+m;}
+function mts(total){let mins=((total%(24*60))+24*60)%(24*60);let h=Math.floor(mins/60),m=mins%60;const ap=h>=12?'PM':'AM';h=h%12||12;return`${h}:${String(m).padStart(2,'0')} ${ap}`;}
+function atm(act){return Math.round((parseFloat(act.duration)||0)*60)+(parseInt(act.drive)||0);}
+function mtn(mins){const m=((mins%(24*60))+24*60)%(24*60);const h=Math.floor(m/60),mn=m%60;return`${String(h).padStart(2,'0')}:${String(mn).padStart(2,'0')}`;}
+function recalcDay(dIdx){
+  const day=appData.days[dIdx];let r=sm(day.start);
+  day.activities.forEach((act,i)=>{
+    if(act.startOverride!=null)r=act.startOverride;
+    const el=document.getElementById(`badge-${day.id}-${i}`);
+    if(el){
+      // Summary badge is a div; time input inside edit panel is a sibling
+      el.textContent=mts(r);
+      const ti=document.querySelector(`#edit-${day.id}-${i} .time-input`);
+      if(ti)ti.value=mtn(r);
+    }
+    r+=atm(act);
+  });
+}
+
+const _db={};
+function db(key,fn,ms=600){clearTimeout(_db[key]);_db[key]=setTimeout(fn,ms);}
+
+// Activity actions
+window.overrideActivityTime=function(dayId,aIdx,val){
+  const dIdx=appData.days.findIndex(d=>d.id===dayId);
+  if(!val)appData.days[dIdx].activities[aIdx].startOverride=null;
+  else{const[h,m]=val.split(':').map(Number);appData.days[dIdx].activities[aIdx].startOverride=h*60+m;}
+  recalcDay(dIdx);
+  // Also update the summary meta immediately
+  const summaryEl=document.querySelector(`#edit-${dayId}-${aIdx}`)?.previousElementSibling;
+  db('t'+dayId+aIdx,saveState,300);
+};
+window.updateActivityValue=function(dayId,aIdx,field,value){
+  const dIdx=appData.days.findIndex(d=>d.id===dayId);
+  appData.days[dIdx].activities[aIdx][field]=value;
+  if(field==='duration'||field==='drive')recalcDay(dIdx);
+  db(`av${dayId}${aIdx}${field}`,saveState);
+};
+window.updateDayNote=function(dayId,value,el){
+  appData.dayNotes[dayId]=value;
+  const sv=el.parentElement.querySelector('.note-saved');
+  if(sv){sv.classList.remove('show');clearTimeout(sv._t);sv._t=setTimeout(()=>{sv.classList.add('show');setTimeout(()=>sv.classList.remove('show'),1500);},400);}
+  db('note'+dayId,saveState);
+};
+window.updateDayMemory=function(dayId,value){appData.dayMemories[dayId]=value;db('mem'+dayId,saveState);};
+window.updateDayDriving=function(dayId,value,el){
+  appData.dayDriving[dayId]=value;
+  if(el){
+    const sv=el.parentElement.querySelector('.drive-saved');
+    if(sv){sv.classList.remove('show');clearTimeout(sv._t);sv._t=setTimeout(()=>{sv.classList.add('show');setTimeout(()=>sv.classList.remove('show'),1500);},400);}
+  }
+  db('drive'+dayId,saveState);
+};
+window.toggleNeedsTicket=function(dayId,aIdx,checked){
+  const dIdx=appData.days.findIndex(d=>d.id===dayId);
+  appData.days[dIdx].activities[aIdx].needsTicket=checked;
+  renderSchedule();saveState();
+};
+window.moveActivity=function(dayId,aIdx,dir){
+  const dIdx=appData.days.findIndex(d=>d.id===dayId);
+  const acts=appData.days[dIdx].activities;const nIdx=aIdx+dir;
+  if(nIdx<0||nIdx>=acts.length)return;
+  [acts[aIdx],acts[nIdx]]=[acts[nIdx],acts[aIdx]];
+  renderSchedule();saveState();
+};
+window.addCustomStop=function(dayId){
+  const dIdx=appData.days.findIndex(d=>d.id===dayId);
+  appData.days[dIdx].activities.push({name:'New Custom Stop',duration:1,drive:15,details:'Tap to edit.',altFood:'',needsTicket:false,confirmCode:'',mapsQuery:'',estCost:0,actCost:0,warning:''});
+  renderSchedule();saveState();
+};
+window.toggleActivity=function(editId,chevId){
+  const panel=document.getElementById(editId);
+  const chev=document.getElementById(chevId);
+  if(!panel)return;
+  const isOpen=panel.classList.contains('open');
+  panel.classList.toggle('open',!isOpen);
+  if(chev)chev.classList.toggle('open',!isOpen);
+};
+window.showDeleteConfirm=function(btn){
+  const footer=btn.parentElement;
+  btn.style.display='none';
+  footer.querySelector('.delete-confirm').classList.add('show');
+};
+window.hideDeleteConfirm=function(btn){
+  const footer=btn.closest('.row-footer');
+  footer.querySelector('.delete-confirm').classList.remove('show');
+  footer.querySelector('.delete-btn').style.display='';
+};
+window.confirmDelete=function(dayId,aIdx,btn){
+  const dIdx=appData.days.findIndex(d=>d.id===dayId);
+  appData.days[dIdx].activities.splice(aIdx,1);
+  renderSchedule();saveState();
+};
+window.toggleDayBody=function(headerEl){
+  // Header → notes bar → drive bar → day body (3 siblings)
+  const body=headerEl.nextElementSibling.nextElementSibling.nextElementSibling;
+  const arrow=headerEl.querySelector('.arrow');
+  const col=body.style.display==='none'||body.style.display==='';
+  body.style.display=col?'block':'none';arrow.textContent=col?'▼':'▲';
+};
+
+function getDayStatus(id){
+  const today=new Date();today.setHours(0,0,0,0);
+  const d=TRIP_DATES[id];if(!d)return'future';
+  const dd=new Date(d);dd.setHours(0,0,0,0);
+  if(dd.getTime()===today.getTime())return'today';return dd<today?'past':'future';
+}
+
+// RENDER SCHEDULE
+function renderSchedule(){
+  const container=document.getElementById('itinerary-days');
+  container.innerHTML=appData.days.map((day,dIdx)=>{
+    const status=getDayStatus(day.id),isToday=status==='today',isPast=status==='past',isFuture=status==='future';
+    const acts=day.activities;
+    // Pre-compute start times
+    const startTimes=[];let r=sm(day.start);
+    acts.forEach(act=>{if(act.startOverride!=null)r=act.startOverride;startTimes.push(r);r+=atm(act);});
+
+    const rows=acts.map((act,aIdx)=>{
+      const isMeal=/lunch|dinner|breakfast|brunch|bistro|restaurant|pub|bar|grill|pizza|seafood|burger|cafe|market|food|eat/i.test(act.name);
+      const driveMin=parseInt(act.drive)||0;
+      const leaveByStr=driveMin>0&&aIdx<acts.length-1?mts(startTimes[aIdx]+Math.round((parseFloat(act.duration)||0)*60)):'';
+      const editId=`edit-${day.id}-${aIdx}`;
+      const chevId=`chev-${day.id}-${aIdx}`;
+      // Summary meta chips
+      const durH=parseFloat(act.duration)||0;
+      const durLabel=durH===Math.floor(durH)?durH+'h':(String(durH)+'h').replace('.5h','h 30m').replace('.25h','h 15m').replace('.75h','h 45m').replace('.33h','h 20m').replace('.67h','h 40m');
+      const metaParts=[];
+      metaParts.push(`<span class="act-meta-dur">⏱ ${durLabel}${driveMin?' · 🚗 '+driveMin+'m':''}</span>`);
+      if(act.warning) metaParts.push('<span class="act-meta-warn">⚠️ Time-critical</span>');
+      if(act.needsTicket) metaParts.push(act.confirmCode&&act.confirmCode.trim()?'<span class="act-meta-ticket">🎟️ ✅ Confirmed</span>':'<span class="act-meta-ticket">🎟️ Needs booking</span>');
+      if((parseFloat(act.actCost)||0)>0) metaParts.push(`<span class="act-meta-spent">$${parseFloat(act.actCost).toFixed(0)} spent</span>`);
+      return`<div class="activity-row${act.warning?' has-warning':''}">
+        <div class="act-summary" onclick="toggleActivity('${editId}','${chevId}')">
+          <div class="act-time" id="badge-${day.id}-${aIdx}">${mts(startTimes[aIdx])}</div>
+          <div class="act-name-wrap">
+            <div class="act-name">${act.name.replace(/</g,'&lt;')}</div>
+            <div class="act-meta">${metaParts.join('')}</div>
+          </div>
+          <span class="act-chevron" id="${chevId}">▼</span>
+        </div>
+        <div class="act-edit" id="${editId}">
+          <div class="edit-grid">
+            <div class="edit-time-col">
+              <input class="time-input" type="time" value="${mtn(startTimes[aIdx])}" onchange="overrideActivityTime('${day.id}',${aIdx},this.value)">
+              <div class="time-hint">✏️ tap to change</div>
+              ${leaveByStr?`<div class="leave-by">🚗 Leave by ${leaveByStr}</div>`:''}
+              <div class="inputs-group">
+                <div class="control-input"><span>⏱ hrs</span><input type="number" min="0" max="24" step="0.25" value="${act.duration}" oninput="updateActivityValue('${day.id}',${aIdx},'duration',parseFloat(this.value)||0)"></div>
+                <div class="control-input"><span>🚗 min</span><input type="number" min="0" max="300" step="5" value="${act.drive}" oninput="updateActivityValue('${day.id}',${aIdx},'drive',parseInt(this.value)||0)"></div>
+              </div>
+            </div>
+            <div class="edit-detail-col">
+              <div class="budget-inputs">
+                <label class="act-lbl">✅ Actual $<input type="number" min="0" step="1" value="${act.actCost||0}" oninput="updateActivityValue('${day.id}',${aIdx},'actCost',parseFloat(this.value)||0)"></label>
+                <label>💰 Est $<input type="number" min="0" step="1" value="${act.estCost||0}" oninput="updateActivityValue('${day.id}',${aIdx},'estCost',parseFloat(this.value)||0)"></label>
+              </div>
+              ${act.warning?`<div class="warn-flag">⚠️ ${act.warning}</div>`:''}
+              <input type="text" class="act-title-input" value="${act.name.replace(/"/g,'&quot;')}" oninput="updateActivityValue('${day.id}',${aIdx},'name',this.value)">
+              ${act.mapsQuery?`<button class="maps-btn" onclick="openMaps('${act.mapsQuery.replace(/'/g,"\\'")}')">📍 Open in Maps</button>`:''}
+              <textarea class="act-desc-input" rows="2" oninput="updateActivityValue('${day.id}',${aIdx},'details',this.value)">${act.details}</textarea>
+              ${isMeal?`<div class="alt-food-box"><span>🥗</span><input type="text" value="${(act.altFood||'').replace(/"/g,'&quot;')}" placeholder="Healthy pivot option..." oninput="updateActivityValue('${day.id}',${aIdx},'altFood',this.value)"></div>`:''}
+              <label class="ticket-toggle"><input type="checkbox" ${act.needsTicket?'checked':''} onchange="toggleNeedsTicket('${day.id}',${aIdx},this.checked)"> 🎟️ Needs a booking / ticket</label>
+              ${act.needsTicket?`<div class="confirm-box"><span>🎟️</span><input type="text" value="${(act.confirmCode||'').replace(/"/g,'&quot;')}" placeholder="Confirmation / booking code..." oninput="updateActivityValue('${day.id}',${aIdx},'confirmCode',this.value)"></div>`:''}
+              <div class="row-footer">
+                <button class="delete-btn" onclick="showDeleteConfirm(this)">🗑 Remove</button>
+                <div class="delete-confirm">
+                  <span>Remove this stop?</span>
+                  <button class="delete-yes" onclick="confirmDelete('${day.id}',${aIdx},this)">Yes</button>
+                  <button class="delete-no" onclick="hideDeleteConfirm(this)">No</button>
+                </div>
+                <div class="move-btns">
+                  <button class="move-btn" onclick="moveActivity('${day.id}',${aIdx},-1)" ${aIdx===0?'disabled':''}>▲</button>
+                  <button class="move-btn" onclick="moveActivity('${day.id}',${aIdx},1)" ${aIdx===acts.length-1?'disabled':''}>▼</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    const note=(appData.dayNotes[day.id]||'').replace(/</g,'&lt;');
+    const driveNote=(appData.dayDriving[day.id]||'').replace(/</g,'&lt;');
+    return`<div class="day-card${isToday?' today-card':''}${isPast?' past-card':''}" id="card-${day.id}">
+      <div class="day-header" onclick="toggleDayBody(this)">
+        <div class="day-header-left">
+          <div class="day-date-label">${day.date}${isPast?' · Completed ✓':''}</div>
+          <h2>${day.title}${isToday?'<span class="today-badge">Today</span>':''}</h2>
+          <div class="day-hotel">🏠 ${day.basecamp}</div>
+        </div>
+        <div class="day-header-right">
+          <div class="day-header-actions" onclick="event.stopPropagation()">
+            <button class="hdr-btn" onclick="openWeather('${day.id}')">🌤<span class="hdr-btn-lbl">Weather</span></button>
+            <button class="hdr-btn" onclick="copyDaySummary('${day.id}')">📋<span class="hdr-btn-lbl">Copy</span></button>
+          </div>
+          <span class="arrow">${isPast?'▲':'▼'}</span>
+        </div>
+      </div>
+      <div class="day-notes-bar">
+        <div class="bar-label">📝 Day Notes</div>
+        <textarea rows="1" placeholder="Reminders, hotel codes, anything for today..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateDayNote('${day.id}',this.value,this)">${note}</textarea>
+        <span class="note-saved">✓ saved</span>
+      </div>
+      <div class="day-drive-bar">
+        <div class="bar-label">🚗 Driving & Parking</div>
+        <textarea rows="2" placeholder="Parking address, cost, exit plan..." oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateDayDriving('${day.id}',this.value,this)">${driveNote}</textarea>
+        <span class="drive-saved">✓ saved</span>
+      </div>
+      <div class="day-body" ${isPast?'style="display:none"':''}>${rows}
+        <div class="add-stop-bar"><button class="add-btn" onclick="addCustomStop('${day.id}')">➕ Add Custom Stop</button></div>
+      </div>
+    </div>`;
+  }).join('');
+  appData.days.forEach((_,i)=>recalcDay(i));
+  checkTodayJump();
+  // Auto-expand all textareas (notes, driving, memories) to fit their content
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.day-drive-bar textarea, .day-notes-bar textarea').forEach(ta=>{
+      ta.style.height='auto';
+      ta.style.height=ta.scrollHeight+'px';
+    });
+  });
+}
+
+// RENDER CHECKLISTS
+function renderChecklists(){
+  const cs=localStorage.getItem('nasta_checks_v7');const cm=cs?JSON.parse(cs):{};
+  ['bookings','packing'].forEach(k=>{
+    document.getElementById('checklist-'+k).innerHTML=
+      appData.checklist[k].map(item=>`<label class="chk-item"><input type="checkbox" id="${item.id}" ${cm[item.id]?'checked':''} onchange="saveState()"><span>${item.text}</span><button class="chk-delete" onclick="event.preventDefault();deleteCheckItem('${k}','${item.id}')">🗑</button></label>`).join('');
+  });
+}
+
+// RENDER MEMORIES
+function renderMemories(){
+  document.getElementById('memories-list').innerHTML=appData.days.map(day=>{
+    const mem=(appData.dayMemories[day.id]||'').replace(/</g,'&lt;');
+    const memStatus=getDayStatus(day.id);
+    const memPlaceholder=memStatus==='future'
+      ? `✏️ Fill this in after ${day.date.split(',')[0]} — a funny moment, something the kids said, a view you loved...`
+      : memStatus==='today'
+      ? `✨ What happened today? Jot it down while it's fresh...`
+      : `✨ A funny moment, something the kids said, a view you loved, food you want to find again...`;
+    return`<div class="memory-card${memStatus==='past'&&!mem?' memory-empty':''}">
+      <h3>📅 ${day.date} — ${day.title}${memStatus==='today'?'<span style="background:var(--primary);color:white;font-size:.6rem;font-weight:700;padding:.1rem .35rem;border-radius:99px;margin-left:.4rem;vertical-align:middle;">TODAY</span>':''}</h3>
+      <textarea rows="3" placeholder="${memPlaceholder.replace(/`/g,"'")}" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updateDayMemory('${day.id}',this.value)">${mem}</textarea>
+    </div>`;
+  }).join('');
+}
+
+function renderAll(){
+  renderSchedule();renderChecklists();renderMemories();
+  updateProgress();updateTickets();updateBudget();updateCountdown();
+  // Update dynamic activity count
+  const el=document.getElementById('stat-activities');
+  if(el){const total=appData.days.reduce((s,d)=>s+d.activities.length,0);el.textContent=total;}
+}
+
+loadState();renderAll();
+// Auto-jump to Schedule and today if trip is in progress
+(function(){
+  const id=getTodayId();
+  if(id){
+    // Switch to schedule and jump to today automatically
+    switchTab('itinerary',document.querySelector('.nav-tab:nth-child(2)'));
+    setTimeout(()=>{const el=document.getElementById('card-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},150);
+  }
+})();
+</script>
+</body>
+</html>
