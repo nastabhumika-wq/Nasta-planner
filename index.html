@@ -217,6 +217,20 @@ input.time-input:focus{border-color:var(--primary);background:#ffedd5;}
 .day-drive-bar textarea::placeholder{color:#7dd3fc;opacity:.9;}
 .drive-saved{position:absolute;right:.5rem;top:.35rem;font-size:.65rem;color:#0369a1;opacity:0;transition:opacity .3s;}
 .drive-saved.show{opacity:1;}
+.dining-card{background:white;border-radius:14px;border:1px solid #fde68a;box-shadow:var(--shadow);padding:1rem 1.25rem;margin-bottom:1.25rem;}
+.dining-card.show{display:block;}
+.dining-card h3{margin:0 0 .85rem;font-size:1rem;color:#92400e;font-weight:700;display:flex;align-items:center;justify-content:space-between;}
+.dining-card h3 button{background:#fefce8;border:1px solid #fde68a;border-radius:8px;padding:.25rem .6rem;font-size:.75rem;color:#92400e;font-weight:600;cursor:pointer;}
+.dining-row{padding:.5rem 0;border-bottom:1px solid #fef9c3;display:flex;flex-direction:column;gap:.3rem;}
+.dining-row:last-child{border:none;padding-bottom:0;}
+.dining-row-time{font-size:.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;}
+.dining-row-name{display:flex;align-items:center;gap:.5rem;}
+.dining-row-name input{flex:1;font-size:1rem;font-weight:700;color:var(--text-dark);border:1px solid transparent;border-radius:6px;padding:.2rem .35rem;background:transparent;}
+.dining-row-name input:focus{border-color:#fbbf24;background:#fefce8;outline:none;}
+.dining-row-maps{display:inline-flex;align-items:center;gap:.25rem;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:.2rem .5rem;font-size:.78rem;color:var(--primary);font-weight:600;cursor:pointer;flex-shrink:0;}
+.dining-pivot{font-size:.85rem;color:var(--teal);font-style:italic;display:flex;align-items:center;gap:.35rem;}
+.dining-pivot input{flex:1;font-size:.88rem;color:var(--teal);border:1px solid transparent;border-radius:6px;padding:.15rem .3rem;background:transparent;font-style:italic;}
+.dining-pivot input:focus{border-color:var(--teal);background:var(--teal-light);outline:none;}
 .toast-banner{position:fixed;bottom:calc(var(--safe-bottom) + 5rem);left:50%;transform:translateX(-50%);background:rgba(15,23,42,.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:white;padding:.65rem 1.25rem;border-radius:20px;font-size:.82rem;font-weight:500;display:none;z-index:2000;white-space:nowrap;}
 
 @media(max-width:480px){
@@ -272,6 +286,12 @@ input.time-input:focus{border-color:var(--primary);background:#ffedd5;}
       <div class="cd-right" id="cd-right">
         <button id="today-overview-btn" onclick="jumpToToday()" style="display:none;margin-top:.6rem;background:white;color:#0ea5e9;border:none;border-radius:10px;padding:.5rem .9rem;font-size:.82rem;font-weight:800;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);letter-spacing:.01em;">📍 Today's Plan →</button>
       </div>
+    </div>
+    <!-- Dining Card — always visible, shows today or next upcoming day -->
+    <div class="dining-card" id="dining-card">
+      <h3>🍽️ <span id="dining-card-title">Today's Dining</span> <button id="dining-jump-btn" onclick="jumpToToday()">View in Schedule →</button></h3>
+      <div id="dining-day-pills" style="display:flex;gap:.4rem;margin-bottom:.85rem;overflow-x:auto;padding-bottom:.25rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;"></div>
+      <div id="dining-list"></div>
     </div>
     <div class="budget-card">
       <h3>💰 Trip Budget <button onclick="switchTab('itinerary',document.querySelector('.nav-tab:nth-child(2)'))">Edit in Schedule →</button></h3>
@@ -589,6 +609,7 @@ function switchTab(tab,btn){
   if(btn)btn.classList.add('active');
   window.scrollTo(0,0);
   if(tab==='itinerary')checkTodayJump();
+  if(tab==='overview')renderDiningCard();
 }
 window.jumpToDay=function(id){
   switchTab('itinerary',document.querySelector('.nav-tab:nth-child(2)'));
@@ -622,6 +643,16 @@ window.copyDaySummary=function(dayId){
 // State
 function loadState(){
   try{
+    // Migrate from v6 if v7 not yet saved
+    if(!localStorage.getItem('nasta_v7')&&localStorage.getItem('nasta_v6')){
+      localStorage.setItem('nasta_v7',localStorage.getItem('nasta_v6'));
+    }
+    if(!localStorage.getItem('nasta_notes_v7')&&localStorage.getItem('nasta_notes_v6')){
+      localStorage.setItem('nasta_notes_v7',localStorage.getItem('nasta_notes_v6'));
+    }
+    if(!localStorage.getItem('nasta_mem_v7')&&localStorage.getItem('nasta_mem_v6')){
+      localStorage.setItem('nasta_mem_v7',localStorage.getItem('nasta_mem_v6'));
+    }
     const sd=localStorage.getItem('nasta_v7');if(sd)appData.days=JSON.parse(sd);
     const sn=localStorage.getItem('nasta_notes_v7');if(sn)appData.dayNotes=JSON.parse(sn);
     const sm2=localStorage.getItem('nasta_mem_v7');if(sm2)appData.dayMemories=JSON.parse(sm2);
@@ -710,7 +741,16 @@ window.overrideActivityTime=function(dayId,aIdx,val){
 window.updateActivityValue=function(dayId,aIdx,field,value){
   const dIdx=appData.days.findIndex(d=>d.id===dayId);
   appData.days[dIdx].activities[aIdx][field]=value;
-  if(field==='duration'||field==='drive')recalcDay(dIdx);
+  if(field==='duration'||field==='drive') recalcDay(dIdx);
+  // Live-update the summary name when title changes
+  if(field==='name'){
+    const nameEl=document.querySelector(`#chev-${dayId}-${aIdx}`)?.closest('.activity-row')?.querySelector('.act-name');
+    if(nameEl) nameEl.textContent=value;
+    // Refresh dining card if this is today
+    if(dayId===getTodayId()) setTimeout(()=>renderDiningCard(),150);
+  }
+  // Refresh dining card if alt food changes today
+  if(field==='altFood'&&dayId===getTodayId()) setTimeout(()=>renderDiningCard(),150);
   db(`av${dayId}${aIdx}${field}`,saveState);
 };
 window.updateDayNote=function(dayId,value,el){
@@ -834,8 +874,8 @@ function renderSchedule(){
               </div>
               ${act.warning?`<div class="warn-flag">⚠️ ${act.warning}</div>`:''}
               <input type="text" class="act-title-input" value="${act.name.replace(/"/g,'&quot;')}" oninput="updateActivityValue('${day.id}',${aIdx},'name',this.value)">
-              ${act.mapsQuery?`<button class="maps-btn" onclick="openMaps('${act.mapsQuery.replace(/'/g,"\\'")}')">📍 Open in Maps</button>`:''}
-              ${act.parkingInfo?`<div class="parking-box"><span>🅿️</span><input type="text" value="${(act.parkingInfo||'').replace(/"/g,'&quot;')}" placeholder="Parking address & notes..." oninput="updateActivityValue('${day.id}',${aIdx},'parkingInfo',this.value)"></div>`:''}
+              <button class="maps-btn" onclick="openMaps('${act.name.replace(/'/g,"\\'")} ${DAY_CITY[day.id]||''}')">📍 Open in Maps</button>
+              <div class="parking-box"><span>🅿️</span><input type="text" value="${(act.parkingInfo||'').replace(/"/g,'&quot;')}" placeholder="Parking address & notes for this stop..." oninput="updateActivityValue('${day.id}',${aIdx},'parkingInfo',this.value)"></div>
               <textarea class="act-desc-input" rows="2" oninput="updateActivityValue('${day.id}',${aIdx},'details',this.value)">${act.details}</textarea>
               ${isMeal?`<div class="alt-food-box"><span>🥗</span><input type="text" value="${(act.altFood||'').replace(/"/g,'&quot;')}" placeholder="Healthy pivot option..." oninput="updateActivityValue('${day.id}',${aIdx},'altFood',this.value)"></div>`:''}
               <label class="ticket-toggle"><input type="checkbox" ${act.needsTicket?'checked':''} onchange="toggleNeedsTicket('${day.id}',${aIdx},this.checked)"> 🎟️ Needs a booking / ticket</label>
@@ -927,9 +967,100 @@ function renderMemories(){
   }).join('');
 }
 
+function renderDiningCard(){
+  const todayId=getTodayId();
+  const card=document.getElementById('dining-card');
+  const list=document.getElementById('dining-list');
+  if(!card||!list)return;
+  // Respect manual day override, or show today, or show next upcoming day
+  let day=null;
+  if(window._diningOverrideDay){
+    day=appData.days.find(d=>d.id===window._diningOverrideDay);
+  }
+  if(!day) day=todayId?appData.days.find(d=>d.id===todayId):null;
+  if(!day){
+    const now=new Date();now.setHours(0,0,0,0);
+    day=appData.days.find(d=>{
+      const dd=new Date(TRIP_DATES[d.id]);dd.setHours(0,0,0,0);
+      return dd>=now;
+    })||appData.days[0];
+  }
+  if(!day){list.innerHTML='<p style="color:var(--text-muted);font-size:.9rem;">No days found.</p>';return;}
+  // Find all meal activities for today
+  const mealRegex=/lunch|dinner|breakfast|brunch|bistro|restaurant|pub|bar|grill|pizza|seafood|burger|cafe|market|food|eat/i;
+  const meals=day.activities.filter(a=>mealRegex.test(a.name));
+  if(!meals.length){list.innerHTML='<p style="color:var(--text-muted);font-size:.9rem;">No meal activities found for this day.</p>';return;}
+  // Compute start times for meals
+  const startTimes={};let r=sm(day.start);
+  day.activities.forEach((act,i)=>{
+    if(act.startOverride!=null)r=act.startOverride;
+    startTimes[i]=r;
+    r+=atm(act);
+  });
+  // Update title and jump button to reflect which day is shown
+  const titleEl=document.getElementById('dining-card-title');
+  const jumpBtn=document.getElementById('dining-jump-btn');
+  if(titleEl){
+    titleEl.textContent=todayId?"Today's Dining":day.date.split(',')[0]+' Dining';
+  }
+  if(jumpBtn){
+    jumpBtn.onclick=()=>jumpToDay(day.id);
+    jumpBtn.textContent='View in Schedule →';
+  }
+  // Use the correct dayId for this card
+  const cardDayId=day.id;
+  list.innerHTML=day.activities.map((act,i)=>{
+    if(!mealRegex.test(act.name))return'';
+    const t=mts(startTimes[i]);
+    const city=DAY_CITY[cardDayId]||'';
+    const altVal=(act.altFood||'').replace(/"/g,'&quot;');
+    const nameVal=act.name.replace(/"/g,'&quot;');
+    return`<div class="dining-row">
+      <div class="dining-row-time">${t}</div>
+      <div class="dining-row-name">
+        <input type="text" value="${nameVal}" placeholder="Restaurant name..."
+          oninput="updateDiningName('${cardDayId}',${i},this.value)">
+        <button class="dining-row-maps" onclick="openMaps('${act.name.replace(/'/g,"\\'")} ${city}')">📍 Maps</button>
+      </div>
+      <div class="dining-pivot"><span>🥗</span><input type="text" value="${altVal}" placeholder="Healthy pivot option..." oninput="updateActivityValue('${cardDayId}',${i},'altFood',this.value)"></div>
+    </div>`;
+  }).filter(Boolean).join('');
+  // Render day selector pills
+  const pillsEl=document.getElementById('dining-day-pills');
+  if(pillsEl){
+    pillsEl.innerHTML=appData.days.map(d=>{
+      const isSel=d.id===day.id;
+      return`<button onclick="browseDiningDay('${d.id}')" style="background:${isSel?'var(--primary)':'var(--primary-light)'};color:${isSel?'white':'var(--primary)'};border:none;border-radius:99px;padding:.4rem .85rem;font-size:.88rem;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;">${d.date.split(',')[0].replace('Thursday','Thu').replace('Friday','Fri').replace('Saturday','Sat').replace('Sunday','Sun').replace('Monday','Mon').replace('Tuesday','Tue').replace('Wednesday','Wed')}</button>`;
+    }).join('');
+  }
+}
+
+window.browseDiningDay=function(dayId){
+  // Temporarily override which day the dining card shows
+  window._diningOverrideDay=dayId;
+  renderDiningCard();
+};
+
+// Patch renderDiningCard to respect override
+const _origRenderDining=renderDiningCard;
+window.renderDiningCard=renderDiningCard=function(){
+  _origRenderDining();
+};
+
+window.updateDiningName=function(dayId,aIdx,value){
+  // Update both the dining card and the activity in one go
+  updateActivityValue(dayId,aIdx,'name',value);
+  // Also update the maps button in the dining card dynamically
+  const city=DAY_CITY[dayId]||'';
+  const mapsBtn=document.querySelectorAll('.dining-row-maps')[aIdx];
+  // Re-render dining card to sync maps button query
+  setTimeout(()=>renderDiningCard(),100);
+};
+
 function renderAll(){
   renderSchedule();renderChecklists();renderMemories();
   updateProgress();updateTickets();updateBudget();updateCountdown();
+  setTimeout(renderDiningCard,50);
   // Update dynamic activity count
   const el=document.getElementById('stat-activities');
   if(el){const total=appData.days.reduce((s,d)=>s+d.activities.length,0);el.textContent=total;}
